@@ -1,0 +1,142 @@
+----------Chess------------
+add move storage
+add piece storage
+make ai for it
+make background of highlited square yellow
+----------Platformer-------
+
+----------Powder-----------
+
+----------Uno--------------
+
+----------Word Search------
+
+----------Card Stack-------
+make the deal stack the cards 
+make it so you can only put cards on other cards of the same color
+make win screen
+add money
+add upgrades
+make it so that it saves the scores
+//bugs//
+if you move a card that is not on the top of the stack it breaks the card size
+you can put 2 cards on the same layer
+----------Solitare---------
+divs as cards
+----------2048-------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+//old functions
+function draw(arr, arr2) {
+    console.log(arr)
+    var num = 0
+    for(var i = 0; i < arr.length; i++) {
+        if(arr.length == 0) {
+            stop()
+        } else if(arr[0] == '') {
+            stop()
+        }
+        var id = arr[i]
+        var e = document.getElementById(id)
+        if(arr2[i][4] == "pawn") {
+            if(arr2[i][5] == "pawnMove3") {
+                var eln = document.getElementById(arr2[i][0] - 9)
+                if(eln.children.length == 1) {
+                    eln.classList.add("red")
+                    console.log("test")
+                }
+            } else if(arr2[i][5] == "pawnMove4") {
+                var eln = document.getElementById(arr2[i][0] - 7)
+            }
+        }   
+        if(e.children.length == 0) {
+            var d = document.createElement("img")
+            var sr
+            if(arr2[i][3] == "green") {
+                sr = document.getElementById("greenDot")
+            } 
+            d.src = sr.src
+            d.classList.add("dot")  
+            d.id = num + "!"
+            var w = 14
+            var val = w * 2
+            d.style.width = val + "px"
+            console.log(arr2[i][3])
+            if(arr2[i][3] == "green") {
+                e.appendChild(d)
+            }
+            e.addEventListener("click", (e) => {
+                move(e)
+                var el = document.getElementsByClassName("dot")
+                var len = el.length   
+                for(var i = 0; i < len; i++) {
+                    var ele = document.getElementById(i + "!")
+                    //ele.parentElement.classList.remove("mouse")
+                }
+                for(var i = 0; i < len; i++) {
+                    el[0].remove()
+                }
+            }, {once : true })
+            e.classList.add("mouse")
+        } else {
+            console.log("e")
+            e.classList.add("red")
+            console.log(e)
+            e.addEventListener("click", (ev) => {
+                move(e)
+                var el = document.getElementsByClassName("red")
+                var len = el.length
+                for(var i = 0; i < len; i++) {
+                    el[0].remove()
+                }
+            }, {once : true })
+        }
+        num++
+    }
+}
+function validate(arr, pos) {
+    var sarr = []   
+    for(var i = 0; i < arr.length; i++) {
+        var npos = arr[i][0]
+        var color = arr[i][1]
+        var piece = arr[i][4]
+        var s = arr[i][2]
+        var t = document.getElementById(npos)
+        var c
+        if(t.children.length == 1) {
+            //target has children
+                c = t.children[0]
+                var sc = cchck(c.src)
+            if(sc == color) {
+                //target color is same as piece color dont push to arr
+            } else {
+                //target color is no the same as piece color
+                if(piece == "pawn") {
+                    //pawn has its own take check in initiall move validation
+                } else {
+                    //not a pawn
+                    if((npos / 8) == (pos / 8)) {
+                        console.log("testing")
+                    } else {
+                        sarr.push(npos)
+                    }
+                }
+            }
+        } else {
+            //target has no children push to arr
+            sarr.push(npos)
+        }
+    }
+    return sarr
+}

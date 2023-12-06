@@ -1,0 +1,14 @@
+.grey {
+    background-color: lightblue;
+}
+.brown {
+    background-color: brown;
+}
+.green {
+    background-color: green;
+}
+#ground {
+    position: absolute;
+    margin-top: 580px;
+}
+
