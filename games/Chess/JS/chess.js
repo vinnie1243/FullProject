@@ -11,25 +11,25 @@ function make() {
     var pieces = []
     if(s2 == "white") {
         pieces = [
-            ["rookBlack", "knightBlack", "bishopBlack", "queenBlack", "kingBlack", "bishopBlack", "knightBlack", "rookBlack"], 
-            ["pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack"], 
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""],  
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", "queenWhite"], 
             ["", "", "", "", "", "", "", ""], 
             ["", "", "", "", "", "", "", ""], 
             ["", "", "", "", "", "", "", ""], 
             ["", "", "", "", "", "", "", ""], 
-            ["pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite"], 
-            ["rookWhite", "knightWhite", "bishopWhite", "queenWhite", "kingWhite", "bishopWhite", "knightWhite", "rookWhite"], 
         ]
     } else if(s2 == "black") {
         pieces = [
-            ["rookWhite", "knightWhite", "bishopWhite", "queenWhite", "kingWhite", "bishopWhite", "knightWhite", "rookWhite"], 
-            ["pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite"], 
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""],  
             ["", "", "", "", "", "", "", ""], 
             ["", "", "", "", "", "", "", ""], 
             ["", "", "", "", "", "", "", ""], 
-            ["", "", "", "", "", "", "", ""],
-            ["pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack"], 
-            ["rookBlack", "knightBlack", "bishopBlack", "queenBlack", "kingBlack", "bishopBlack", "knightBlack", "rookBlack"],    
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""], 
         ]
     }
     window.sessionStorage.setItem("parr", JSON.stringify(pieces))
@@ -84,7 +84,7 @@ function make() {
 
 function kingchck() {
     var pieces = JSON.parse(window.sessionStorage.getItem("parr"))
-    console.log(pieces)
+    //console.log(pieces)
     var k1 = 0
     var k2 = 0
     for(var l = 0; l < pieces.length; l++) {
@@ -101,10 +101,10 @@ function kingchck() {
 
     }
     if(k1 == 0) {
-        window.alert("Black Wins")
+        //window.alert("Black Wins")
     }
     if(k2 == 0) {
-        window.alert("White Wins")
+        //window.alert("White Wins")
     }
 }
 
@@ -161,6 +161,7 @@ async function move(e) {
     ele.appendChild(sp)
     uparr()
     kingchck()
+    fix()
 }
 
 function uparr() {
@@ -443,4 +444,13 @@ function pichck(src) {
     } else if(src.includes("bishop") == true) {
         return "bishop"
     }
+}
+
+function fix() {
+    var arr = document.getElementsByClassName("take")
+    for(var i = 0; i < arr.length; i++) {
+        arr[i].removeEventListener("click", addeve, true)
+        arr[i].classList.remove("take")
+    }
+    //console.log(arr)
 }

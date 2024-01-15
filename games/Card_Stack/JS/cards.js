@@ -841,6 +841,18 @@ function ex() {
             e.remove()
             chck1 = 1
             var rs = document.getElementById("red")
+            var data = window.localStorage.getItem("red")
+            data = Number.parseInt(data)
+            if(data != undefined) {
+                if(data == 0) {
+                    window.localStorage.setItem("red", obj.red)
+                } else {
+                    obj.red = data + obj.red
+                    window.localStorage.setItem("red", obj.red)
+                }
+            } else {
+                set()
+            }
             rs.innerHTML = rs.innerHTML + `${obj.red}`
         }
         if(color.blue == obj.blue) {
@@ -849,6 +861,18 @@ function ex() {
             e.remove()
             chck2 = 1
             var bs = document.getElementById("blue")
+            var data = window.localStorage.getItem("blue")
+            data = Number.parseInt(data)
+            if(data != undefined) {
+                if(data == 0) {
+                    window.localStorage.setItem("blue", obj.blue)
+                } else {
+                    obj.blue = data + obj.red
+                    window.localStorage.setItem("blue", obj.blue)
+                }
+            } else {
+                set()
+            }
             bs.innerHTML = bs.innerHTML + `${obj.blue}`
         }
         if(color.green == obj.green) {
@@ -945,6 +969,32 @@ var reset = {
             var el = document.getElementById(`${i}`)
             el.appendChild(e)
         }
+    },
+    hard: function() {
+        var rs = document.getElementById("red")
+        rs.innerHTML = "Red Score: "
+        window.localStorage.setItem("red", 0)
+        var bs = document.getElementById("blue")
+        bs.innerHTML = "Blue Score: "
+        window.localStorage.setItem("blue", 0)
+        var gs = document.getElementById("green")
+        gs.innerHTML = "Green Score: "
+        window.localStorage.setItem("green", 0)
+        var os = document.getElementById("orange")
+        os.innerHTML = "Orange Score: "
+        window.localStorage.setItem("orange", 0)
+        var ps = document.getElementById("purple")
+        ps.innerHTML = "Purple Score: "
+        window.localStorage.setItem("purple", 0)
+        var dbs = document.getElementById("darkblue")
+        dbs.innerHTML = "Darkblue Score: "
+        window.localStorage.setItem("darkblue", 0)
+        var grs = document.getElementById("gray")
+        grs.innerHTML = "Gray Score: "
+        window.localStorage.setItem("gray", 0)
+        var brs = document.getElementById("brown")
+        brs.innerHTML = "Brown Score: "
+        window.localStorage.setItem("brown", 0)
     }
 }
 
@@ -952,4 +1002,15 @@ function reseter() {
     reset.clear()
     reset.gen()
     deal()
+}
+
+function set() {
+    window.localStorage.setItem("red", 0)
+    window.localStorage.setItem("blue", 0)
+    window.localStorage.setItem("green", 0)
+    window.localStorage.setItem("orange", 0)
+    window.localStorage.setItem("purple", 0)
+    window.localStorage.setItem("darkblue", 0)
+    window.localStorage.setItem("gray", 0)
+    window.localStorage.setItem("brown", 0)
 }
