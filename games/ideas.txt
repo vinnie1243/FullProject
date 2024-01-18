@@ -3,6 +3,10 @@ add move storage
 add piece storage
 make ai for it
 make background of highlited square yellow
+clean up movement
+add promotion
+add enpasant
+add draw check
 ----------Platformer-------
 
 ----------Powder-----------
@@ -68,3 +72,6 @@ you can put 2 cards on the same layer
 ----------Solitare---------
 
 ----------2048-------------
+
+----------Snake------------
+
