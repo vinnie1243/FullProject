@@ -26,9 +26,12 @@
                 margin-top: 1%;
             }
             td a {
-                background-color: inherit;
-                color: yellow;
+                background-color: transparent;
+                color: maroon;
+                font-weight: bold;
                 font-size: 2.9rem;
+                text-decoration: none;
+
             }
             button {
                 color: gold;
@@ -46,37 +49,97 @@
             button:hover {
                 background-color: darkgray;
             }
+            h1 {
+                color: gold;
+                font-size: 5rem;
+                text-align: center;
+            }
+            td {
+                background-repeat: no-repeat;
+                background-size:cover;
+            }
+            #plat {
+                background-image: url(Media/Images/Platformer_background.jfif);
+            }
+            #powder {
+                background-image: url(Media/Images/powderBackground.jfif);
+            }
+            #search {
+                background-image: url(Media/Images/wordSearch.jfif);
+            }
+            #two {
+                background-image: url(Media/Images/2048.jfif);
+            }
+            #mine {
+                background-image: url(Media/Images/mines.jfif);
+            }
+            #chess {
+                background-image: url(Media/Images/chess.png);
+            }
+            #card {
+                background-image: url(Media/Images/card.png);
+            }
+            #solitare {
+                background-image: url(Media/Images/solitare.jfif);
+            }
+            #sudoku {
+                background-image: url(Media/Images/sudoku.png);
+            } 
+            #snake {
+                background-image: url(Media/Images/snake.png);
+            } 
+            #war {
+                background-image: url(Media/Images/war.jfif);
+            }
+            #farm {
+                background-image: url(Media/Images/merge.jfif);
+            }
         </style>
         <title>Game</title>
     </head>
     <body>
+        <h1>Games</h1>
         <table id="tbl">
             <tr>
-                <td class="block">
+                <td class="block" id="plat">
                     <a href="Platformer/plat.html">Platformer</a>
                 </td>
-                <td class="block">
+                <td class="block" id="powder">
                     <a href="Powder/powder.html">Powder Game</a>
                 </td>
-                <td class="block">
+                <td class="block" id="search">
                     <a href="Word_Search/word.html">Word Search</a>
                 </td>
-                <td class="block">
+                <td class="block" id="two">
                     <a href="2048/num.html">2048</a>
                 </td>
             </tr>
             <tr>
-                <td class="block">
+                <td class="block" id="mine">
                     <a href="Mine_Sweeper/mine.html">Mine Sweeper</a>
                 </td>
-                <td class="block">
+                <td class="block" id="chess">
                     <a href="Chess/chess.html">Chess</a>
                 </td>
-                <td class="block">
+                <td class="block" id="card">
                     <a href="Card_Stack/card.html">Card Stack</a>
                 </td>
-                <td class="block">
+                <td class="block" id="solitare">
                     <a href="Solitare/solitare.html">Solitare</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="block" id="sudoku">
+                    <a href="Sudoku/Sud.html">Sudoku</a>
+                </td>
+                <td class="block" id="snake">
+                    <a href="Snake/Snake.html">Snake</a>
+                </td>
+                <td class="block" id="war"> 
+                    <a href="War/war.html">War</a>
+                </td>
+                <td class="block" id="farm">
+                    <a href="Farm/farm.html">Merge Farm</a>
                 </td>
             </tr>
         </table>

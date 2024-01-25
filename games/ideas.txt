@@ -75,3 +75,11 @@ you can put 2 cards on the same layer
 
 ----------Snake------------
 
+----------sudoku-----------
+
+----------Merge Farm-------
+
+----------war--------------
+
+
+https://developmentbuild.herokuapp.com/
