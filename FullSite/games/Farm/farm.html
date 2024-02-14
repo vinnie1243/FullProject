@@ -11,42 +11,77 @@
     </head>
     <body onload="main()" class="flex">
         <nav class="nav">
-            <h2 class="gold">Navigation</h2>
+            <a href="../games.html" class="gold">Back |</a>
+            <a href="../../index.html" class="gold">Home</a>
             <hr>
-            <a href="../index.html" class="gold">Home</a>
+            <h2 class="gold">Game Data</h2>
+            <section class="gold">
+                <h3 id="coins" data="0">Coins: 0</h3>
+                <h3 id="tomatoes" data="0">Tomatos: 0</h3>
+                <h3 id="wheat" data="0">Wheat: 0</h3>
+                <h3 id="eggplants" data="0">Eggplants: 0</h3>
+                <h3 id="grapes" data="0">Grapes: 0</h3>
+                <h3 id="carrots" data="0">Carrots: 0</h3>
+                <h3 id="pumpkins" data="0">Pumpkin: 0</h3>
+                <h3 id="peppers" data="0">Peppers: 0</h3>
+                <h3 id="cucumbers" data="0">Cucumbers: 0</h3>
+                <h3 id="blueberries" data="0">Blueberries: 0</h3>
+                <h3 id="cabbages" data="0">Cabbages: 0</h3>
+                <h3 id="corn" data="0">Corn: 0</h3>
+                <h3 id="potatoes" data="0">Potatoes: 0</h3>
+                <h3 id="strawberries" data="0">Strawberrys: 0</h3>
+                <h3 id="watermelons" data="0">Watermelons: 0</h3>
+                <h3 id="apples" data="0">Apples: 0</h3>
+                <h3 id="cherries" data="0">Cherries: 0</h3>
+                <h3 id="beetroots" data="0">Beetroots: 0</h3>
+                <h3 id="avocados" data="0">Avocados: 0</h3>
+                <h3 id="cotton" data="0">Cotton: 0</h3>
+                <h3 id="oranges" data="0">Oranges: 0</h3>
+                <h3 id="limes" data="0">Limes: 0</h3>
+                <h3 id="pineapples" data="0">Pineapples: 0</h3>
+                <h3 id="kiwis" data="0">Kiwis: 0</h3>
+                <h3 id="peaches" data="0">Peachs: 0</h3>
+                <h3 id="figs" data="0">Figs: 0</h3>
+                <h3 id="pears" data="0">Pears: 0</h3>
+                <h3 id="pomegranates" data="0">Pomegranate: 0</h3>
+                <h3 id="coffee" data="0">Coffee: 0</h3>
+                <h3 id="bananas" data="0">Bananas: 0</h3>
+                <h3 id="lemons" data="0">Lemons: 0</h3>
+                <button onclick="reset()">reset</button>
+            </section>
         </nav>
         <section class="green flex" id="customers">
             <div id="cust" class="flex">
-                <div id="cust1" class="pep">
+                <div id="cust1" class="pep" worth="5">
                     <!--not able to be completed-->
-                    <h4>Name</h4>
+                    <h4 id="cust1Name">Name</h4>
                     <img src="Media/test.png" alt="customer 1 picture" class="pic">
                     <h3>Items required</h3>
                     <section class="grid two hei" id="cust1Data">
                         <div id="cust1Data1" class="border">
                             <div class="noCheck" id="cust1D1Chck"></div>
-                            <p id="cust1Data1Text" class="small">5 Tomatos</p>
+                            <p id="cust1Data1Text" class="small" cost="5" type="tomatoes">5 Tomatoes</p>
                         </div>
                         <div id="cust1Data2" class="border">
                             <div class="noCheck" id="cust1D2Chck"></div>
-                            <p id="cust1Data2Text" class="small">3 Pickles</p>
+                            <p id="cust1Data2Text" class="small" cost="3" type="tomatoes">3 Tomatoes</p>
                         </div>
                         <div id="cust1Data3" class="border">
                             <div class="noCheck" id="cust1D3Chck"></div>
-                            <p id="cust1Data3Text" class="small">1 Lemons</p>
+                            <p id="cust1Data3Text" class="small" cost="1" type="tomatoes">1 Tomatoes</p>
                         </div>
                         <div id="cust1Data4" class="border">
                             <div class="noCheck" id="cust1D4Chck"></div>
-                            <p id="cust1Data4Text" class="small">4 Oranges</p>
+                            <p id="cust1Data4Text" class="small" cost="4" type="tomatoes">4 Tomatoes</p>
                         </div>
                     </section>
                     <!--able to be completed-->
                     <section class="noDis">
-                        <button class="noDis">Claim</button>
+                        <button onclick="collectCust(1)" class="claim">Claim</button>
                     </section>
                 </div>
                 <div id="cust2" class="pep">
-                    <h4>Name</h4>
+                    <h4 id="cust2Name">Name</h4>
                     <img src="Media/test.png" alt="customer 2 picture" class="pic">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
@@ -74,7 +109,7 @@
                     </section>
                 </div>
                 <div id="cust3" class="pep">
-                    <h4>name</h4>
+                    <h4 id="cust3Name">Name</h4>
                     <img src="Media/test.png" alt="Customer 3 picture" class="pic">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
@@ -102,7 +137,7 @@
                     </section>
                 </div>
                 <div id="cust4" class="pep">
-                    <h4>Name</h4>
+                    <h4 id="cust4Name">Name</h4>
                     <img src="Media/test.png" alt="customer 4 picture" class="pic">
                     <h3>Items required</h3>
                     <!--Not able to be completed-->
@@ -126,11 +161,12 @@
                     </section>
                     <!--able to be completed-->
                     <section class="noDis">
-                        <button class="noDis">Claim</button>
+                        <p></p>
+                        <button>Claim</button>
                     </section>
                 </div>
                 <div id="cust5" class="pep">
-                    <h4>Name</h4>
+                    <h4 id="cust5Name">Name</h4>
                     <img src="Media/test.png" alt="Customer 5 picture" class="pic">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
@@ -158,7 +194,7 @@
                     </section>
                 </div>
                 <div id="cust6" class="pep">
-                    <h4>name</h4>
+                    <h4 id="cust6Name">Name</h4>
                     <img src="Media/test.png" alt="Customer 6 picture" class="pic">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
@@ -186,9 +222,9 @@
                     </section>
                 </div>
                 <div id="cust7" class="pep">
-                    <h4>Name</h4>
+                    <h4 id="cust7Name">Name</h4>
                     <img src="Media/test.png" alt="Customer 7 picture" class="pic">
-                    <h3>Items Required</h3>
+                    <h3>Items required</h3>
                     <!--able to be completed-->
                     <section class="grid two hei" id="cust7Data">
                         <div id="cust7Data1" class="border">
@@ -214,7 +250,7 @@
                     </section>
                 </div>
                 <div id="cust8" class="pep">
-                    <h4>Name</h4>
+                    <h4 id="cust8Name">Name</h4>
                     <img src="Media/test.png" alt="Customer 8 Data" class="pic">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
@@ -241,10 +277,10 @@
                         <button class="noDis">Claim</button>
                     </section>
                 </div>
-                <div id="cust8" class="pep">
-                    <h4>Name</h4>
+                <div id="cust9" class="pep">
+                    <h4 id="cust9Name">Name</h4>
                     <img src="Media/test.png" alt="Customer 9 Picture" class="pic">
-                    <h3>Items Required</h3>
+                    <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei">
                         <div id="cust9Data1" class="border">
@@ -261,7 +297,7 @@
                         </div>
                         <div id="cust9Data4" class="border">
                             <div class="noCheck" id="cust9D4Chck"></div>
-                            <p id="cust8Data4Text">421 corn</p>
+                            <p id="cust9Data4Text">421 corn</p>
                         </div>
                     </section>
                 </div>
@@ -270,8 +306,8 @@
         <main id="con" class="grid templates">
 
         </main>
-        <section class="green" id="foods">
-            <section class="large flex">
+        <section class="green" id="products">
+            <section class="large flex scroll">
                 <div class="border food">
                     <img src="Media/Icons/Tomato.jpg" alt="Picture of tomato icon" class="foodPic">
                     <p>Tomatos</p>
@@ -280,78 +316,155 @@
                 <div class="border food">
                     <img src="Media/Icons/Wheat.jpg" alt="Picture of wheat icon" class="foodPic">
                     <p>Wheat</p>
-                    <button class="foodButton">12 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('wheat')">12 Coins</button>
                 </div>
                 <div class="border food">
                     <img src="Media/Icons/Eggplant.png" alt="Picture of eggplant icon" class="foodPic">
                     <p>Eggplants</p>
-                    <button class="foodButton">18 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('eggplant')">18 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of grape icon" class="foodPic">
+                    <img src="Media/Icons/Grapes.jfif" alt="Picture of grape icon" class="foodPic">
                     <p>Grapes</p>
-                    <button class="foodButton">30 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('grape')">30 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of carrot icon" class="foodPic">
+                    <img src="Media/Icons/Carrot.jfif" alt="Picture of carrot icon" class="foodPic">
                     <p>Carrots</p>
-                    <button class="foodButton">42 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('carrot')">42 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of pumpkin icon" class="foodPic">
+                    <img src="Media/Icons/Pumpkin.png" alt="Picture of pumpkin icon" class="foodPic">
                     <p>Pumpkin</p>
-                    <button class="foodButton">60 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('pumpkin')">60 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of pepper icon" class="foodPic">
+                    <img src="Media/Icons/Pepper.jfif" alt="Picture of pepper icon" class="foodPic">
                     <p>Peppers</p>
-                    <button class="foodButton">90 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('pepper')">90 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of cucmber icon" class="foodPic">
-                    <p>Cucumbers</p>
-                    <button class="foodButton">120 Coins</button>
+                    <img src="Media/Icons/Cucumber.jfif" alt="Picture of cucmber icon" class="foodPic">
+                    <p>Cucumber</p>
+                    <button class="foodButton" onclick="spawnCrop('cucumber')">120 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of blueberries icon" class="foodPic">
-                    <p>Blueberries</p>
-                    <button class="foodButton">150 Coins</button>
+                    <img src="Media/Icons/blueberry.jfif" alt="Picture of blueberries icon" class="foodPic">
+                    <p>Blueberry</p>
+                    <button class="foodButton" onclick="spawnCrop('blueberry')">150 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of Cabbage icon" class="foodPic">
-                    <p>Cabbages</p>
-                    <button class="foodButton">180 Coins</button>
+                    <img src="Media/Icons/cabbage.jfif" alt="Picture of Cabbage icon" class="foodPic">
+                    <p>Cabbages</p> 
+                    <button class="foodButton" onclick="spawnCrop('cabbage')">180 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of corn icon" class="foodPic">
+                    <img src="Media/Icons/Corn.png" alt="Picture of corn icon" class="foodPic">
                     <p>Corn</p>
-                    <button class="foodButton">210 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('corn')">210 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of potato icon" class="foodPic">
+                    <img src="Media/Icons/potato.png" alt="Picture of potato icon" class="foodPic">
                     <p>Potatoes</p>
-                    <button class="foodButton">240 Coins</button>
+                    <button class="foodButton" onclick="spawnCrop('potato')">240 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of strawberry icon" class="foodPic">
-                    <p>Strawberries</p>
-                    <button class="foodButton">270 Coins</button>
+                    <img src="Media/Icons/strawberry.png" alt="Picture of strawberry icon" class="foodPic">
+                    <p>Strawberry</p>
+                    <button class="foodButton" onclick="spawnCrop('strawberry')">270 Coins</button>
                 </div>
                 <div class="border food">
-                    <img src="Media/test.png" alt="Picture of watermelon icon" class="foodPic">
-                    <p>Watermelons</p>
-                    <button class="foodButton">330 Coins</button>
+                    <img src="Media/Icons/Watermelon.jfif" alt="Picture of watermelon icon" class="foodPic">
+                    <p>Watermelon</p>
+                    <button class="foodButton" onclick="spawnCrop('watermelon')">330 Coins</button>
                 </div>    
-
+                <div class="border food">
+                    <img src="Media/Icons/Apple.jfif" alt="Picture of Apple tree icon" class="foodPic">
+                    <p>Apples</p>
+                    <button class="foodButton" onclick="spawnCrop('apple')">360 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/cherry.jfif" alt="Picture of cherry icon" class="foodPic">
+                    <p>Cherries</p>
+                    <button class="foodButton" onclick="spawnCrop('cherry')">390 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/Beetroot.png" alt="Picture of beet icon" class="foodPic">
+                    <p>Beetroot</p>
+                    <button class="foodButton" onclick="spawnCrop('Beetroot')">420 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/Avocado.jfif" alt="Picture of avacado Icon" class="foodPic">
+                    <p>Avacado</p>
+                    <button class="foodButton" onclick="spawnCrop('avacado')">450 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/cotton.jfif" alt="Picture of Cotton icon" class="foodPic">
+                    <p>Cotton</p>
+                    <button class="foodButton" onclick="spawnCrop('cotton')">480 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/orange.jfif" alt="Picture of orange icon" class="foodPic">
+                    <p>Orange</p>
+                    <button class="foodButton" onclick="spawnCrop('orange')">510 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/Lime.jfif" alt="Picture of lime icon" class="foodPic">
+                    <p>Lime</p>
+                    <button class="foodButton" onclick="spawnCrop('lime')">540 Coins</button>
+                </div>  
+                <div class="border food">
+                    <img src="Media/Icons/pineapple.jfif" alt="Picture of pineapple icon" class="foodPic">
+                    <p>Pineapple</p>
+                    <button class="foodButton" onclick="spawnCrop('pineapple')">570 Coins</button>
+                </div>
+                <div class="border food">   
+                    <img src="Media/Icons/kiwi.jfif" alt="Picture of kiwi icon" class="foodPic">
+                    <p>Kiwi</p>
+                    <button class="foodButton" onclick="spawnCrop('kiwi')">600 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/peach.png" alt="Picture of peach icon" class="foodPic">
+                    <p>Peach</p>
+                    <button class="foodButton" onclick="spawnCrop('peach')">630 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/fig.jfif" alt="Picture of fig icon" class="foodPic">
+                    <p>Fig</p>
+                    <button class="foodButton" onclick="spawnCrop('fig')">660 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/pear.png" alt="Picture of pear icon" class="foodPic">
+                    <p>Pear</p>
+                    <button class="foodButton" onclick="spawnCrop('peach')">690 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/pomegranate.png" alt="Picture of pomegranate icon" class="foodPic">
+                    <p>Pomegranate</p>
+                    <button class="foodButton" onclick="spawnCrop('pomegranate')">720 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/Coffee.png" alt="Picture of coffee bean icon" class="foodPic">
+                    <p>Coffee Bean</p>
+                    <button class="foodButton" onclick="spawnCrop('coffee')">750 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/banana.png" alt="Picture of banna icon" class="foodPic">
+                    <p>Banana</p>
+                    <button class="foodButton" onclick="spawnCrop('banana')">780 Coins</button>
+                </div>
+                <div class="border food">
+                    <img src="Media/Icons/lemon.png" alt="Picture of lemon icon" class="foodPic">
+                    <p>Lemon</p>
+                    <button class="foodButton" onclick="spawnCrop('lemon')">810 Coins</button>
+                </div>
             </section>
             <section id="butCon">
                 <div>
-                    <button class="green" onclick="renderFoods()">Foods</button>
-                    <button class="green" onclick="renderMachines()">Machines</button>
-                    <button class="green" onclick="renderAnimals()">Animals</button>
-                    <button class="green">Placeholder</button>
-                    <button class="green">Placeholder</button>
-                    <button class="green">Placeholder</button>
+                    <button class="green" onclick="delProducts(); renderFoods()">Foods</button>
+                    <button class="green" onclick="delProducts(); renderMachines()">Machines</button>
+                    <button class="green" onclick="delProducts(); renderAnimals()">Animals</button>
+                    <button class="green" onclick="delProducts(); renderUpgrades()">Upgrades</button>
                 </div>
             </section>
         </section>
