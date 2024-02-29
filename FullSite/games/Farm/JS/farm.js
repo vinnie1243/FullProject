@@ -10,7 +10,6 @@ function main() {
         sq.style.height = "100%"
         sq.style.backgroundColor = "#751D0A"
         sq.style.border = "1px solid black"
-        var num = i + 1
         sq.id = i + 1
         sq.addEventListener("drop", (e) => drop(e))
         sq.addEventListener("dragover", (e) => allowDrop(e))
@@ -22,24 +21,47 @@ function main() {
         sLock()
     }
     init()
-    setTimeout(function() {cropLoop()}, 10)
-    cropLoop()
+
     if(hasGame() == true) {
         loadGame()
     } else {
         setTimeout(function() {saveGame()}, 10000)   
     }
-    setTimeout(function() {saveLoop()}, 1000)
+    setTimeout(function() {cropLoop()}, 500)
+    setTimeout(function() {saveLoop()}, 500)
+    setTimeout(function() {gameLoop()}, 500)
 }
 
-function readJSON() {   
-    fetch('Data/data.json')
-    .then(response => response.json())
-    .then(data => window.sessionStorage.setItem("names", JSON.stringify(data.names)))
-    .catch(error => error);
-    var num = Math.floor(Math.random() * 4946)
-    var data = JSON.parse(window.sessionStorage.getItem("names"))
-    console.log(data[num], num)
+function readJSON(type) {   
+    if(type == "name") {
+        //fetch("./Data/names.json")        
+        //.then(response => response.json())
+        //.then(data => window.sessionStorage.setItem("data", JSON.stringify(data)))
+        //.catch(error => console.log(error))
+        var num = Math.floor(Math.random() * 89372)
+        var data = getNames();
+        var gender = data.names[num].gender
+        var name = data.names[num].name
+        if(gender == 'unisex') {
+            var num2 = Math.floor(Math.random() * 10)
+            if(num2 % 2 == 0) {
+                gender = "male"
+            } else {
+                gender = "female"
+            }
+        }
+        return name + "&" + gender
+    } else if(type == "crop") {
+        var data = getCrops();
+        var lvl = JSON.parse(window.localStorage.getItem("lvl"))
+        var chck = 0
+        while(chck == 0) {
+            var num = Math.floor(Math.random() * lvl)
+            if(num + 1 <= lvl) {
+                return data.crops[num]
+            }
+        }
+    }
 }
 
 function hasGame() {
@@ -151,66 +173,147 @@ function strgObj() {
 function custObj() {
     var cust1 = {
         name: document.getElementById("cust1Name").innerHTML,
-        data1: document.getElementById("cust1Data1Text").innerHTML,
-        data2: document.getElementById("cust1Data2Text").innerHTML,
-        data3: document.getElementById("cust1Data3Text").innerHTML,
-        data4: document.getElementById("cust1Data4Text").innerHTML
+        gender: document.getElementById("cust1Gen").innerHTML,
+        data1T: document.getElementById("cust1Data1Text").innerHTML,
+        data1C: document.getElementById("cust1Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust1Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust1Data2Text").innerHTML,
+        data2C: document.getElementById("cust1Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust1Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust1Data3Text").innerHTML,
+        data3C: document.getElementById("cust1Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust1Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust1Data4Text").innerHTML,
+        data4C: document.getElementById("cust1Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust1Data4Text").getAttribute("cost"),
     }
     var cust2 = {
         name: document.getElementById("cust2Name").innerHTML,
-        data1: document.getElementById("cust2Data1Text").innerHTML,
-        data2: document.getElementById("cust2Data2Text").innerHTML,
-        data3: document.getElementById("cust2Data3Text").innerHTML,
-        data4: document.getElementById("cust2Data4Text").innerHTML
+        gender: document.getElementById("cust2Gen").innerHTML,
+        data1T: document.getElementById("cust2Data1Text").innerHTML,
+        data1C: document.getElementById("cust2Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust2Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust2Data2Text").innerHTML,
+        data2C: document.getElementById("cust2Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust2Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust2Data3Text").innerHTML,
+        data3C: document.getElementById("cust2Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust2Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust2Data4Text").innerHTML,
+        data4C: document.getElementById("cust2Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust2Data4Text").getAttribute("cost"),
     }
     var cust3 = {
         name: document.getElementById("cust3Name").innerHTML,
-        data1: document.getElementById("cust3Data1Text").innerHTML,
-        data2: document.getElementById("cust3Data2Text").innerHTML,
-        data3: document.getElementById("cust3Data3Text").innerHTML,
-        data4: document.getElementById("cust3Data4Text").innerHTML
+        gender: document.getElementById("cust3Gen").innerHTML,
+        data1T: document.getElementById("cust3Data1Text").innerHTML,
+        data1C: document.getElementById("cust3Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust3Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust3Data2Text").innerHTML,
+        data2C: document.getElementById("cust3Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust3Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust3Data3Text").innerHTML,
+        data3C: document.getElementById("cust3Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust3Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust3Data4Text").innerHTML,
+        data4C: document.getElementById("cust3Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust3Data4Text").getAttribute("cost"),
     }
     var cust4 = {
         name: document.getElementById("cust4Name").innerHTML,
-        data1: document.getElementById("cust4Data1Text").innerHTML,
-        data2: document.getElementById("cust4Data2Text").innerHTML,
-        data3: document.getElementById("cust4Data3Text").innerHTML,
-        data4: document.getElementById("cust4Data4Text").innerHTML
+        gender: document.getElementById("cust4Gen").innerHTML,
+        data1T: document.getElementById("cust4Data1Text").innerHTML,
+        data1C: document.getElementById("cust4Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust4Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust4Data2Text").innerHTML,
+        data2C: document.getElementById("cust4Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust4Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust4Data3Text").innerHTML,
+        data3C: document.getElementById("cust4Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust4Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust4Data4Text").innerHTML,
+        data4C: document.getElementById("cust4Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust4Data4Text").getAttribute("cost"),
     }
     var cust5 = {
         name: document.getElementById("cust5Name").innerHTML,
-        data1: document.getElementById("cust5Data1Text").innerHTML,
-        data2: document.getElementById("cust5Data2Text").innerHTML,
-        data3: document.getElementById("cust5Data3Text").innerHTML,
-        data4: document.getElementById("cust5Data4Text").innerHTML
+        gender: document.getElementById("cust5Gen").innerHTML,
+        data1T: document.getElementById("cust5Data1Text").innerHTML,
+        data1C: document.getElementById("cust5Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust5Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust5Data2Text").innerHTML,
+        data2C: document.getElementById("cust5Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust5Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust5Data3Text").innerHTML,
+        data3C: document.getElementById("cust5Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust5Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust5Data4Text").innerHTML,
+        data4C: document.getElementById("cust5Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust5Data4Text").getAttribute("cost"),
     }
     var cust6 = {
         name: document.getElementById("cust6Name").innerHTML,
-        data1: document.getElementById("cust6Data1Text").innerHTML,
-        data2: document.getElementById("cust6Data2Text").innerHTML,
-        data3: document.getElementById("cust6Data3Text").innerHTML,
-        data4: document.getElementById("cust6Data4Text").innerHTML
+        gender: document.getElementById("cust6Gen").innerHTML,
+        data1T: document.getElementById("cust6Data1Text").innerHTML,
+        data1C: document.getElementById("cust6Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust6Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust6Data2Text").innerHTML,
+        data2C: document.getElementById("cust6Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust6Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust6Data3Text").innerHTML,
+        data3C: document.getElementById("cust6Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust6Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust6Data4Text").innerHTML,
+        data4C: document.getElementById("cust6Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust6Data4Text").getAttribute("cost"),
     }
     var cust7 = {
         name: document.getElementById("cust7Name").innerHTML,
-        data1: document.getElementById("cust7Data1Text").innerHTML,
-        data2: document.getElementById("cust7Data2Text").innerHTML,
-        data3: document.getElementById("cust7Data3Text").innerHTML,
-        data4: document.getElementById("cust7Data4Text").innerHTML
+        gender: document.getElementById("cust7Gen").innerHTML,
+        data1T: document.getElementById("cust7Data1Text").innerHTML,
+        data1C: document.getElementById("cust7Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust7Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust7Data2Text").innerHTML,
+        data2C: document.getElementById("cust7Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust7Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust7Data3Text").innerHTML,
+        data3C: document.getElementById("cust7Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust7Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust7Data4Text").innerHTML,
+        data4C: document.getElementById("cust7Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust7Data4Text").getAttribute("cost"),
     }
     var cust8 = {
         name: document.getElementById("cust8Name").innerHTML,
-        data1: document.getElementById("cust8Data1Text").innerHTML,
-        data2: document.getElementById("cust8Data2Text").innerHTML,
-        data3: document.getElementById("cust8Data3Text").innerHTML,
-        data4: document.getElementById("cust8Data4Text").innerHTML
+        gender: document.getElementById("cust8Gen").innerHTML,
+        data1T: document.getElementById("cust8Data1Text").innerHTML,
+        data1C: document.getElementById("cust8Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust8Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust8Data2Text").innerHTML,
+        data2C: document.getElementById("cust8Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust8Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust8Data3Text").innerHTML,
+        data3C: document.getElementById("cust8Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust8Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust8Data4Text").innerHTML,
+        data4C: document.getElementById("cust8Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust8Data4Text").getAttribute("cost"),
     }
     var cust9 = {
         name: document.getElementById("cust9Name").innerHTML,
-        data1: document.getElementById("cust9Data1Text").innerHTML,
-        data2: document.getElementById("cust9Data2Text").innerHTML,
-        data3: document.getElementById("cust9Data3Text").innerHTML,
-        data4: document.getElementById("cust9Data4Text").innerHTML
+        gender: document.getElementById("cust9Gen").innerHTML,
+        data1T: document.getElementById("cust9Data1Text").innerHTML,
+        data1C: document.getElementById("cust9Data1Text").getAttribute("type"),
+        data1N: document.getElementById("cust9Data1Text").getAttribute("cost"),
+        data2T: document.getElementById("cust9Data2Text").innerHTML,
+        data2C: document.getElementById("cust9Data2Text").getAttribute("type"),
+        data2N: document.getElementById("cust9Data2Text").getAttribute("cost"),
+        data3T: document.getElementById("cust9Data3Text").innerHTML,
+        data3C: document.getElementById("cust9Data3Text").getAttribute("type"),
+        data3N: document.getElementById("cust9Data3Text").getAttribute("cost"),
+        data4T: document.getElementById("cust9Data4Text").innerHTML,
+        data4C: document.getElementById("cust9Data4Text").getAttribute("type"),
+        data4N: document.getElementById("cust9Data4Text").getAttribute("cost"),
     }
     var cust = {
         "one": cust1,
@@ -1093,148 +1196,364 @@ function locker(arr) {
 function loadCustomers(cust) {
     //cust1
     var name = cust.one.name
-    var data1 = cust.one.data1
-    var data2 = cust.one.data2
-    var data3 = cust.one.data3
-    var data4 = cust.one.data4
+    var gender = cust.one.gender 
+    var data1T = cust.one.data1T
+    var data1C = cust.one.data1C
+    var data1N = cust.one.data1N
+    var data2T = cust.one.data2T
+    var data2C = cust.one.data2C
+    var data2N = cust.one.data2N
+    var data3T = cust.one.data3T
+    var data3C = cust.one.data3C
+    var data3N = cust.one.data3N
+    var data4T = cust.one.data4T
+    var data4C = cust.one.data4C
+    var data4N = cust.one.data4N
+    if(gender == "male") {
+        var pfp = document.getElementById("cust1pfp").src = "Media/Profiles/male.jfif"
+    } else if(gender == "female") {
+        var pfp = document.getElementById("cust1pfp").src = "Media/Profiles/female.png"
+    }
     var nEl = document.getElementById("cust1Name")
     nEl.innerHTML = name
+    var gEl = document.getElementById("cust1Gen")
+    gEl.innerHTML = gender
     var d1El = document.getElementById("cust1Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     var d2El = document.getElementById("cust1Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     var d3El = document.getElementById("cust1Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     var d4El = document.getElementById("cust1Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust2
     name = cust.two.name
-    data1 = cust.two.data1
-    data2 = cust.two.data2
-    data3 = cust.two.data3
-    data4 = cust.two.data4
+    gender = cust.two.gender 
+    data1T = cust.two.data1T
+    data1C = cust.two.data1C
+    data1N = cust.two.data1N
+    data2T = cust.two.data2T
+    data2C = cust.two.data2C
+    data2N = cust.two.data2N
+    data3T = cust.two.data3T
+    data3C = cust.two.data3C
+    data3N = cust.two.data3N
+    data4T = cust.two.data4T
+    data4C = cust.two.data4C
+    data4N = cust.two.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust2pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust2pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust2Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust2Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust2Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust2Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust2Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust2Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust3
     name = cust.three.name
-    data1 = cust.three.data1
-    data2 = cust.three.data2
-    data3 = cust.three.data3
-    data4 = cust.three.data4
+    gender = cust.three.gender 
+    data1T = cust.three.data1T
+    data1C = cust.three.data1C
+    data1N = cust.three.data1N
+    data2T = cust.three.data2T
+    data2C = cust.three.data2C
+    data2N = cust.three.data2N
+    data3T = cust.three.data3T
+    data3C = cust.three.data3C
+    data3N = cust.three.data3N
+    data4T = cust.three.data4T
+    data4C = cust.three.data4C
+    data4N = cust.three.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust3pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust3pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust3Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust3Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust3Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust3Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust3Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust3Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust4
     name = cust.four.name
-    data1 = cust.four.data1
-    data2 = cust.four.data2
-    data3 = cust.four.data3
-    data4 = cust.four.data4
+    gender = cust.four.gender 
+    data1T = cust.four.data1T
+    data1C = cust.four.data1C
+    data1N = cust.four.data1N
+    data2T = cust.four.data2T
+    data2C = cust.four.data2C
+    data2N = cust.four.data2N
+    data3T = cust.four.data3T
+    data3C = cust.four.data3C
+    data3N = cust.four.data3N
+    data4T = cust.four.data4T
+    data4C = cust.four.data4C
+    data4N = cust.four.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust4pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust4pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust4Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust4Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust4Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust4Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust4Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust4Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust5 
     name = cust.five.name
-    data1 = cust.five.data1
-    data2 = cust.five.data2
-    data3 = cust.five.data3
-    data4 = cust.five.data4
+    gender = cust.five.gender 
+    data1T = cust.five.data1T
+    data1C = cust.five.data1C
+    data1N = cust.five.data1N
+    data2T = cust.five.data2T
+    data2C = cust.five.data2C
+    data2N = cust.five.data2N
+    data3T = cust.five.data3T
+    data3C = cust.five.data3C
+    data3N = cust.five.data3N
+    data4T = cust.five.data4T
+    data4C = cust.five.data4C
+    data4N = cust.five.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust5pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust5pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust5Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust5Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust5Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust5Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust5Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust5Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust6
     name = cust.six.name
-    data1 = cust.six.data1
-    data2 = cust.six.data2
-    data3 = cust.six.data3
-    data4 = cust.six.data4
+    gender = cust.six.gender 
+    data1T = cust.six.data1T
+    data1C = cust.six.data1C
+    data1N = cust.six.data1N
+    data2T = cust.six.data2T
+    data2C = cust.six.data2C
+    data2N = cust.six.data2N
+    data3T = cust.six.data3T
+    data3C = cust.six.data3C
+    data3N = cust.six.data3N
+    data4T = cust.six.data4T
+    data4C = cust.six.data4C
+    data4N = cust.six.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust6pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust6pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust6Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust6Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust6Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust6Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust6Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust6Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust7
     name = cust.seven.name
-    data1 = cust.seven.data1
-    data2 = cust.seven.data2
-    data3 = cust.seven.data3
-    data4 = cust.seven.data4
+    gender = cust.seven.gender 
+    data1T = cust.seven.data1T
+    data1C = cust.seven.data1C
+    data1N = cust.seven.data1N
+    data2T = cust.seven.data2T
+    data2C = cust.seven.data2C
+    data2N = cust.seven.data2N
+    data3T = cust.seven.data3T
+    data3C = cust.seven.data3C
+    data3N = cust.seven.data3N
+    data4T = cust.seven.data4T
+    data4C = cust.seven.data4C
+    data4N = cust.seven.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust7pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust7pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust7Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust7Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust7Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust7Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust7Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust7Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust8
     name = cust.eight.name
-    data1 = cust.eight.data1
-    data2 = cust.eight.data2
-    data3 = cust.eight.data3
-    data4 = cust.eight.data4
+    gender = cust.eight.gender 
+    data1T = cust.eight.data1T
+    data1C = cust.eight.data1C
+    data1N = cust.eight.data1N
+    data2T = cust.eight.data2T
+    data2C = cust.eight.data2C
+    data2N = cust.eight.data2N
+    data3T = cust.eight.data3T
+    data3C = cust.eight.data3C
+    data3N = cust.eight.data3N
+    data4T = cust.eight.data4T
+    data4C = cust.eight.data4C
+    data4N = cust.eight.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust8pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust8pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust8Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust8Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust8Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust8Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust8Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust8Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
     //cust9
     name = cust.nine.name
-    data1 = cust.nine.data1
-    data2 = cust.nine.data2
-    data3 = cust.nine.data3
-    data4 = cust.nine.data4
+    gender = cust.nine.gender 
+    data1T = cust.nine.data1T
+    data1C = cust.nine.data1C
+    data1N = cust.nine.data1N
+    data2T = cust.nine.data2T
+    data2C = cust.nine.data2C
+    data2N = cust.nine.data2N
+    data3T = cust.nine.data3T
+    data3C = cust.nine.data3C
+    data3N = cust.nine.data3N
+    data4T = cust.nine.data4T
+    data4C = cust.nine.data4C
+    data4N = cust.nine.data4N
+    if(gender == "male") {
+        pfp = document.getElementById("cust9pfp").src = "Media/Profiles/male.jfif"
+    } else {
+        pfp = document.getElementById("cust9pfp").src = "Media/Profiles/female.png"
+    }
     nEl = document.getElementById("cust9Name")
     nEl.innerHTML = name
+    gEl = document.getElementById("cust9Gen")
+    gEl.innerHTML = gender
     d1El = document.getElementById("cust9Data1Text")
-    d1El.innerHTML = data1
+    d1El.innerHTML = data1T
+    d1El.setAttribute("cost", data1N)
+    d1El.setAttribute("type", data1C)
     d2El = document.getElementById("cust9Data2Text")
-    d2El.innerHTML = data2
+    d2El.innerHTML = data2T
+    d2El.setAttribute("cost", data2N)
+    d2El.setAttribute("type", data2C)
     d3El = document.getElementById("cust9Data3Text")
-    d3El.innerHTML = data3
+    d3El.innerHTML = data3T
+    d3El.setAttribute("cost", data3N)
+    d3El.setAttribute("type", data3C)
     d4El = document.getElementById("cust9Data4Text")
-    d4El.innerHTML = data4
+    d4El.innerHTML = data4T
+    d4El.setAttribute("cost", data4N)
+    d4El.setAttribute("type", data4C)
 }
 
 function loadCrops(crops) {
@@ -1243,6 +1562,16 @@ function loadCrops(crops) {
         var div = Math.floor(i / 55)
         var el = document.getElementById(i + 1)
         switch (crops[div][mod]) {
+            case "TomatoT10":
+                var plant = document.createElement("img")
+                plant.classList.add("cropImage")
+                plant.addEventListener("dragstart", (e) => drag(e))
+                plant.draggable = "true"
+                plant.addEventListener("mouseenter", (e) => collect(e))
+                plant.src = "Media/Crops/T10/Tomato.png"    
+                plant.id = `${i + 1}Tomato10`
+                el.appendChild(plant)
+            break;
             case "TomatoT1":
                 var plant = document.createElement("img")
                 plant.src = "Media/Crops/T1/Tomato.png"
@@ -1261,6 +1590,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T2/Tomato.png"    
+                plant.id = `${i + 1}Tomato2`
                 el.appendChild(plant) 
             break;
             case "TomatoT3":
@@ -1270,6 +1600,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T3/Tomato.png"    
+                plant.id = `${i + 1}Tomato3`
                 el.appendChild(plant)
             break;
             case "TomatoT4":
@@ -1278,7 +1609,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T4/Tomato.png"    
+                plant.src = "Media/Crops/T4/Tomato.png"  
+                plant.id = `${i + 1}Tomato4`  
                 el.appendChild(plant)
             break;
             case "TomatoT5":
@@ -1288,6 +1620,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T5/Tomato.png"    
+                plant.id = `${i + 1}Tomato5`
                 el.appendChild(plant)
             break;
             case "TomatoT6":
@@ -1297,6 +1630,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T6/Tomato.png"    
+                plant.id = `${i + 1}Tomato6`
                 el.appendChild(plant)
             break;
             case "TomatoT7":
@@ -1306,6 +1640,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T7/Tomato.png"    
+                plant.id = `${i + 1}Tomato7`
                 el.appendChild(plant)
             break;
             case "TomatoT8":
@@ -1314,7 +1649,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T8/Tomato.png"    
+                plant.src = "Media/Crops/T8/Tomato.png"  
+                plant.id = `${i + 1}Tomato8`  
                 el.appendChild(plant)
             break;
             case "TomatoT9":
@@ -1323,16 +1659,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T9/Tomato.png"    
-                el.appendChild(plant)
-            break;
-            case "TomatoT10":
-                var plant = document.createElement("img")
-                plant.classList.add("cropImage")
-                plant.addEventListener("dragstart", (e) => drag(e))
-                plant.draggable = "true"
-                plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T10/Tomato.png"    
+                plant.src = "Media/Crops/T9/Tomato.png" 
+                plant.id = `${i + 1}Tomato9`   
                 el.appendChild(plant)
             break;
             case "WheatT1":
@@ -1341,7 +1669,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T1/Wheat.png"    
+                plant.src = "Media/Crops/T1/Wheat.png"
+                plant.id = `${i + 1}Wheat1`   
                 el.appendChild(plant)
             break;
             case "WheatT2":
@@ -1351,6 +1680,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T2/Wheat.png"    
+                plant.id = `${i + 1}Wheat2`   
                 el.appendChild(plant)
             break;
             case "WheatT3":
@@ -1360,6 +1690,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T3/Wheat.png"    
+                plant.id = `${i + 1}Wheat3`   
                 el.appendChild(plant)
             break;
             case "WheatT4":
@@ -1368,7 +1699,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T4/Wheat.png"    
+                plant.src = "Media/Crops/T4/Wheat.png"  
+                plant.id = `${i + 1}Wheat4`     
                 el.appendChild(plant)
             break;
             case "WheatT5":
@@ -1378,6 +1710,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T5/Wheat.png"    
+                plant.id = `${i + 1}Wheat5`   
                 el.appendChild(plant)
             break;
             case "WheatT6":
@@ -1386,7 +1719,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T6/Wheat.png"    
+                plant.src = "Media/Crops/T6/Wheat.png"
+                plant.id = `${i + 1}Wheat6`    
                 el.appendChild(plant)
             break;
             case "WheatT7":
@@ -1395,7 +1729,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T7/Wheat.png"    
+                plant.src = "Media/Crops/T7/Wheat.png"  
+                plant.id = `${i + 1}Wheat7`  
                 el.appendChild(plant)
             break;
             case "WheatT8":
@@ -1405,6 +1740,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T8/Wheat.png"    
+                plant.id = `${i + 1}Wheat8`
                 el.appendChild(plant)
             break;
             case "WheatT9":
@@ -1413,7 +1749,8 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T9/Wheat.png"    
+                plant.src = "Media/Crops/T9/Wheat.png"   
+                plant.id = `${i + 1}Wheat9` 
                 el.appendChild(plant)
             break;
             case "WheatT10":
@@ -1423,6 +1760,7 @@ function loadCrops(crops) {
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
                 plant.src = "Media/Crops/T10/Wheat.png"    
+                plant.id = `${i + 1}Wheat10`
                 el.appendChild(plant)
             break;
             case "EggplantT1":
@@ -4520,7 +4858,7 @@ function spawnCrop(food) {
     switch (food) {
         case "tomato":
             var plant = document.createElement("img")
-            plant.src = "Media/Crops/T1/Tomato.png"
+            plant.src = document.getElementById("Tomato1Img").src
             plant.classList.add("cropImage")
             plant.addEventListener("dragstart", (e) => drag(e))
             plant.draggable = "true"
@@ -4565,7 +4903,651 @@ function spawnCrop(food) {
                     check = 0
                 }
             }
-        break
+        break;
+        case "eggplant":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Eggplant.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "grape":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Grape.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "carrot":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Carrot.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "pumpkin":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Pumpkin.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "pepper":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Pepper.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "cucumber":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Cucumber.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "blueberry" :
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Blueberry.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "cabbage":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Cabbage.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "corn":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Corn.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "potatoes":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Potato.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "strawberry":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Strawberry.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break; 
+        case "watermelon":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Watermelon.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "apple":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Apple.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "cherry":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Cherry.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "beetroot":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Beetroot.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "avocado":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Avocado.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "cotton":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Cotton.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "orange":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Orange.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "lime":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Lime.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "pineapple":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Pineapple.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "kiwi":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Kiwi.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "peach":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Peach.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "fig":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Fig.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "pear":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Pear.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "pomegranate":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Pomegranate.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "coffee":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Coffee.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "banana":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Banana.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
+        case "lemon":
+            var plant = document.createElement("img")
+            plant.src = "Media/Crops/T1/Lemon.png"
+            plant.classList.add("cropImage")
+            plant.addEventListener("dragstart", (e) => drag(e))
+            plant.draggable = "true"
+            plant.addEventListener("mouseenter", (e) => collect(e))
+            var check = 1;
+            var iter = 0;
+            while(check == 1) {
+                iter += 1
+                if(iter > 1000) {
+                    console.log("full")
+                    check = 0
+                }                
+                var num = Math.floor((Math. random() * 330) + 1);
+                var el = document.getElementById(num)
+                if(el.children.length != 1 && lockChck(el) == false) {
+                    el.appendChild(plant)
+                    check = 0
+                }
+            }
+        break;
     }
 }
 
@@ -4578,124 +5560,131 @@ function spawnPen() {
 }
 
 function gameLoop() {
-    cropId()
+    cropId()     
     customerChck()
-    setTimeout(function() {gameLoop()}, 100)
+    setTimeout(function() {gameLoop()}, 200)
 }
 
 function customerChck() {  
     var tomato = document.getElementById("tomatoes").getAttribute("data")
     var wheat = document.getElementById("wheat").getAttribute("data")
     var eggplant = document.getElementById("eggplants").getAttribute("data")
-    //cost vars
-    var tomatoC = 0
-    var wheatC = 0
-    var eggplantC = 0
     for(var i = 1; i < 10; i++) {
-        var cust = document.getElementById(`cust${i}`).children[3]
-        var d1 = cust.children[0].children[1].innerHTML
-        var d2 = cust.children[1].children[1].innerHTML
-        var d3 = cust.children[2].children[1].innerHTML
-        var d4 = cust.children[3].children[1].innerHTML
-        var data1 = d1.split(" ")
-        var d1Crop = data1[1]
-        var d1Num = data1[0]
-        var data2 = d2.split(" ")
-        var d2Crop = data2[1]
-        var d2Num = data2[0]
-        var data3 = d3.split(" ")
-        var d3Crop = data3[1]
-        var d3Num = data3[0]
-        var data4 = d4.split(" ")
-        var d4Crop = data4[1]
-        var d4Num = data4[0]
+        var cust = document.getElementById(`cust${i}`).children[4]
+        var d1 = cust.children[0].children[1]
+        var d2 = cust.children[1].children[1]
+        var d3 = cust.children[2].children[1]
+        var d4 = cust.children[3].children[1]
+        var d1Crop = d1.getAttribute("type")
+        var d1Num = d1.getAttribute("cost")
+        var d2Crop = d2.getAttribute("type")
+        var d2Num = d2.getAttribute("cost")
+        var d3Crop = d3.getAttribute("type")
+        var d3Num = d3.getAttribute("cost")
+        var d4Crop = d4.getAttribute("type")
+        var d4Num = d4.getAttribute("cost")
         d1Num = Number.parseInt(d1Num)
         d2Num = Number.parseInt(d2Num)
         d3Num = Number.parseInt(d3Num)
         d4Num = Number.parseInt(d4Num)
-        if(d1Crop == "Tomatoes") { 
+        var tomatoChck = 0
+        var wheatChck = 0
+        var eggplantChck = 0
+        var tomatoC = 0
+        var wheatC = 0
+        if(d1Crop == "Tomato") {
+            tomatoC = d1Num
             if(tomato >= d1Num) {
-                tomatoC += d1Num
+                tomatoChck = 1
                 var el = document.getElementById(`cust${i}D1Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         } else if(d1Crop == "Wheat") {
+            wheatC = d1Num
             if(wheat >= d1Num) {
-                wheatC += d1Num
+                wheatChck = 1
                 var el = document.getElementById(`cust${i}D1Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         }
-        if(d2Crop == "Tomatoes") {
+        if(d2Crop == "Tomato") {
+            tomatoC = d2Num
             if(tomato >= d2Num) {
-                tomatoC += d2Num
+                tomatoChck = 1
                 var el = document.getElementById(`cust${i}D2Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         } else if(d2Crop == "Wheat") { 
+            wheatC = d2Num
             if(wheat >= d2Num) {
-                wheatC += d2Num
+                wheatChck = 1
                 var el = document.getElementById(`cust${i}D2Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         }
-        if(d3Crop == "Tomatoes") {
+        if(d3Crop == "Tomato") {
+            tomatoC = d3Num
             if(tomato >= d3Num) {
-                tomatoC += d3Num
+                tomatoChck = 1
                 var el = document.getElementById(`cust${i}D3Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         } else if(d3Crop == "Wheat") {
+            wheatC = d3Num
             if(wheat >= d3Num) {
-                wheatC += d3Num
+                wheatChck = 1
                 var el = document.getElementById(`cust${i}D3Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         }
-        if(d4Crop == "Tomatoes") {
+        if(d4Crop == "Tomato") {
+            tomatoC = d4Num
             if(tomato >= d4Num) {
-                tomatoC += d4Num
+                tomatoChck = 1
                 var el = document.getElementById(`cust${i}D4Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         } else if(d4Crop == "Wheat") {
+            wheatC = d4Num
             if(wheat >= d4Num) {
-                wheatC += d4Num
+                wheatChck = 1
                 var el = document.getElementById(`cust${i}D4Chck`)
                 el.classList.remove("noCheck")
                 el.classList.add("check")
             }
         }
-        var tomatoChck = 0
-        var wheatChck = 0
-        var eggplantChck = 0
-        if(tomato >= tomatoC) {
+        if(tomatoC == 0) {
             tomatoChck = 1
         }
-        if(wheat >= wheatC) {
+        if(wheatC == 0) {
             wheatChck = 1
-        }
-        if(eggplant >= eggplantC) {
-            eggplantChck = 1
-        }
-        if(tomatoChck == 1 && wheatChck == 1 && eggplantChck == 1) {
+        }   
+        if(tomatoChck == 1 && wheatChck == 1) {
             renderClaim(i)
         }
     }
 }
 
+function unrenderClaim(num) {
+    console.log("test")
+    var el = document.getElementById(`cust${num}`)
+    el.children[2].classList.remove("noDis")
+    el.children[3].classList.remove("noDis")
+    el.children[4].classList.add("noDis")
+}
+
 function renderClaim(num) {   
     var el = document.getElementById(`cust${num}`)
-    el.children[2].classList.add("noDis")
     el.children[3].classList.add("noDis")
-    el.children[4].classList.remove("noDis")
+    el.children[4].classList.add("noDis")
+    el.children[5].classList.remove("noDis")
 }
 
 function cropLoop() {
@@ -4709,7 +5698,7 @@ function cropLoop() {
 
 function saveLoop() {
     saveGame()
-    setTimeout(function() {saveLoop()}, 1000)
+    setTimeout(function() {saveLoop()}, 100)
 }
 
 function updataCropVals() { 
@@ -4861,7 +5850,6 @@ function upVal(el) {
         }
     } else if(crop == "tomato" && teir == 2) {
         var plant = document.getElementById(el.id)
-        console.log(plant)
         if(plant.getAttribute("data") == undefined) {
             plant.setAttribute("data", 1)
         }
@@ -4869,7 +5857,6 @@ function upVal(el) {
             var num = plant.getAttribute("data")
             num = Number.parseInt(num)
             num += 1
-            console.log(num)
             plant.setAttribute("data", num)
         }
     } else if(crop == "tomato" && teir == 3) {
@@ -4977,18 +5964,19 @@ function init() {
         T10: 2
 
     }
-    console.log(tomato)
     window.sessionStorage.setItem("tomato", JSON.stringify(tomato))
 }
 
 function fig1(src) {
     var crop
-    try{ 
+    try {
         if(src.includes("Tomato")) {
             crop = "tomato"
+        } else if(src.includes("Wheat")) {
+            crop = "wheat"
         }
-    } catch(error) {
-
+    } catch (error) {
+        
     }
     return crop
 }
@@ -4996,8 +5984,8 @@ function fig1(src) {
 function fig2(src) {
     var teir 
     try {
-        if(src.includes("T1")) {
-            teir = 1
+        if(src.includes("T10")) {
+            teir = 10
         } else if(src.includes("T2")) {
             teir = 2
         } else if(src.includes("T3")) {
@@ -5014,14 +6002,23 @@ function fig2(src) {
             teir = 8
         } else if(src.includes("T9")) {
             teir = 9
-        } else if(src.includes("T10")) {
-            teir = 10
+        } else if(src.includes("T1")) {
+            teir = 1
         }
         return teir
     } catch (error) {
         stop()
     }
 
+}
+
+function fig3(crop) {
+    console.log(crop)
+    if(crop.includes("tomato")) {
+        return "tomatoes"
+    } else if(crop.includes("wheat")) {
+
+    }
 }
 
 function lockChck(el) {
@@ -5116,9 +6113,99 @@ function merge(plant, n) {
             cropId()
             n.appendChild(img)            
         break;
+        case "tomatoT9":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T10/Tomato.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e))
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)     
+        break;
         case "wheatT1":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T2/wheat.png"
+            img.src = "Media/Crops/T2/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT2":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T3/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT3":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T4/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT4":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T5/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT5":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T6/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT6":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T7/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT7":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T8/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT8":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T9/Wheat.png"
+            img.classList.add("cropImage")
+            img.addEventListener("drag", (e) => drag(e))
+            img.addEventListener("mouseenter", (e) => collect(e)) 
+            img.draggable = "true"
+            cropId()
+            n.appendChild(img)
+        break;
+        case "wheatT9":
+            var img = document.createElement("img")
+            img.src = "Media/Crops/T10/Wheat.png"
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e)) 
@@ -5359,11 +6446,174 @@ function collect(e) {
         tomato.setAttribute("data",  cropCount + num)
         plant.setAttribute("data", 0)
         tomato.innerHTML = `Tomatos: ${cropCount + num}`
+    } else if(crop == "wheat") {
+        var wheat = document.getElementById("wheat")
+        var num = wheat.getAttribute("data") 
+        num = Number.parseInt(num)
+        if(num == null || num == undefined || num == NaN) {
+            num = 0
+        }
+        cropCount = Number.parseInt(cropCount)
+        wheat.setAttribute("data",  cropCount + num)
+        plant.setAttribute("data", 0)
+        wheat.innerHTML = `Wheat: ${cropCount + num}`
     }
 }  
 
-function genCust(num) {
-
+async function genCust(num) {
+    var el = document.getElementById(`cust${num}`)
+    var names = readJSON('name')
+    var index = names.indexOf("&")
+    var name = names.substring(0, index)
+    var gender = names.substring(index + 1)
+    var pfp = pic(gender)
+    var lvl = JSON.parse(window.localStorage.getItem("lvl"))
+    var req1C = readJSON("crop")
+    var req1N = Math.floor((Math. random() * 100) + 1) * JSON.parse(window.localStorage.getItem("lvl"));
+    var req2C = readJSON("crop")
+    var req2N = Math.floor((Math. random() * 100) + 1) * JSON.parse(window.localStorage.getItem("lvl"));
+    var req3C = readJSON("crop")
+    var req3N = Math.floor((Math. random() * 100) + 1) * JSON.parse(window.localStorage.getItem("lvl"));
+    var req4C = readJSON("crop")
+    var req4N = Math.floor((Math. random() * 100) + 1) * JSON.parse(window.localStorage.getItem("lvl"));
+    var check = 0
+    var checker = window.sessionStorage.getItem("checker")
+    var number = 0
+    var req1CC = 0
+    var req2CC = 0
+    var req3CC = 0
+    var req4CC = 0
+    if(lvl == 3) {
+        req4C = ""
+        req4N = ""
+        req4CC = 1
+        if(req1C != req2C && req1C != req3C && req2C != req3C) {
+            check = 6
+        }
+    }
+    if(lvl == 2) {
+        req4C = ""
+        req4N = ""
+        req3C = ""
+        req3N = ""
+        req4CC = 1
+        req3CC = 1
+        if(req1C != req2C) {
+            check = 6
+        } else {
+            req1C = readJSON('crop')
+            req2C = readJSON('crop')
+            check = -10
+        }
+    }
+    if(lvl == 1) {
+        req4C = ""
+        req4N = ""
+        req3C = ""
+        req3N = ""
+        req2C = ""
+        req2N = ""
+        req4CC = 1
+        req3CC = 1
+        req2CC = 1
+        check = 6
+    }
+    var random = Math.floor((Math. random() * 100));
+    if(random < 26) {
+        req4CC = 1
+    } else if(random > 24 && random < 51) {
+        req4CC = 1
+        req3CC = 1
+    } else if(random > 49 && random < 76) {
+        req4CC = 1
+        req3CC = 1
+        req2CC = 1
+    }
+    while(check != 6 && number < 50) {
+        console.log("while run")
+        number++
+        if(req1C == req2C && req2CC != 1) {
+            req1C = readJSON('crop')
+            req2C = readJSON('crop')
+            check = 0
+        } else {
+            check++;
+        }
+        if(req1C == req3C && req3CC != 1) {
+            req1C = readJSON('crop')
+            req3C = readJSON('crop')
+            check = 0
+        } else {
+            check++
+        }
+        if(req1C == req4C && req4CC != 1) {
+            req1C = readJSON('crop')
+            req4C = readJSON('crop')
+            check = 0
+        } else {
+            check++
+        }
+        if(req2C == req3C && req3CC != 1) {
+            req2C = readJSON('crop')
+            req3C = readJSON('crop')
+            check = 0
+        } else {
+            check++
+        }
+        if(req2C == req4C && req4CC != 1) {
+            req2C = readJSON('crop')
+            req4C = readJSON('crop')
+            check = 0
+        } else {
+            check++
+        }
+        if(req3C == req4C && req4CC != 1) {
+            req3C = readJSON('crop')
+            req4C = readJSON('crop')
+            check = 0
+        } else {
+            check++
+        }
+    }
+    if(number == 50) {
+        genCust(num)
+    }
+    el.children[0].innerHTML = name //sets the name
+    el.children[2].src = pfp // sets profile picture
+    el.children[1].innerHTML = gender
+    if(el.children[4].classList.contains('noDis')) {
+        el.children[4].classList.remove("noDis")
+    }
+    el.children[4].children[0].children[1].innerHTML = `${req1C} ${req1N}` // sets the first data requirement text
+    el.children[4].children[0].children[1].setAttribute('cost', req1N) // sets the cost attibute to the cost
+    el.children[4].children[0].children[1].setAttribute('type', req1C) // sets the crop attribute to the crop
+    if(req2CC == 0) {
+        el.children[4].children[1].children[1].innerHTML = `${req2C} ${req2N}` // sets the second data requirment text  
+        el.children[4].children[1].children[1].setAttribute('cost', req2N) // sets the cost attribute to the cost
+        el.children[4].children[1].children[1].setAttribute('type', req2C)
+    } else {
+        el.children[4].children[1].children[1].innerHTML = `` // sets the second data requirment text  
+        el.children[4].children[1].children[1].setAttribute('cost', 0) // sets the cost attribute to the cost
+        el.children[4].children[1].children[1].setAttribute('type', 0)
+    }
+    if(req3CC == 0) {
+        el.children[4].children[2].children[1].innerHTML = `${req3C} ${req3N}`
+        el.children[4].children[2].children[1].setAttribute('cost', req3N)
+        el.children[4].children[2].children[1].setAttribute('type', req3C)
+    } else {
+        el.children[4].children[2].children[1].innerHTML = ``
+        el.children[4].children[2].children[1].setAttribute('cost', 0)
+        el.children[4].children[2].children[1].setAttribute('type', 0)
+    }
+    if(req4CC == 0) {
+        el.children[4].children[3].children[1].innerHTML = `${req4C} ${req4N}`
+        el.children[4].children[3].children[1].setAttribute('cost', req4N)
+        el.children[4].children[3].children[1].setAttribute('type', req4C)
+    } else {
+        el.children[4].children[3].children[1].innerHTML = ``
+        el.children[4].children[3].children[1].setAttribute('cost', 0)
+        el.children[4].children[3].children[1].setAttribute('type', 0)
+    }
 }
 
 function collectCust(cNum) {
@@ -5373,25 +6623,26 @@ function collectCust(cNum) {
     var money = coins.getAttribute("data")
     worth = Number.parseInt(worth)
     money = Number.parseInt(money)
-    console.log(worth, coins)
     coins.innerHTML = `Coins: ${worth + money}`
     coins.setAttribute("data", worth + money)
     //1st requirement
-    var req1C = cust.children[3].children[0].children[1].getAttribute("cost")
-    req1C = Number.parseInt(req1C)
-    var req1T = cust.children[3].children[0].children[1].getAttribute("type")
-    var crop1 = document.getElementById(req1T)
-    var c1D = crop1.getAttribute("data")
-    c1D = Number.parseInt(c1D)
-    c1D = c1D - req1C
-    crop1.setAttribute("data", c1D)
-    console.log(`${req1T.charAt(0).toUpperCase()}${req1T.slice(1)}: ${c1D}`)
-    crop1.innerHTML = `${req1T.charAt(0).toUpperCase()}${req1T.slice(1)}: ${c1D}`
+    var req1C = cust.children[4].children[0].children[1].getAttribute("cost") // gets the ammount of crop needed
+    req1C = Number.parseInt(req1C) // turns it to number
+    var req1T = cust.children[4].children[0].children[1].getAttribute("type") //gets the type of crop needed
+    var data1 = fig1(req1T)// formatting
+    var crop1 = document.getElementById(fig3(data1)) // gets the crop values
+    var c1D = crop1.getAttribute("data") // gets the value
+    c1D = Number.parseInt(c1D) // turns it to number
+    c1D = c1D - req1C // subtracts the ammout we already have by the ammount used
+    crop1.setAttribute("data", c1D) // sets held ammount to what it should be
+    console.log(`${req1T.charAt(0).toUpperCase()}${req1T.slice(1)}: ${c1D}`) 
+    crop1.innerHTML = `${req1T.charAt(0).toUpperCase()}${req1T.slice(1)}: ${c1D}` // sets the text of the ammount of crop we have
     //2nd requirment
-    var req2C = cust.children[3].children[1].children[1].getAttribute("cost")
+    var req2C = cust.children[4].children[1].children[1].getAttribute("cost")
     req2C = Number.parseInt(req2C)
-    var req2T = cust.children[3].children[1].children[1].getAttribute("type")
-    var crop2 = document.getElementById(req2T)
+    var req2T = cust.children[4].children[1].children[1].getAttribute("type")
+    var data2 = fig1(req2T)
+    var crop2 = document.getElementById(fig3(data2))
     var c2D = crop2.getAttribute("data")
     c2D = Number.parseInt(c2D)
     c2D = c2D - req2C
@@ -5399,9 +6650,9 @@ function collectCust(cNum) {
     console.log(`${req2T.charAt(0).toUpperCase()}${req2T.slice(1)}: ${c2D}`)
     crop2.innerHTML = `${req2T.charAt(0).toUpperCase()}${req2T.slice(1)}: ${c2D}`
     //3rd requirement
-    var req3C = cust.children[3].children[2].children[1].getAttribute("cost")
+    var req3C = cust.children[4].children[2].children[1].getAttribute("cost")
     req3C = Number.parseInt(req3C)
-    var req3T = cust.children[3].children[2].children[1].getAttribute("type")
+    var req3T = cust.children[4].children[2].children[1].getAttribute("type")
     var crop3 = document.getElementById(req3T)
     var c3D = crop1.getAttribute("data")
     c3D = Number.parseInt(c3D)
@@ -5410,9 +6661,9 @@ function collectCust(cNum) {
     console.log(`${req3T.charAt(0).toUpperCase()}${req3T.slice(1)}: ${c3D}`)
     crop3.innerHTML = `${req3T.charAt(0).toUpperCase()}${req3T.slice(1)}: ${c3D}`
     //4th requirement
-    var req4C = cust.children[3].children[3].children[1].getAttribute("cost")
+    var req4C = cust.children[4].children[3].children[1].getAttribute("cost")
     req4C = Number.parseInt(req4C)
-    var req4T = cust.children[3].children[3].children[1].getAttribute("type")
+    var req4T = cust.children[4].children[3].children[1].getAttribute("type")
     var crop4 = document.getElementById(req4T)
     var c4D = crop1.getAttribute("data")
     c4D = Number.parseInt(c4D)
@@ -5420,5 +6671,20 @@ function collectCust(cNum) {
     crop4.setAttribute("data", c4D)
     console.log(`${req4T.charAt(0).toUpperCase()}${req4T.slice(1)}: ${c4D}`)
     crop4.innerHTML = `${req4T.charAt(0).toUpperCase()}${req4T.slice(1)}: ${c4D}`
-    console.log(req1C, req2C, req3C, req4C)
+    unrenderClaim(cNum)
+    try {
+        genCust(cNum)
+    } catch (error) {
+        genCust(cNum)
+    }
+}
+
+function pic(gender) {
+    if(gender == "male") {
+        return "Media/Profiles/male.jfif"
+    } else if(gender == 'female') {
+        return "Media/Profiles/female.png"
+    } else {
+        return "Media/Profiles/blank.jfif"
+    }
 }
