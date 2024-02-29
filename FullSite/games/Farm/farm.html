@@ -17,6 +17,8 @@
             <hr>
             <h2 class="gold">Game Data</h2>
             <section class="gold">
+                <label for="lvlprog" lvl="">Level: </label>
+                <progress id="lvlprog" max="" value=""></progress>
                 <h3 id="coins" data="0">Coins: 0</h3>
                 <h3 id="tomatoes" data="0">Tomatoes: 0</h3>
                 <h3 id="wheat" data="0">Wheat: 0</h3>
@@ -54,28 +56,28 @@
         </nav>
         <section class="green flex" id="customers">
             <div id="cust" class="flex">
-                <div id="cust1" class="pep" worth="5">
+                <div id="cust1" class="pep" worth="" xp="">
                     <!--not able to be completed-->
                     <h4 id="cust1Name"></h4>
                     <p class="noDis" id="cust1Gen"></p>
-                    <img src="Media/test.png" alt="customer 1 picture" class="pic" id="cust1pfp">
+                    <img src="" alt="customer 1 picture" class="pic" id="cust1pfp">
                     <h3>Items required</h3>
                     <section class="grid two hei" id="cust1Data">
                         <div id="cust1Data1" class="border">
                             <div class="noCheck" id="cust1D1Chck"></div>
-                            <p id="cust1Data1Text" class="small" cost="" type=""></p>
+                            <p id="cust1Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust1Data2" class="border">
                             <div class="noCheck" id="cust1D2Chck"></div>
-                            <p id="cust1Data2Text" class="small" cost="" type=""></p>
+                            <p id="cust1Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust1Data3" class="border">
                             <div class="noCheck" id="cust1D3Chck"></div>
-                            <p id="cust1Data3Text" class="small" cost="" type=""></p>
+                            <p id="cust1Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust1Data4" class="border">
                             <div class="noCheck" id="cust1D4Chck"></div>
-                            <p id="cust1Data4Text" class="small" cost="" type=""></p>
+                            <p id="cust1Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -83,28 +85,28 @@
                         <button onclick="collectCust(1)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust2" class="pep">
+                <div id="cust2" class="pep" worth="" xp="">
                     <h4 id="cust2Name"></h4>
                     <p class="noDis" id="cust2Gen"></p>
-                    <img src="Media/test.png" alt="customer 2 picture" class="pic" id="cust2pfp">
+                    <img src="" class="pic" id="cust2pfp">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei" id="cust2Data">
                         <div id="cust2Data1" class="border">
                             <div class="noCheck" id="cust2D1Chck"></div>
-                            <p id="cust2Data1Text" class="small" cost="" type=""></p>
+                            <p id="cust2Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust2Data2" class="border">
                             <div class="noCheck" id="cust2D2Chck"></div>
-                            <p id="cust2Data2Text" class="small" cost="" type=""></p>
+                            <p id="cust2Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust2Data3" class="border">
                             <div class="noCheck" id="cust2D3Chck"></div>
-                            <p id="cust2Data3Text" class="small" cost="" type=""></p>
+                            <p id="cust2Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust2Data4" class="border">
                             <div class="noCheck" id="cust2D4Chck"></div>
-                            <p id="cust2Data4Text" class="small" cost="" type=""></p>
+                            <p id="cust2Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -112,28 +114,28 @@
                         <button onclick="collectCust(2)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust3" class="pep">
-                    <h4 id="cust3Name">Name</h4>
+                <div id="cust3" class="pep" worth="3" xp="30">
+                    <h4 id="cust3Name"></h4>
                     <p class="noDis" id="cust3Gen"></p>
-                    <img src="Media/test.png" alt="Customer 3 picture" class="pic" id="cust3pfp">
+                    <img src="" class="pic" id="cust3pfp">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei" id="cust3Data">
                         <div id="cust3Data1" class="border">
                             <div class="noCheck" id="cust3D1Chck"></div>
-                            <p id="cust3Data1Text" class="small mwidth">3 peaches</p>
+                            <p id="cust3Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust3Data2" class="border">
                             <div class="noCheck" id="cust3D2Chck"></div>
-                            <p id="cust3Data2Text" class="small mwidth">9 wheat</p>
+                            <p id="cust3Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust3Data3" class="border">
                             <div class="noCheck" id="cust3D3Chck"></div>
-                            <p id="cust3Data3Text" class="small mwidth">412 mangos</p>
+                            <p id="cust3Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust3Data4" class="border">
                             <div class="noCheck" id="cust3D4Chck"></div>
-                            <p id="cust3Data4Text" class="small mwidth">421 wheat</p>
+                            <p id="cust3Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -141,28 +143,28 @@
                         <button onclick="collectCust(3)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust4" class="pep">
-                    <h4 id="cust4Name">Name</h4>
+                <div id="cust4" class="pep" worth="4" xp="40">
+                    <h4 id="cust4Name"></h4>
                     <p class="noDis" id="cust4Gen"></p>
-                    <img src="Media/test.png" alt="customer 4 picture" class="pic" id="cust4pfp">
+                    <img src="" class="pic" id="cust4pfp">
                     <h3>Items required</h3>
                     <!--Not able to be completed-->
                     <section class="grid two hei" id="cust4Data">
                         <div id="cust4Data1" class="border">
                             <div class="noCheck" id="cust4D1Chck"></div>
-                            <p id="cust4Data1Text" class="small mwidth">123 squash</p>
+                            <p id="cust4Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust4Data2" class="border">
                             <div class="noCheck" id="cust4D2Chck"></div>
-                            <p id="cust4Data2Text" class="small mwidth">582 grapes</p>
+                            <p id="cust4Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust4Data3" class="border">
                             <div class="noCheck" id="cust4D3Chck"></div>
-                            <p id="cust4Data3Text" class="small mwidth">923 potatos</p>
+                            <p id="cust4Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust4Data4" class="border">
                             <div class="noCheck" id="cust4D4Chck"></div>
-                            <p id="cust4Data4Text" class="small mwidth">424 cabbage</p>
+                            <p id="cust4Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -170,28 +172,28 @@
                         <button onclick="collectCust(4)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust5" class="pep">
-                    <h4 id="cust5Name">Name</h4>
+                <div id="cust5" class="pep" worth="5" xp="50">
+                    <h4 id="cust5Name"></h4>
                     <p class="noDis" id="cust5Gen"></p>
-                    <img src="Media/test.png" alt="Customer 5 picture" class="pic" id="cust5pfp">
+                    <img src="" class="pic" id="cust5pfp">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei" id="cust5Data">
                         <div id="cust5Data1" class="border">
                             <div class="noCheck" id="cust5D1Chck"></div>
-                            <p id="cust5Data1Text" class="small mwidth">421 corn</p>
+                            <p id="cust5Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust5Data2" class="border">
                             <div class="noCheck" id="cust5D2Chck"></div>
-                            <p id="cust5Data2Text" class="small mwidth">321 carrot</p>
+                            <p id="cust5Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust5Data3" class="border">
                             <div class="noCheck" id="cust5D3Chck"></div>
-                            <p id="cust5Data3Text" class="small mwidth">423 pumpkin</p>
+                            <p id="cust5Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust5Data4" class="border">
                             <div class="noCheck" id="cust5D4Chck"></div>
-                            <p id="cust5Data4Text" class="small mwidth">524 strawberry</p>
+                            <p id="cust5Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -199,28 +201,28 @@
                         <button onclick="collectCust(1)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust6" class="pep">
-                    <h4 id="cust6Name">Name</h4>
+                <div id="cust6" class="pep" worth="6" xp="60">
+                    <h4 id="cust6Name"></h4>
                     <p class="noDis" id="cust6Gen"></p>
-                    <img src="Media/test.png" alt="Customer 6 picture" class="pic" id="cust6pfp">
+                    <img src="" class="pic" id="cust6pfp">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei" id="cust6Data">
                         <div id="cust6Data1" class="border">
                             <div class="noCheck" id="cust6D1Chck"></div>
-                            <p id="cust6Data1Text" class="small mwidth">42 blueberries</p>
+                            <p id="cust6Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust6Data2" class="border">
                             <div class="noCheck" id="cust6D2Chck"></div>
-                            <p id="cust6Data2Text" class="small mwidth">425 cucumbers</p>
+                            <p id="cust6Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust6Data3" class="border">
                             <div class="noCheck" id="cust6D3Chck"></div>
-                            <p id="cust6Data3Text" class="small mwidth">521 carrots</p>
+                            <p id="cust6Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust6Data4" class="border">
                             <div class="noCheck" id="cust6D4Chck"></div>
-                            <p id="cust6Data4Text" class="small mwidth">424 pumpkin</p>
+                            <p id="cust6Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--Able to be completed-->
@@ -228,28 +230,28 @@
                         <button onclick="collectCust(1)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust7" class="pep">
-                    <h4 id="cust7Name">Name</h4>
+                <div id="cust7" class="pep" worth="7" xp="70">
+                    <h4 id="cust7Name"></h4>
                     <p class="noDis" id="cust7Gen"></p>
-                    <img src="Media/test.png" alt="Customer 7 picture" class="pic" id="cust7pfp">
+                    <img src="" class="pic" id="cust7pfp">
                     <h3>Items required</h3>
                     <!--able to be completed-->
                     <section class="grid two hei" id="cust7Data">
                         <div id="cust7Data1" class="border">
                             <div class="noCheck" id="cust7D1Chck"></div>
-                            <p id="cust7Data1Text" class="small mwidth">424 lemons</p>
-                        </div>
+                            <p id="cust7Data1Text" class="small mwidth" cost="" type=""></p>
+                        </div> 
                         <div id="cust7Data2" class="border">
                             <div class="noCheck" id="cust7D2Chck"></div>
-                            <p id="cust7Data2Text" class="small mwidth">425 corn</p>
+                            <p id="cust7Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust7Data3" class="border">
                             <div class="noCheck" id="cust7D3Chck"></div>
-                            <p id="cust7Data3Text" class="small mwidth">463 carrots</p>
+                            <p id="cust7Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust7Data4" class="border">
                             <div class="noCheck" id="cust7D4Chck"></div>
-                            <p id="cust7Data4Text" class="small mwidth">637 tomatos</p>
+                            <p id="cust7Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--not able to be completed-->
@@ -257,28 +259,28 @@
                         <button onclick="collectCust(1)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust8" class="pep">
-                    <h4 id="cust8Name">Name</h4>
+                <div id="cust8" class="pep" worth="8" xp="80">
+                    <h4 id="cust8Name"></h4>
                     <p class="noDis" id="cust8Gen"></p>
-                    <img src="Media/test.png" alt="Customer 8 Data" class="pic" id="cust8pfp">
+                    <img src="" class="pic" id="cust8pfp">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei" id="cust8Data">
                         <div id="cust8Data1" class="border">
                             <div class="noCheck" id="cust8D1Chck"></div>
-                            <p id="cust8Data1Text">787 wheat</p>
+                            <p id="cust8Data1Text" cost="" type=""></p>
                         </div>
                         <div id="cust8Data2" class="border">
                             <div class="noCheck" id="cust8D2Chck"></div>
-                            <p id="cust8Data2Text">632 grapes</p>
+                            <p id="cust8Data2Text" cost="" type=""></p>
                         </div>
                         <div id="cust8Data3" class="border">
                             <div class="noCheck" id="cust8D3Chck"></div>
-                            <p id="cust8Data3Text">159 wheat</p>
+                            <p id="cust8Data3Text" cost="" type=""></p>
                         </div>
                         <div id="cust8Data4" class="border">
                             <div class="noCheck" id="cust8D4Chck"></div>
-                            <p id="cust8Data4Text">426 corn</p>
+                            <p id="cust8Data4Text" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -286,28 +288,28 @@
                         <button onclick="collectCust(1)" class="claim">Claim</button>
                     </section>
                 </div>
-                <div id="cust9" class="pep">
-                    <h4 id="cust9Name">Name</h4>
+                <div id="cust9" class="pep" worth="9" xp="90">
+                    <h4 id="cust9Name"></h4>
                     <p class="noDis" id="cust9Gen"></p>
-                    <img src="Media/test.png" alt="Customer 9 Picture" class="pic" id="cust9pfp">
+                    <img src="" class="pic" id="cust9pfp">
                     <h3>Items required</h3>
                     <!--not able to be completed-->
                     <section class="grid two hei">
                         <div id="cust9Data1" class="border">
                             <div class="noCheck" id="cust9D1Chck"></div>
-                            <p id="cust9Data1Text" class="small mwidth">512 potatoes</p>
+                            <p id="cust9Data1Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust9Data2" class="border">
                             <div class="noCheck" id="cust9D2Chck"></div>
-                            <p id="cust9Data2Text" class="small mwidth">245 grapes</p>
+                            <p id="cust9Data2Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust9Data3" class="border">
                             <div class="noCheck" id="cust9D3Chck"></div>
-                            <p id="cust9Data3Text" class="small mwidth">513 tomatos</p>
+                            <p id="cust9Data3Text" class="small mwidth" cost="" type=""></p>
                         </div>
                         <div id="cust9Data4" class="border">
                             <div class="noCheck" id="cust9D4Chck"></div>
-                            <p id="cust9Data4Text" class="small mwidth">421 corn</p>
+                            <p id="cust9Data4Text" class="small mwidth" cost="" type=""></p>
                         </div>
                     </section>
                     <!--able to be completed-->
@@ -486,6 +488,14 @@
             <!--tomato-->
             <img src="Media/Crops/T1/Tomato.png" id="Tomato1Img">
             <img src="Media/Crops/T2/Tomato.png" id="Tomato2Img">
+            <img src="Media/Crops/T3/Tomato.png" id="Tomato3Img">
+            <img src="Media/Crops/T4/Tomato.png" id="Tomato4Img">
+            <img src="Media/Crops/T5/Tomato.png" id="Tomato5Img">
+            <img src="Media/Crops/T6/Tomato.png" id="Tomato6Img">
+            <img src="Media/Crops/T7/Tomato.png" id="Tomato7Img">
+            <img src="Media/Crops/T8/Tomato.png" id="Tomato8Img">
+            <img src="Media/Crops/T9/Tomato.png" id="Tomato9Img">
+            <img src="Media/Crops/T10/Tomato.png" id="Tomato10Img">
         </div>
     </body>
 </html>

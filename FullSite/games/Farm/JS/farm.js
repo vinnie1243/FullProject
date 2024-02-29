@@ -23,7 +23,7 @@ function main() {
     init()
 
     if(hasGame() == true) {
-        loadGame()
+        loadGame()  
     } else {
         setTimeout(function() {saveGame()}, 10000)   
     }
@@ -174,6 +174,8 @@ function custObj() {
     var cust1 = {
         name: document.getElementById("cust1Name").innerHTML,
         gender: document.getElementById("cust1Gen").innerHTML,
+        worth: document.getElementById("cust1").getAttribute("worth"),
+        xp: document.getElementById("cust1").getAttribute("xp"),
         data1T: document.getElementById("cust1Data1Text").innerHTML,
         data1C: document.getElementById("cust1Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust1Data1Text").getAttribute("cost"),
@@ -190,6 +192,8 @@ function custObj() {
     var cust2 = {
         name: document.getElementById("cust2Name").innerHTML,
         gender: document.getElementById("cust2Gen").innerHTML,
+        worth: document.getElementById("cust2").getAttribute("worth"),
+        xp: document.getElementById("cust2").getAttribute("xp"),
         data1T: document.getElementById("cust2Data1Text").innerHTML,
         data1C: document.getElementById("cust2Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust2Data1Text").getAttribute("cost"),
@@ -206,6 +210,8 @@ function custObj() {
     var cust3 = {
         name: document.getElementById("cust3Name").innerHTML,
         gender: document.getElementById("cust3Gen").innerHTML,
+        worth: document.getElementById("cust3").getAttribute("worth"),
+        xp: document.getElementById("cust3").getAttribute("xp"),
         data1T: document.getElementById("cust3Data1Text").innerHTML,
         data1C: document.getElementById("cust3Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust3Data1Text").getAttribute("cost"),
@@ -222,6 +228,8 @@ function custObj() {
     var cust4 = {
         name: document.getElementById("cust4Name").innerHTML,
         gender: document.getElementById("cust4Gen").innerHTML,
+        worth: document.getElementById("cust4").getAttribute("worth"),
+        xp: document.getElementById("cust4").getAttribute("xp"),
         data1T: document.getElementById("cust4Data1Text").innerHTML,
         data1C: document.getElementById("cust4Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust4Data1Text").getAttribute("cost"),
@@ -238,6 +246,8 @@ function custObj() {
     var cust5 = {
         name: document.getElementById("cust5Name").innerHTML,
         gender: document.getElementById("cust5Gen").innerHTML,
+        worth: document.getElementById("cust5").getAttribute("worth"),
+        xp: document.getElementById("cust5").getAttribute("xp"),
         data1T: document.getElementById("cust5Data1Text").innerHTML,
         data1C: document.getElementById("cust5Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust5Data1Text").getAttribute("cost"),
@@ -254,6 +264,8 @@ function custObj() {
     var cust6 = {
         name: document.getElementById("cust6Name").innerHTML,
         gender: document.getElementById("cust6Gen").innerHTML,
+        worth: document.getElementById("cust6").getAttribute("worth"),
+        xp: document.getElementById("cust6").getAttribute("xp"),
         data1T: document.getElementById("cust6Data1Text").innerHTML,
         data1C: document.getElementById("cust6Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust6Data1Text").getAttribute("cost"),
@@ -270,6 +282,8 @@ function custObj() {
     var cust7 = {
         name: document.getElementById("cust7Name").innerHTML,
         gender: document.getElementById("cust7Gen").innerHTML,
+        worth: document.getElementById("cust7").getAttribute("worth"),
+        xp: document.getElementById("cust7").getAttribute("xp"),
         data1T: document.getElementById("cust7Data1Text").innerHTML,
         data1C: document.getElementById("cust7Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust7Data1Text").getAttribute("cost"),
@@ -286,6 +300,8 @@ function custObj() {
     var cust8 = {
         name: document.getElementById("cust8Name").innerHTML,
         gender: document.getElementById("cust8Gen").innerHTML,
+        worth: document.getElementById("cust8").getAttribute("worth"),
+        xp: document.getElementById("cust8").getAttribute("xp"),
         data1T: document.getElementById("cust8Data1Text").innerHTML,
         data1C: document.getElementById("cust8Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust8Data1Text").getAttribute("cost"),
@@ -302,6 +318,8 @@ function custObj() {
     var cust9 = {
         name: document.getElementById("cust9Name").innerHTML,
         gender: document.getElementById("cust9Gen").innerHTML,
+        worth: document.getElementById("cust9").getAttribute("worth"),
+        xp: document.getElementById("cust9").getAttribute("xp"),
         data1T: document.getElementById("cust9Data1Text").innerHTML,
         data1C: document.getElementById("cust9Data1Text").getAttribute("type"),
         data1N: document.getElementById("cust9Data1Text").getAttribute("cost"),
@@ -1197,6 +1215,8 @@ function loadCustomers(cust) {
     //cust1
     var name = cust.one.name
     var gender = cust.one.gender 
+    var worth = cust.one.worth
+    var xp = cust.one.xp
     var data1T = cust.one.data1T
     var data1C = cust.one.data1C
     var data1N = cust.one.data1N
@@ -1218,6 +1238,9 @@ function loadCustomers(cust) {
     nEl.innerHTML = name
     var gEl = document.getElementById("cust1Gen")
     gEl.innerHTML = gender
+    var custom = document.getElementById("cust1")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     var d1El = document.getElementById("cust1Data1Text")
     d1El.innerHTML = data1T
     d1El.setAttribute("cost", data1N)
@@ -1237,6 +1260,8 @@ function loadCustomers(cust) {
     //cust2
     name = cust.two.name
     gender = cust.two.gender 
+    worth = cust.two.worth
+    xp = cust.two.xp
     data1T = cust.two.data1T
     data1C = cust.two.data1C
     data1N = cust.two.data1N
@@ -1254,6 +1279,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust2pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust2")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust2Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust2Gen")
@@ -1277,6 +1305,8 @@ function loadCustomers(cust) {
     //cust3
     name = cust.three.name
     gender = cust.three.gender 
+    worth = cust.three.worth
+    xp = cust.three.xp
     data1T = cust.three.data1T
     data1C = cust.three.data1C
     data1N = cust.three.data1N
@@ -1294,6 +1324,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust3pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust3")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust3Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust3Gen")
@@ -1317,6 +1350,8 @@ function loadCustomers(cust) {
     //cust4
     name = cust.four.name
     gender = cust.four.gender 
+    worth = cust.four.worth
+    xp = cust.four.xp
     data1T = cust.four.data1T
     data1C = cust.four.data1C
     data1N = cust.four.data1N
@@ -1334,6 +1369,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust4pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust4")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust4Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust4Gen")
@@ -1357,6 +1395,8 @@ function loadCustomers(cust) {
     //cust5 
     name = cust.five.name
     gender = cust.five.gender 
+    worth = cust.five.worth
+    xp = cust.five.xp
     data1T = cust.five.data1T
     data1C = cust.five.data1C
     data1N = cust.five.data1N
@@ -1374,6 +1414,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust5pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust5")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust5Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust5Gen")
@@ -1397,6 +1440,8 @@ function loadCustomers(cust) {
     //cust6
     name = cust.six.name
     gender = cust.six.gender 
+    worth = cust.six.worth
+    xp = cust.six.xp
     data1T = cust.six.data1T
     data1C = cust.six.data1C
     data1N = cust.six.data1N
@@ -1414,6 +1459,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust6pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust6")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust6Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust6Gen")
@@ -1437,6 +1485,8 @@ function loadCustomers(cust) {
     //cust7
     name = cust.seven.name
     gender = cust.seven.gender 
+    worth = cust.seven.worth
+    xp = cust.seven.xp
     data1T = cust.seven.data1T
     data1C = cust.seven.data1C
     data1N = cust.seven.data1N
@@ -1454,6 +1504,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust7pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust7")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust7Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust7Gen")
@@ -1477,6 +1530,8 @@ function loadCustomers(cust) {
     //cust8
     name = cust.eight.name
     gender = cust.eight.gender 
+    worth = cust.eight.worth
+    xp = cust.eight.xp
     data1T = cust.eight.data1T
     data1C = cust.eight.data1C
     data1N = cust.eight.data1N
@@ -1494,6 +1549,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust8pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust8")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust8Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust8Gen")
@@ -1517,6 +1575,8 @@ function loadCustomers(cust) {
     //cust9
     name = cust.nine.name
     gender = cust.nine.gender 
+    worth = cust.nine.worth
+    xp = cust.nine.xp
     data1T = cust.nine.data1T
     data1C = cust.nine.data1C
     data1N = cust.nine.data1N
@@ -1534,6 +1594,9 @@ function loadCustomers(cust) {
     } else {
         pfp = document.getElementById("cust9pfp").src = "Media/Profiles/female.png"
     }
+    custom = document.getElementById("cust9")
+    custom.setAttribute("worth", worth)
+    custom.setAttribute("xp", xp)
     nEl = document.getElementById("cust9Name")
     nEl.innerHTML = name
     gEl = document.getElementById("cust9Gen")
@@ -1568,13 +1631,13 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T10/Tomato.png"    
+                plant.src = document.getElementById("Tomato10Img").src
                 plant.id = `${i + 1}Tomato10`
                 el.appendChild(plant)
             break;
             case "TomatoT1":
                 var plant = document.createElement("img")
-                plant.src = "Media/Crops/T1/Tomato.png"
+                plant.src = document.getElementById("Tomato1Img").src
                 plant.classList.add("cropImage")
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
@@ -1589,7 +1652,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T2/Tomato.png"    
+                plant.src = document.getElementById("Tomato2Img").src   
                 plant.id = `${i + 1}Tomato2`
                 el.appendChild(plant) 
             break;
@@ -1599,7 +1662,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T3/Tomato.png"    
+                plant.src = document.getElementById("Tomato3Img").src  
                 plant.id = `${i + 1}Tomato3`
                 el.appendChild(plant)
             break;
@@ -1609,7 +1672,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T4/Tomato.png"  
+                plant.src = document.getElementById("Tomato4Img").src
                 plant.id = `${i + 1}Tomato4`  
                 el.appendChild(plant)
             break;
@@ -1619,7 +1682,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T5/Tomato.png"    
+                plant.src = document.getElementById("Tomato5Img").src 
                 plant.id = `${i + 1}Tomato5`
                 el.appendChild(plant)
             break;
@@ -1629,7 +1692,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T6/Tomato.png"    
+                plant.src = document.getElementById("Tomato6Img").src
                 plant.id = `${i + 1}Tomato6`
                 el.appendChild(plant)
             break;
@@ -1639,7 +1702,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T7/Tomato.png"    
+                plant.src = document.getElementById("Tomato7Img").src
                 plant.id = `${i + 1}Tomato7`
                 el.appendChild(plant)
             break;
@@ -1649,7 +1712,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T8/Tomato.png"  
+                plant.src = document.getElementById("Tomato8Img").src
                 plant.id = `${i + 1}Tomato8`  
                 el.appendChild(plant)
             break;
@@ -1659,7 +1722,7 @@ function loadCrops(crops) {
                 plant.addEventListener("dragstart", (e) => drag(e))
                 plant.draggable = "true"
                 plant.addEventListener("mouseenter", (e) => collect(e))
-                plant.src = "Media/Crops/T9/Tomato.png" 
+                plant.src = document.getElementById("Tomato9Img").src
                 plant.id = `${i + 1}Tomato9`   
                 el.appendChild(plant)
             break;
@@ -5562,7 +5625,12 @@ function spawnPen() {
 function gameLoop() {
     cropId()     
     customerChck()
+    lvlprog()
     setTimeout(function() {gameLoop()}, 200)
+}
+
+function lvlprog() {
+    var lvl = window.localStorage.getItem("lvl")
 }
 
 function customerChck() {  
@@ -5668,6 +5736,8 @@ function customerChck() {
         }   
         if(tomatoChck == 1 && wheatChck == 1) {
             renderClaim(i)
+        } else if(document.getElementById(`cust${i}`).children[4].classList.contains("noDis")) {
+            unrenderClaim(i)
         }
     }
 }
@@ -5675,9 +5745,18 @@ function customerChck() {
 function unrenderClaim(num) {
     console.log("test")
     var el = document.getElementById(`cust${num}`)
+    el.children[4].children[0].children[0].classList.remove("check")
+    el.children[4].children[0].children[0].classList.add("noCheck")
+    el.children[4].children[1].children[0].classList.remove("check")
+    el.children[4].children[1].children[0].classList.add("noCheck")
+    el.children[4].children[2].children[0].classList.remove("check")
+    el.children[4].children[2].children[0].classList.add("noCheck")
+    el.children[4].children[3].children[0].classList.remove("check")
+    el.children[4].children[3].children[0].classList.add("noCheck")
     el.children[2].classList.remove("noDis")
     el.children[3].classList.remove("noDis")
-    el.children[4].classList.add("noDis")
+    el.children[4].classList.remove("noDis")
+    el.children[5].classList.add("noDis")
 }
 
 function renderClaim(num) {   
@@ -6034,7 +6113,7 @@ function merge(plant, n) {
     switch (plant) {
         case "tomatoT1":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T2/Tomato.png"
+            img.src = document.getElementById("Tomato2Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6045,7 +6124,7 @@ function merge(plant, n) {
         break;
         case "tomatoT2":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T3/Tomato.png"
+            img.src = document.getElementById("Tomato3Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6055,7 +6134,7 @@ function merge(plant, n) {
         break;
         case "tomatoT3":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T4/Tomato.png"
+            img.src = document.getElementById("Tomato4Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6065,7 +6144,7 @@ function merge(plant, n) {
         break; 
         case "tomatoT4":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T5/Tomato.png"
+            img.src = document.getElementById("Tomato5Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6075,7 +6154,7 @@ function merge(plant, n) {
         break;
         case "tomatoT5":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T6/Tomato.png"
+            img.src = document.getElementById("Tomato6Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6085,7 +6164,7 @@ function merge(plant, n) {
         break;  
         case "tomatoT6":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T7/Tomato.png"
+            img.src = document.getElementById("Tomato7Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6095,7 +6174,7 @@ function merge(plant, n) {
         break;  
         case "tomatoT7":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T8/Tomato.png"
+            img.src = document.getElementById("Tomato8Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6105,7 +6184,7 @@ function merge(plant, n) {
         break;
         case "tomatoT8": 
             var img = document.createElement("img")
-            img.src = "Media/Crops/T9/Tomato.png"
+            img.src = document.getElementById("Tomato9Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6115,7 +6194,7 @@ function merge(plant, n) {
         break;
         case "tomatoT9":
             var img = document.createElement("img")
-            img.src = "Media/Crops/T10/Tomato.png"
+            img.src = document.getElementById("Tomato10Img").src
             img.classList.add("cropImage")
             img.addEventListener("drag", (e) => drag(e))
             img.addEventListener("mouseenter", (e) => collect(e))
@@ -6217,7 +6296,10 @@ function merge(plant, n) {
 }
 
 function allowDrop(ev) {
-    ev.preventDefault();
+    var id = window.sessionStorage.getItem("id") 
+    if(id != ev.target.id) {
+        ev.preventDefault();
+    }
 }
 
 function drag(ev) {
@@ -6231,6 +6313,7 @@ function drop(ev) {
     data = window.sessionStorage.getItem("id")
     var old = window.sessionStorage.getItem("old")
     var targ = ev.target
+
     if(targ.parentElement.id != "con") {
         targ = ev.target.parentElement
     }
@@ -6460,7 +6543,7 @@ function collect(e) {
     }
 }  
 
-async function genCust(num) {
+function genCust(num) {
     var el = document.getElementById(`cust${num}`)
     var names = readJSON('name')
     var index = names.indexOf("&")
@@ -6578,6 +6661,11 @@ async function genCust(num) {
     if(number == 50) {
         genCust(num)
     }
+    var worth = getCustWorth(req1C, req1N, req2C, req2N, req3C, req3N, req4C, req4N, req1CC, req2CC, req3CC, req4CC);
+    worth = Math.round(worth)
+    var xp = getCustXp(worth)
+    el.setAttribute("worth", worth) //sets customer value
+    el.setAttribute("xp", xp)
     el.children[0].innerHTML = name //sets the name
     el.children[2].src = pfp // sets profile picture
     el.children[1].innerHTML = gender
@@ -6616,11 +6704,58 @@ async function genCust(num) {
     }
 }
 
+function lvlchck() {
+    //use 1.5
+    //lvl1 = 100
+    //lvl2 = 150
+    //lvl3 = 225
+    //lvl4 = 338
+    //lvl5 = 507
+    //lvl6 = 761
+    //lvl7 = 1142
+    //lvl8 = 1713
+    //lvl9 = 2570
+    //lvl10 = 3855
+    //after 10 use 1.25
+    //lvl11 = 4819
+    //lvl12 = 6024
+    //lvl13 = 7530
+    //lvl14 = 9413
+    //lvl15 = 11766
+    //after 15 use 1.15
+    //lvl16 = 13531
+    //lvl17 = 15561
+    //lvl18 = 17895
+    //lvl19 = 20579
+    //lvl20 = 23666
+    //after 20 use 1.1
+    //lvl21 = 26033
+    //lvl22 = 28636
+    //lvl23 = 31500
+    //lvl24 = 34650
+    //lvl25 = 38115
+    //after 25 use 1.05
+    //lvl26 = 40021
+    //lvl27 = 42022
+    //lvl28 = 44123
+    //lvl29 = 46329
+    //lvl30 = 48645
+    var xp = window.localStorage.getItem("xp")
+    var lvl = window.localStorage.getItem("lvl")
+}
+
 function collectCust(cNum) {
     var cust = document.getElementById(`cust${cNum}`)
     var worth = cust.getAttribute("worth")
     var coins = document.getElementById("coins")
     var money = coins.getAttribute("data")
+    var lvl = window.localStorage.getItem("lvl")
+    var xp = window.localStorage.getItem("xp")
+    var exp = cust.getAttribute("xp")
+    exp = exp + xp
+    window.localStorage.setItem("xp", exp)
+    lvlchck()
+    console.log(money)
     worth = Number.parseInt(worth)
     money = Number.parseInt(money)
     coins.innerHTML = `Coins: ${worth + money}`
@@ -6641,41 +6776,51 @@ function collectCust(cNum) {
     var req2C = cust.children[4].children[1].children[1].getAttribute("cost")
     req2C = Number.parseInt(req2C)
     var req2T = cust.children[4].children[1].children[1].getAttribute("type")
-    var data2 = fig1(req2T)
-    var crop2 = document.getElementById(fig3(data2))
-    var c2D = crop2.getAttribute("data")
-    c2D = Number.parseInt(c2D)
-    c2D = c2D - req2C
-    crop2.setAttribute("data", c2D)
-    console.log(`${req2T.charAt(0).toUpperCase()}${req2T.slice(1)}: ${c2D}`)
-    crop2.innerHTML = `${req2T.charAt(0).toUpperCase()}${req2T.slice(1)}: ${c2D}`
+    if(req2T != 0) {
+        var data2 = fig1(req2T)
+        var crop2 = document.getElementById(fig3(data2))
+        var c2D = crop2.getAttribute("data")
+        c2D = Number.parseInt(c2D)
+        c2D = c2D - req2C
+        crop2.setAttribute("data", c2D)
+        console.log(`${req2T.charAt(0).toUpperCase()}${req2T.slice(1)}: ${c2D}`)
+        crop2.innerHTML = `${req2T.charAt(0).toUpperCase()}${req2T.slice(1)}: ${c2D}`
+    }
     //3rd requirement
     var req3C = cust.children[4].children[2].children[1].getAttribute("cost")
     req3C = Number.parseInt(req3C)
     var req3T = cust.children[4].children[2].children[1].getAttribute("type")
-    var crop3 = document.getElementById(req3T)
-    var c3D = crop1.getAttribute("data")
-    c3D = Number.parseInt(c3D)
-    c3D = c3D - req3C
-    crop3.setAttribute("data", c3D)
-    console.log(`${req3T.charAt(0).toUpperCase()}${req3T.slice(1)}: ${c3D}`)
-    crop3.innerHTML = `${req3T.charAt(0).toUpperCase()}${req3T.slice(1)}: ${c3D}`
+    if(req3T != 0) {
+        var data3 = fig1(req3T)
+        var crop3 = document.getElementById(fig3(data3))
+        var c3D = crop2.getAttribute("data")
+        c3D = Number.parseInt(c3D)
+        c3D = c3D - req2C
+        crop3.setAttribute("data", c3D)
+        console.log(`${req3T.charAt(0).toUpperCase()}${req3T.slice(1)}: ${c3D}`)
+        crop3.innerHTML = `${req3T.charAt(0).toUpperCase()}${req3T.slice(1)}: ${c3D}`
+    }
     //4th requirement
     var req4C = cust.children[4].children[3].children[1].getAttribute("cost")
     req4C = Number.parseInt(req4C)
     var req4T = cust.children[4].children[3].children[1].getAttribute("type")
-    var crop4 = document.getElementById(req4T)
-    var c4D = crop1.getAttribute("data")
-    c4D = Number.parseInt(c4D)
-    c4D = c4D - req4C
-    crop4.setAttribute("data", c4D)
-    console.log(`${req4T.charAt(0).toUpperCase()}${req4T.slice(1)}: ${c4D}`)
-    crop4.innerHTML = `${req4T.charAt(0).toUpperCase()}${req4T.slice(1)}: ${c4D}`
+    if(req4T != 0) {
+        var data4 = fig1(req4T)
+        var crop4 = document.getElementById(fig3(data4))
+        var c4D = crop2.getAttribute("data")
+        c4D = Number.parseInt(c4D)
+        c4D = c4D - req4C
+        crop4.setAttribute("data", c4D)
+        console.log(`${req4T.charAt(0).toUpperCase()}${req4T.slice(1)}: ${c4D}`)
+        crop4.innerHTML = `${req4T.charAt(0).toUpperCase()}${req4T.slice(1)}: ${c4D}`
+    }
     unrenderClaim(cNum)
     try {
+        console.log()
         genCust(cNum)
     } catch (error) {
         genCust(cNum)
+        console.log(error)
     }
 }
 
@@ -6687,4 +6832,58 @@ function pic(gender) {
     } else {
         return "Media/Profiles/blank.jfif"
     }
+}
+
+function getCustWorth(req1C, req1N, req2C, req2N, req3C, req3N, req4C, req4N, req1CC, req2CC, req3CC, req4CC) {
+    console.log(req1C)
+    if(req1CC == 0) {
+        switch (req1C) {
+            case "Tomato":
+                var perC = 6/12
+                var worth = req1N * perC
+                return worth
+            break
+            case "Wheat":
+                var perC = 12/12
+                var worth = req1N * perC
+                return worth
+            break
+        }
+    }
+    if(req2CC == 0) {
+        switch (req2C) {
+            case "Tomato":
+                var perC = 6/12
+                var worth = req2N * perC
+                return worth
+            break
+            case "Wheat":
+                var perC = 12/12
+                var worth = req2N * perC
+                return worth
+            break;
+        }
+    }
+    if(req3CC == 0) {
+        switch (req3C) {
+            case "Tomato":
+                var perC = 0.5
+                var worth = req3N * perC
+                return worth
+            break
+        }
+    }
+    if(req4CC == 0) {
+        switch (req4C) {
+            case "Tomato":
+                var perC = 0.5
+                var worth = req4N * perC
+                return worth
+            break
+        }
+    }
+}
+
+function getCustXp(worth) {
+    return Math.round(worth * 0.1)
 }
