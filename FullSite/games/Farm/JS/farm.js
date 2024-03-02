@@ -4360,7 +4360,7 @@ function renderFoods() {
     var tomBut = document.createElement("button")
     tomCon.classList.add("border")
     tomCon.classList.add("food")
-    tomImg.src = "Media/Icons/Tomato.jpg"
+    tomImg.src = document.getElementById("TomatoIcon").src
     tomImg.alt = "Tomato icon"
     tomImg.classList.add("foodPic")
     tomTxt.innerHTML = "Tomatos"
@@ -4377,7 +4377,7 @@ function renderFoods() {
     var wheBut = document.createElement("button")
     wheCon.classList.add("border")
     wheCon.classList.add("food")
-    wheImg.src = "Media/Icons/Wheat.jpg"
+    wheImg.src = document.getElementById("WheatIcon").src
     wheImg.alt = "Wheat icon"
     wheImg.classList.add("foodPic")
     wheTxt.innerHTML = "Wheat"
@@ -4394,7 +4394,7 @@ function renderFoods() {
     var eggBut = document.createElement("button")
     eggCon.classList.add("border")
     eggCon.classList.add("food")
-    eggImg.src = "Media/Icons/Eggplant.png"
+    eggImg.src = document.getElementById("EggplantIcon").src
     eggImg.alt = "Eggplant icon"
     eggImg.classList.add("foodPic")
     eggTxt.innerHTML = "Eggplant"
@@ -4411,7 +4411,7 @@ function renderFoods() {
     var graBut = document.createElement("button")
     graCon.classList.add("border")
     graCon.classList.add("food")
-    graImg.src = "Media/Icons/Grapes.jfif"
+    graImg.src = document.getElementById("GrapeIcon").src
     graImg.alt = "Grape Icon"
     graImg.classList.add("foodPic")
     graTxt.innerHTML = "Grape"
@@ -4428,7 +4428,7 @@ function renderFoods() {
     var carBut = document.createElement("button")
     carCon.classList.add("border")
     carCon.classList.add("food")
-    carImg.src = "Media/Icons/Carrot.jfif"
+    carImg.src = document.getElementById("CarrotIcon").src
     carImg.alt = "Carrot Icon"
     carImg.classList.add("foodPic")
     carTxt.innerHTML = "Carrot"
@@ -4445,7 +4445,7 @@ function renderFoods() {
     var pumBut = document.createElement("button")
     pumCon.classList.add("border")
     pumCon.classList.add("food")
-    pumImg.src = "Media/Icons/Pumpkin.png"
+    pumImg.src = document.getElementById("PumpkinIcon").src
     pumImg.alt = "Pumpkin Icon"
     pumImg.classList.add("foodPic")
     pumTxt.innerHTML = "Pumpkin"
@@ -4462,7 +4462,7 @@ function renderFoods() {
     var pepBut = document.createElement("button")
     pepCon.classList.add("border")
     pepCon.classList.add("food")
-    pepImg.src = "Media/Icons/Pepper.jfif"
+    pepImg.src = document.getElementById("PepperIcon").src
     pepImg.alt = "Pepper Icon"
     pepImg.classList.add("foodPic")
     pepTxt.innerHTML = "Pepper"
@@ -4479,7 +4479,7 @@ function renderFoods() {
     var cucBut = document.createElement("button")
     cucCon.classList.add("border")
     cucCon.classList.add("food")
-    cucImg.src = "Media/Icons/Cucumber.jfif"
+    cucImg.src = document.getElementById("CucumberIcon").src
     cucImg.alt = "Cucumber Icon"
     cucImg.classList.add("foodPic")
     cucTxt.innerHTML = "Cucumber"
@@ -4496,7 +4496,7 @@ function renderFoods() {
     var bluBut = document.createElement("button")
     bluCon.classList.add("border")
     bluCon.classList.add("food")
-    bluImg.src = "Media/Icons/Blueberry.jfif"
+    bluImg.src = document.getElementById("BlueberryIcon").src
     bluImg.alt = "Blueberry Icon"
     bluImg.classList.add("foodPic")
     bluTxt.innerHTML = "Blueberry"
@@ -4513,7 +4513,7 @@ function renderFoods() {
     var cabBut = document.createElement("button")
     cabCon.classList.add("border")
     cabCon.classList.add("food")
-    cabImg.src = "Media/Icons/Cabbage.jfif"
+    cabImg.src = document.getElementById("CabbageIcon").src
     cabImg.alt = "Cabbage Icon"
     cabImg.classList.add("foodPic")
     cabTxt.innerHTML = "Cabbage"
@@ -4530,7 +4530,7 @@ function renderFoods() {
     var corBut = document.createElement("button")
     corCon.classList.add("border")
     corCon.classList.add("food")
-    corImg.src = "Media/Icons/Corn.png"
+    corImg.src = document.getElementById("CornIcon").src
     corImg.alt = "Corn Icon"
     corImg.classList.add("foodPic")
     corTxt.innerHTML = "Corn"
@@ -4547,7 +4547,7 @@ function renderFoods() {
     var potBut = document.createElement("button")
     potCon.classList.add("border")
     potCon.classList.add("food")
-    potImg.src = "Media/Icons/Potato.png"
+    potImg.src = document.getElementById("PotatoIcon").src
     potImg.alt = "Potato Icon"
     potImg.classList.add("foodPic")
     potTxt.innerHTML = "Potato"
@@ -4564,7 +4564,7 @@ function renderFoods() {
     var strBut = document.createElement("button")
     strCon.classList.add("border")
     strCon.classList.add("food")
-    strImg.src = "Media/Icons/Strawberry.png"
+    strImg.src = document.getElementById("StrawberryIcon").src
     strImg.alt = "Strawberry Icon"
     strImg.classList.add("foodPic")
     strTxt.innerHTML = "Strawberry"
@@ -4581,7 +4581,7 @@ function renderFoods() {
     var wtrBut = document.createElement("button")
     wtrCon.classList.add("border")
     wtrCon.classList.add("food")
-    wtrImg.src = "Media/Icons/Watermelon.jfif"
+    wtrImg.src = document.getElementById("WatermelonIcon").src
     wtrImg.alt = "WatermelonIcon"
     wtrImg.classList.add("foodPic")
     wtrTxt.innerHTML = "Watermelon"
@@ -4598,7 +4598,7 @@ function renderFoods() {
     var appBut = document.createElement("button")
     appCon.classList.add("border")
     appCon.classList.add("food")
-    appImg.src = "Media/Icons/Apple.jfif"
+    appImg.src = document.getElementById("AppleIcon").src
     appImg.alt = "Apple Icon"
     appImg.classList.add("foodPic")
     appTxt.innerHTML = "Apple"
@@ -4615,7 +4615,7 @@ function renderFoods() {
     var cheBut = document.createElement("button")
     cheCon.classList.add("border")
     cheCon.classList.add("food")
-    cheImg.src = "Media/Icons/Cherry.jfif"
+    cheImg.src = document.getElementById("CherryIcon").src
     cheImg.alt = "Cherry Icon"
     cheImg.classList.add("foodPic")
     cheTxt.innerHTML = "Cherry"
@@ -4632,7 +4632,7 @@ function renderFoods() {
     var betBut = document.createElement("button")
     betCon.classList.add("border")
     betCon.classList.add("food")
-    betImg.src = "Media/Icons/Beetroot.png"
+    betImg.src = document.getElementById("BeetrootIcon").src
     betImg.alt = "Beetroot Icon"
     betImg.classList.add("foodPic")
     betTxt.innerHTML = "Beetroot"
@@ -4649,7 +4649,7 @@ function renderFoods() {
     var avoBut = document.createElement("button")
     avoCon.classList.add("border")
     avoCon.classList.add("food")
-    avoImg.src = "Media/Icons/Avocado.jfif"
+    avoImg.src = document.getElementById("AvocadoIcon").src
     avoImg.alt = "Avocado Icon"
     avoImg.classList.add("foodPic")
     avoTxt.innerHTML = "Avocado"
@@ -4666,7 +4666,7 @@ function renderFoods() {
     var cotBut = document.createElement("button")
     cotCon.classList.add("border")
     cotCon.classList.add("food")
-    cotImg.src = "Media/Icons/Cotton.jfif"
+    cotImg.src = document.getElementById("CottonIcon").src
     cotImg.alt = "Cotton Icon"
     cotImg.classList.add("foodPic")
     cotTxt.innerHTML = "Cotton"
@@ -4683,7 +4683,7 @@ function renderFoods() {
     var oraBut = document.createElement("button")
     oraCon.classList.add("border")
     oraCon.classList.add("food")
-    oraImg.src = "Media/Icons/Orange.jfif"
+    oraImg.src = document.getElementById("OrangeIcon").src
     oraImg.alt = "Orange Icon"
     oraImg.classList.add("foodPic")
     oraTxt.innerHTML = "Orange"
@@ -4700,7 +4700,7 @@ function renderFoods() {
     var limBut = document.createElement("button")
     limCon.classList.add("border")
     limCon.classList.add("food")
-    limImg.src = "Media/Icons/Lime.jfif"
+    limImg.src = document.getElementById("LimeIcon").src
     limImg.alt = "Lime Icon"
     limImg.classList.add("foodPic")
     limTxt.innerHTML = "Lime"
@@ -4717,7 +4717,7 @@ function renderFoods() {
     var pinBut = document.createElement("button")
     pinCon.classList.add("border")
     pinCon.classList.add("food")
-    pinImg.src = "Media/Icons/Pineapple.jfif"
+    pinImg.src = document.getElementById("PineappleIcon").src
     pinImg.alt = "Pineapple Icon"
     pinImg.classList.add("foodPic")
     pinTxt.innerHTML = "Pineapple"
@@ -4734,7 +4734,7 @@ function renderFoods() {
     var kiwBut = document.createElement("button")
     kiwCon.classList.add("border")
     kiwCon.classList.add("food")
-    kiwImg.src = "Media/Icons/Kiwi.jfif"
+    kiwImg.src = document.getElementById("KiwiIcon").src
     kiwImg.alt = "Kiwi Icon"
     kiwImg.classList.add("foodPic")
     kiwTxt.innerHTML = "Kiwi"
@@ -4751,7 +4751,7 @@ function renderFoods() {
     var peaBut = document.createElement("button")
     peaCon.classList.add("border")
     peaCon.classList.add("food")
-    peaImg.src = "Media/Icons/Peach.png"
+    peaImg.src = document.getElementById("PeachIcon").src
     peaImg.alt = "Peach Icon"
     peaImg.classList.add("foodPic")
     peaTxt.innerHTML = "Peach"
@@ -4768,7 +4768,7 @@ function renderFoods() {
     var figBut = document.createElement("button")
     figCon.classList.add("border")
     figCon.classList.add("food")
-    figImg.src = "Media/Icons/Fig.jfif"
+    figImg.src = document.getElementById("FigIcon").src
     figImg.alt = "Fig Icon"
     figImg.classList.add("foodPic")
     figTxt.innerHTML = "Fig"
@@ -4785,7 +4785,7 @@ function renderFoods() {
     var perBut = document.createElement("button")
     perCon.classList.add("border")
     perCon.classList.add("food")
-    perImg.src = "Media/Icons/Pear.png"
+    perImg.src = document.getElementById("PearIcon").src
     perImg.alt = "Pear Icon"
     perImg.classList.add("foodPic")
     perTxt.innerHTML = "Pear"
@@ -4802,7 +4802,7 @@ function renderFoods() {
     var pomBut = document.createElement("button")
     pomCon.classList.add("border")
     pomCon.classList.add("food")
-    pomImg.src = "Media/Icons/Pomegranate.png"
+    pomImg.src = document.getElementById("PomegranateIcon").src
     pomImg.alt = "Pomegranate Icon"
     pomImg.classList.add("foodPic")
     pomTxt.innerHTML = "Pomegranate"
@@ -4819,7 +4819,7 @@ function renderFoods() {
     var cofBut = document.createElement("button")
     cofCon.classList.add("border")
     cofCon.classList.add("food")
-    cofImg.src = "Media/Icons/Coffee.png"
+    cofImg.src = document.getElementById("CoffeeIcon").src
     cofImg.alt = "Coffee Icon"
     cofImg.classList.add("foodPic")
     cofTxt.innerHTML = "Coffee"
@@ -4836,7 +4836,7 @@ function renderFoods() {
     var banBut = document.createElement("button")
     banCon.classList.add("border")
     banCon.classList.add("food")
-    banImg.src = "Media/Icons/Banana.png"
+    banImg.src = document.getElementById("BananaIcon").src
     banImg.alt = "Banana Icon"
     banImg.classList.add("foodPic")
     banTxt.innerHTML = "Banana"
@@ -4853,7 +4853,7 @@ function renderFoods() {
     var lemBut = document.createElement("button")
     lemCon.classList.add("border")
     lemCon.classList.add("food")
-    lemImg.src = "Media/Icons/Lemon.png"
+    lemImg.src = document.getElementById("LemonIcon").src
     lemImg.alt = "Lemon Icon"
     lemImg.classList.add("foodPic")
     lemTxt.innerHTML = "Lemon"
@@ -4904,8 +4904,71 @@ function renderAnimals() {
     console.log("animal menu")
 }
 
-function renderUpgrades() {
-    console.log("upgrades menu")
+function renderVisitors() {
+    var logs = JSON.parse(window.localStorage.getItem("logs"))
+    var body = document.createElement("section")
+    body.id = "visitorBody"
+    body.style.backgroundColor = "gray"
+    body.style.width = "80%"
+    body.style.height = "90%"
+    body.style.position = "fixed"
+    body.style.marginTop = "2.5%"
+    body.style.marginLeft = "15%"
+    var table = document.createElement("table")
+    table.style.width = "100%"
+    var tr = document.createElement("tr")
+    var th1 = document.createElement("th")
+    th1.innerHTML = "Name"
+    th1.style.width = "20%"
+    var th2 = document.createElement("th")
+    th2.innerHTML = "Gender"
+    th2.style.width = "20%"
+    var th3 = document.createElement("th")
+    th3.innerHTML = "Money Given"
+    th3.style.width = "20%"
+    var th4 = document.createElement("th")
+    th4.innerHTML = "Xp Given"
+    th4.style.width = "20%"
+    var th5 = document.createElement("th")
+    th5.innerHTML = "Last Seen"
+    th5.style.width = "20%"
+    tr.appendChild(th1)
+    tr.appendChild(th2)
+    tr.appendChild(th3)
+    tr.appendChild(th4)
+    tr.appendChild(th5)
+    table.appendChild(tr)
+    for(var i = 0; i < logs.length; i++) {
+        var name = logs[i].name
+        var gender = logs[i].gender
+        var money = logs[i].money
+        var xp = logs[i].xp
+        var time = logs[i].time
+        var tr = document.createElement("tr")
+        var td1 = document.createElement("td")
+        td1.style.width = "20%"
+        td1.innerHTML = name
+        var td2 = document.createElement("td")
+        td2.style.width = "20%"
+        td2.innerHTML = gender
+        var td3 = document.createElement("td")
+        td3.style.width = "20%"
+        td3.innerHTML = money
+        var td4 = document.createElement("td")
+        td4.style.width = "20%"
+        td4.innerHTML = xp
+        var td5 = document.createElement("td")
+        td5.style.width = "20%"
+        td5.innerHTML = time
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+        tr.appendChild(td3)
+        tr.appendChild(td4)
+        tr.appendChild(td5)
+        table.appendChild(tr)
+    }
+    body.appendChild(table)
+    document.body.appendChild(body)
 }
 
 function delProducts() {
@@ -4914,6 +4977,10 @@ function delProducts() {
     console.log(parent.children.length)
     for(var i = 0; i < parent.children.length * 40; i++) {
         parent.children[0].remove()
+    }
+    var visitor = document.getElementById("visitorBody")
+    if(visitor != undefined) {
+        visitor.remove()
     }
 }
 
@@ -5631,6 +5698,14 @@ function gameLoop() {
 
 function lvlprog() {
     var lvl = window.localStorage.getItem("lvl")
+    var xp = window.localStorage.getItem("xp")
+    var el = document.getElementById("lvlprog") 
+    document.getElementById("lvlDis").innerHTML = `Level: ${lvl}`
+    document.getElementById("lvlDis").setAttribute("lvl", lvl)
+    if(lvl == 1) {
+        el.max = 150
+    }
+    el.value = xp
 }
 
 function customerChck() {  
@@ -5764,7 +5839,7 @@ function renderClaim(num) {
     el.children[3].classList.add("noDis")
     el.children[4].classList.add("noDis")
     el.children[5].classList.remove("noDis")
-}
+} 
 
 function cropLoop() {
     try {
@@ -6044,6 +6119,10 @@ function init() {
 
     }
     window.sessionStorage.setItem("tomato", JSON.stringify(tomato))
+    var logs = JSON.parse(window.localStorage.getItem("logs"))
+    if(logs == null || logs == undefined) {
+        window.localStorage.setItem("logs", JSON.stringify([]))
+    }
 }
 
 function fig1(src) {
@@ -6109,7 +6188,6 @@ function lockChck(el) {
 }
 
 function merge(plant, n) {
-    console.log(plant)
     switch (plant) {
         case "tomatoT1":
             var img = document.createElement("img")
@@ -6120,7 +6198,6 @@ function merge(plant, n) {
             img.draggable = "true"
             n.appendChild(img)
             cropId()
-            console.log(n)
         break;
         case "tomatoT2":
             var img = document.createElement("img")
@@ -6321,12 +6398,10 @@ function drop(ev) {
         var p1 = document.getElementById(data)
         var p2 = targ.children[0]
         var arr = mergechck(p1, p2)
-        console.log(arr)
         var chck = arr[0]
         var plant = arr[1]
         if(chck == true) {
             targ.children[0].remove()
-            console.log(plant)
             merge(plant, targ)
             old = document.getElementById(old)
             if(old.children.length > 0) {
@@ -6440,7 +6515,6 @@ function mergechck(p1, p2) {
     var plant1
     var plant2
     //find teir
-    console.log(p1)
     if(p1.src.includes("T1")) {
         teir = 1
     } else if(p1.src.includes("T2")) {
@@ -6499,7 +6573,6 @@ function mergechck(p1, p2) {
     }
     plant2 = crop + "T" + teir
     //check if they are the same type of plant
-    console.log(plant1, plant2)
     var arr = [0, ""]
     if(plant1 == plant2) {
         arr[0] = true
@@ -6544,6 +6617,7 @@ function collect(e) {
 }  
 
 function genCust(num) {
+    console.log("genCust", num)
     var el = document.getElementById(`cust${num}`)
     var names = readJSON('name')
     var index = names.indexOf("&")
@@ -6705,6 +6779,7 @@ function genCust(num) {
 }
 
 function lvlchck() {
+    console.log("lvlchck")
     //use 1.5
     //lvl1 = 100
     //lvl2 = 150
@@ -6742,16 +6817,39 @@ function lvlchck() {
     //lvl30 = 48645
     var xp = window.localStorage.getItem("xp")
     var lvl = window.localStorage.getItem("lvl")
+    switch(lvl) {
+        case "1":
+            if(xp >= 150) {
+                lvl = 2
+                xp = xp - 150
+                window.localStorage.setItem("lvl", lvl)
+                window.localStorage.setItem("xp", xp)
+            }
+        break;
+        case "2":
+            if(xp >= 225) {
+                lvl = 3
+                xp = xp - 225
+                window.localStorage.setItem("lvl", lvl)
+                window.localStorage.setItem("xp", xp)
+            }
+        break;
+    }
 }
 
 function collectCust(cNum) {
     var cust = document.getElementById(`cust${cNum}`)
+    var name = document.getElementById(`cust${cNum}Name`).innerHTML
+    var gender = document.getElementById(`cust${cNum}Gen`).innerHTML
     var worth = cust.getAttribute("worth")
     var coins = document.getElementById("coins")
     var money = coins.getAttribute("data")
     var lvl = window.localStorage.getItem("lvl")
     var xp = window.localStorage.getItem("xp")
     var exp = cust.getAttribute("xp")
+    exp = Number.parseInt(exp)
+    xp = Number.parseInt(xp)
+    visitorLog(name, exp, gender, worth)
     exp = exp + xp
     window.localStorage.setItem("xp", exp)
     lvlchck()
@@ -6835,7 +6933,6 @@ function pic(gender) {
 }
 
 function getCustWorth(req1C, req1N, req2C, req2N, req3C, req3N, req4C, req4N, req1CC, req2CC, req3CC, req4CC) {
-    console.log(req1C)
     if(req1CC == 0) {
         switch (req1C) {
             case "Tomato":
@@ -6887,3 +6984,50 @@ function getCustWorth(req1C, req1N, req2C, req2N, req3C, req3N, req4C, req4N, re
 function getCustXp(worth) {
     return Math.round(worth * 0.1)
 }
+
+function visitorLog(name, xp, gender, worth) {
+    console.log(name, xp, gender, worth)
+    if(typeof(worth) == "string") {
+        worth = Number.parseInt(worth)
+    }
+    var date = new Date()
+    var weekday = date.getDay()
+    var day = date.getDate()
+    var month = date.getMonth()
+    month++
+    var year = date.getFullYear()
+    var hrs = date.getHours()
+    var minute = date.getMinutes()
+    var logs = JSON.parse(window.localStorage.getItem("logs"))
+    var old
+    console.log(minute)
+    if(minute.length == 1) {
+        minute = "0" + minute
+    }
+    var time = `${weekday} ${day}/${month}/${year} ${hrs}:${minute}`
+    for(var i = 0; i < logs.length; i++) {
+        if(logs[i].name == name && logs[i].gender == gender) {
+            old = logs[i]
+        }
+    }
+    if(old != undefined) {
+        var oldMoney
+        var oldxp
+        old.money = oldMoney + worth
+        old.xp = oldxp + xp
+        old.time = time
+        old.visited += 1
+    } else {
+        var vis = {
+            name: name,
+            gender: gender,
+            money: worth,
+            xp: xp,
+            time: time,
+            visited: 1,
+        }
+        logs.push(vis)
+    }
+    window.localStorage.setItem("logs", JSON.stringify(logs))
+    console.log(weekday, day, month, year, hrs, minute)
+}  
