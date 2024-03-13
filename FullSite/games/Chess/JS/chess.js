@@ -147,12 +147,33 @@ function black() {
 }
 
 function clic(e) {
+    var cl = classgrab(e.target)
+    if(brckChck(e, cl) == 1) {
+        stop()
+        return
+    }
     //regen()
-    del(e)
+    del()
     var el = e.target
     var color = cchck(el.src)
     var s = window.localStorage.getItem("switch")
     var arr = gen(el.src, e.target.parentElement.id, color)
+}
+
+function brckChck(e, cl) {
+    e = document.getElementById(e.target.id)
+    if(cl != classgrab(e)) {
+        return 1
+    }
+    return 0
+}
+
+function classgrab(tar) {
+    if(tar.classList.contains("white")) {
+        return "white"
+    } else {
+        return "black"
+    }
 }
 
 async function move(e) {
@@ -173,6 +194,7 @@ async function move(e) {
     var check = 0
     var arr2 = JSON.parse(window.sessionStorage.getItem("arr2"))
     for(var i = 0; i < arr2.length; i++) {
+        console.log(arr2[i][5])
         if(arr2[i][5] == "pawnMove2") {
             var color = arr2[i][1]
             var sw = arr2[i][2]
@@ -203,7 +225,6 @@ async function move(e) {
         window.sessionStorage.setItem("ep", "-")
     }
     var ele = e.target.parentElement
-    console.log(ele)
     var c = 0
     while (c == 0) {
         if(ele.parentElement.id != "con") {
@@ -216,9 +237,10 @@ async function move(e) {
     sp = document.getElementById(sp)
     if(ele.children[0] != document.head){
         if(ele.children.length != 0) {
-            //ele.children[0].remove()
+            ele.children[0].remove()
         } 
     }
+    ele = document.getElementById(ele.id)
     ele.appendChild(sp)
     change()
     kingchck()
@@ -227,24 +249,27 @@ async function move(e) {
     regen()
 }
  
-function uparr(ele) {
+async function uparr(ele) {
+    var promo = 0
     //first move array
     var arr = JSON.parse(window.sessionStorage.getItem("arr2"))
     //piece array
     var pieces = JSON.parse(window.sessionStorage.getItem("parr"))
-    var oldId = arr[0][8]
-    console.log(oldId)
+    //var oldId = arr[0][6]
     //old position
     var opos = arr[0][6]
     //new position array
     var npa = []
     //gets all new positions and pushes them to the new position array
     for(var i = 0; i < arr.length; i++) {
+        if(arr[i][5] == "pawnMove7") {
+            promo = 1
+        }
         var np = arr[i][0]
         npa.push(np)
     }
     //new position variable
-    var npos = undefined
+    var npos
     //piece variable
     var piece = arr[0][4]
     //color variables
@@ -256,7 +281,6 @@ function uparr(ele) {
     } else {
         color2 = "Black"
     }
-    console.table(npa)
     for(var i = 0; i < npa.length; i++) {
         //gets one of the squares from new position array
         var t = document.getElementById(npa[i])
@@ -269,8 +293,8 @@ function uparr(ele) {
                 //checks if it matches
                 if(npi == piece) {
                     // sets the new position to the squares id
+                    console.log(arr[i][5])
                     var oldPos = document.getElementById(opos)
-                    console.log(oldPos)
                     if(oldPos.children.length != 0) {
                         if(oldPos.children.length == 2) {
                             oldPos = oldPos.children[1].id
@@ -280,25 +304,26 @@ function uparr(ele) {
                     } else {
                         oldPos = oldPos.id
                     }
-                    if(oldId == oldPos) {
-                        npos = t.id
-                        console.log(npos)
-                    }
+                    npos = ele.id
                 }
             } else if(cchck(t.children[0].src) == "green") {
                 npos = ele.id
-                console.log(npos)
             }
+        } else {
+            npos = ele.id
         }
-        console.log(npos)
     }
+
     //converts number to coordinate
     var old = fig(opos)
     //turns new position from string to number
-    console.log
     npos = Number.parseInt(npos)
     //turns new position to a coordinate
-    console.log(npos)
+    if(npos == NaN) {
+        uparr(ele)
+        console.console.warn("rerun");
+        return
+    }
     var ne = fig(npos)
     //old array
     var o = []
@@ -308,15 +333,11 @@ function uparr(ele) {
     //new array
     var n = []
     //splits coords up
-    try {
-        n.push(ne.substring(0, 1))
-        n.push(ne.substring(2))        
-    } catch (error) {
-        console.error(error)
-    }
+    n.push(ne.substring(0, 1))
+    n.push(ne.substring(2))        
     //old 1
     var o1 = o[0]
-    //converts old 1 to number 
+    //converts old 1 to number  
     o1 = Number.parseInt(o1)
     // old 2
     var o2 = o[1]
@@ -333,6 +354,10 @@ function uparr(ele) {
     //goes to old piece index to reset it
     pieces[o1][o2] = ""
     //puts piece in new position
+    if(promo == 1) {
+        var prop = window.prompt("what piece do you want to promote to q for queen r for rook b for bishop k for knight", "q")
+        piece = promote(prop)
+    }
     pieces[n1][n2] = piece + color2
     //saves to session storage
     window.sessionStorage.setItem("parr", JSON.stringify(pieces))
@@ -721,7 +746,6 @@ function castleChck() {
     var rB = window.sessionStorage.getItem("rB")
     var lW = window.sessionStorage.getItem("lW")
     var rW = window.sessionStorage.getItem("rW")
-    console.log(lB, rB, lW, rW)
     if(rW == 1) {
         c = c + "K"
     }
@@ -1065,7 +1089,6 @@ function disFen() {
 }
 
 function decode(pa) {
-    console.log(pa)
     var arr = [
         [],
         [],
@@ -1159,7 +1182,5 @@ function decode(pa) {
             }
         }
     }
-
-    console.log(arr)
     return arr
 }
