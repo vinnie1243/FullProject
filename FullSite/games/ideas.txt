@@ -80,7 +80,55 @@ you can put 2 cards on the same layer
 ----------war--------------
 
 ----------Merge Farm-------
+nxt lvl = 1.5 * xp of previous start at 100
+each cust gives xp based on amount and lvl 
+lvl1 = 100
+lvl2 = lvl1 * 0.5 
+ect
 55 x 6 squares
+crop list:
+Tomato
+Wheat
+Eggplant
+Grape
+Carrot
+Pumpkin
+Pepper
+Cucumber	
+Blueberry	
+Cabbage	
+Corn	
+Potato	
+Strawberry	
+Watermelon	
+Apple Tree	
+Cherry Tree	
+Beet
+Avocado Tree	    
+Cotton	
+Orange Tree	
+lime
+Pineapple Tree	
+Kiwi Tree	
+Peach Tree	
+Fig Tree	
+Pear Tree	
+Pomegranate Tree	
+Coffee	
+Banana Tree
+Lemon Treee
+MACHINES
+juicer
+cotton mill
+bakery
+coffee press
+clothes factory
+
+ANIMALS
+sheep
+cow
+chicken
+
 ----------speed------------
 
 ----------trash------------
