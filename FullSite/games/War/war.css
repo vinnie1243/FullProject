@@ -104,3 +104,8 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.cards {
+    width: 100%;
+    height: 100%;
+}
