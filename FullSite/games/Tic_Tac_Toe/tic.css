@@ -1,13 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;   
-}
-
-.nav::-webkit-scrollbar {
-    display: none;
-}
-
 .nav {
     background-color: black;
     width: 10vw;
@@ -19,18 +9,20 @@
     overflow-x: hidden;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .gold {
     color: gold;
+}
+
+.nav::-webkit-scrollbar {
+    display: none;
 }
 
 hr {
     margin-top: 1%;
     border-color: red;
 }
-
-#playarea {
-    margin-left: 10vw;
-    width: 90vw;
-    height: 100vh;
-}
-
