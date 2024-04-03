@@ -34,3 +34,6 @@ hr {
     height: 100vh;
 }
 
+.noDis {
+    display: none;
+}
