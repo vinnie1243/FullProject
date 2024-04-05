@@ -1,0 +1,29 @@
+NS = not started
+S = started
+D = done
+
+##########White Cop Male##########
+WhiteCopMaleIdle 1 - 6 NS
+WhiteCopMaleWalk 1 - 8 NS
+WhiteCopMaleRun  1 - 8 NS
+WhiteCopMaleJump 1 - 8 NS
+WhiteCopMaleShoot 1 - 4 NS
+WhiteCopMaleTaser 1 - 7 NS
+WhiteCopMaleReloadGun 1 - 8 NS
+WhiteCopMaleReloadTaser 1 - 8 NS
+WhiteCopMaleHurt 1 - 4 NS
+WhiteCopMaleDead 1 - 5 NS
+##########Black Cop Male##########
+BlackCopMaleIdle 1 - 6 NS
+BlackCopMaleWalk 1 - 8 NS
+BlackCopMaleRun 1 - 8 NS
+BlackCopMaleJump 1 - 8 NS
+BlackCopMaleShootShotgun 1 - 7 NS
+BlackCopMaleShootPistol 1 - 4 NS
+BlackCopMaleReloadShotgun 1 - 7 NS
+BlackCopMaleReloadPistol 1 - 8 NS
+BlackCopMaleHurt 1 - 3 NS
+BlackCopMaleDead 1 - 4 NS
+##########White Cop Female##########
+WhiteCopFemaleIdle 1 - 6 NS
+WhiteCopFemaleWalk 1 - 8 NS

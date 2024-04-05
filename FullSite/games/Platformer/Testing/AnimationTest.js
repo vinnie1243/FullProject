@@ -15,25 +15,24 @@ function main() {
         "whiteCopJumpR": 1,
         "whiteCopJumpL": 1,
         "whiteCopJumpMax": 8,
+        "whiteCopShootR": 1,
+        "whiteCopShootL": 1,
+        "whiteCopShootMax": 4,
+        "whiteCopTaserR": 1,
+        "whiteCopTaserL": 1,
+        "whiteCopTaserMax": 7,
     }
     window.sessionStorage.setItem("steps", JSON.stringify(steps))
-    animLoop()
+    setTimes()
 }
 
-function animLoop() {
-    //format is displayAnimation(anim, x, y, direction, size)
-    clearBoard()
-    displayAnimation("whiteCopIdle", 0, 0, "right", 1)
-    displayAnimation("whiteCopIdle", 35, 0, "left", 1)
-    displayAnimation("whiteCopWalk", 70, 0, "right", 1)
-    displayAnimation("whiteCopWalk", 105, 0, "left", 1)
-    displayAnimation("whiteCopRun", 140, 0, "right", 1)
-    displayAnimation("whiteCopRun", 200, 0, "left", 1)
-    displayAnimation("whiteCopJump", 260, 0, "right", 1)
-    displayAnimation("whiteCopJump", 320, 0, "left", 5)
-    setTimeout(() => {
-        animLoop()
-    }, 200);
+function setTimes() {
+    setInterval(() => {
+        //whiteCopIdle("right")
+    }, 170);
+    setInterval(() => {
+        whiteCopWalk("right")
+    }, 130)
 }
 
 function displayAnimation(anim, x, y, direction, size) {
