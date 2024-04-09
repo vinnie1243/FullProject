@@ -1,14 +1,16 @@
+var offset = 0
 function main() {    
     var canvas = document.getElementById("playarea")
     canvas.style.width = window.innerWidth * 0.9
     canvas.style.height = window.innerHeight
     canvas.width = window.innerWidth * 1.5
     canvas.height = window.innerHeight * 1.5    
-    var player = new Player(500, 600, "whiteCopIdle1R", 0, 0)
+    var player = new Player(canvas.width/2, 600, "whiteCopIdle1", 0, 0)
     window.sessionStorage.setItem("player", JSON.stringify(player))
     window.sessionStorage.setItem("direction", "right")
     window.sessionStorage.setItem("idle", true)
     window.sessionStorage.setItem("walk", false)
+    window.sessionStorage.setItem("jumping", false)
     window.sessionStorage.setItem("run", false)
     window.sessionStorage.setItem("shoot", false)
     window.sessionStorage.setItem("idleRunning", false)
@@ -17,8 +19,9 @@ function main() {
     window.sessionStorage.setItem("shootRunning", false)
     window.sessionStorage.setItem("oldPosX", 500)
     window.sessionStorage.setItem("oldPosY", 20)
-    window.sessionStorage.setItem("oldAnim", "whiteCopIdle1R")
-    window.sessionStorage.setItem("platforms", JSON.stringify([[0, canvas.height * 0.95, 100000, 50]]))
+    window.sessionStorage.setItem("Keys", JSON.stringify({"a": false,"d": false,"shift": false,"space": false,}))
+    window.sessionStorage.setItem("oldAnim", "whiteCopIdle1")
+    window.sessionStorage.setItem("platforms", JSON.stringify([[-50000, canvas.height * 0.95, 100000, 50], [0, canvas.height * 0.75, 100, 50], [canvas.width - 100, canvas.height * 0.75, 100, 50], [canvas.width - 100, canvas.height * 0.95, 100, 50]]))
     window.sessionStorage.setItem("bullets", JSON.stringify([]))
     setInterval(() => {
         gameLoop()
@@ -38,28 +41,25 @@ function clickChck(e) {
     var canvas = document.getElementById("playarea")
     var canvasW = canvas.width
     var canvasH = canvas.height
-    let x = e.clientX * 1.5 
+    let x = e.clientX
     let y = 500
-    if(player.x > x) {
+    console.log(player.x, x)
+    if(player.x > x + offset) {
         bullets.push([player.x, player.y + 16, "left"])
+        window.sessionStorage.setItem("direction", "left")
     } else if(player.x < x) {
         bullets.push([player.x + 70, player.y + 16, "right"])
+        window.sessionStorage.setItem("direction", "right")
     }
     window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
-    player.anim = "whiteCopShoot1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
+    //player.anim = "whiteCopShoot1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 
-function keyChck(e) {
-    var letMove = window.sessionStorage.getItem("letMove")
-    if(letMove == 0) {
-        return
-    } else {
-        letMove--;
-    }
-    window.sessionStorage.setItem("letMove", letMove)
+function keyUp(e) {
+    var keys = JSON.parse(window.sessionStorage.getItem("Keys"))
     var key; 
     if (window.event) { 
         key = e.keyCode; 
@@ -71,16 +71,51 @@ function keyChck(e) {
     }
     key = convert(key)
     if(key == "space") {
-        jump()
+        keys.space = false
     } else if(key == "a" && e.shiftKey == true) {
-        run("left");   
+        keys.a = false
+        keys.shift = false
     } else if(key == "a") {
-        moveLeft()   
+        keys.a = false
     } else if(key == "d" && e.shiftKey == true) {
-        run("right");
+        keys.d = false
+        keys.shift = false
     } else if(key == "d") {
-        moveRight()   
+        keys.d = false
     }
+    window.sessionStorage.setItem("Keys", JSON.stringify(keys))
+}
+
+function keyDown(e) {
+    var keys = JSON.parse(window.sessionStorage.getItem("Keys"))
+    var key; 
+    if (window.event) { 
+        key = e.keyCode; 
+    } else if (e.which) { 
+        key = e.which; 
+    } 
+    if(key == 16) {
+        return
+    }
+    key = convert(key)
+    if(key == "space") {
+        keys.space = true
+    } else if(key == "a" && e.shiftKey == true) {
+        keys.a = true 
+        keys.shift = true
+        window.sessionStorage.setItem("direction", "left")
+    } else if(key == "a") {
+        keys.a = true
+        window.sessionStorage.setItem("direction", "left")
+    } else if(key == "d" && e.shiftKey == true) {
+        keys.d = true
+        keys.shift = true
+        window.sessionStorage.setItem("direction", "right")
+    } else if(key == "d") {
+        keys.d = true
+        window.sessionStorage.setItem("direction", "right")
+    }
+    window.sessionStorage.setItem("Keys", JSON.stringify(keys))
 }
 
 function moveRight() {
@@ -116,15 +151,15 @@ function run(direction) {
 
 function jump() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    var direction = window.sessionStorage.getItem("direction")
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
-    player.velY = - 20
-    if(direction = "right") {
-        player.velX = player.velx * 5412
-    } else if(direction = "left") {
-        player.velX = player.velX * -5412
+    var jumping = window.sessionStorage.getItem("jumping")
+    if(jumping == "false") {
+        jumping = true
+        var direction = window.sessionStorage.getItem("direction")
+        player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+        player.velY = -30    
+        window.sessionStorage.setItem("player", JSON.stringify(player))
+        window.sessionStorage.setItem("jumping", jumping)
     }
-    window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 
 function convert(key) {
@@ -141,16 +176,48 @@ function convert(key) {
     }
 }
 
+function keyed() {
+    var keys = JSON.parse(window.sessionStorage.getItem("Keys"))
+    if(keys.space == true) {
+        jump()
+    } else if(keys.a == true && keys.shift == true) {
+        run("left")
+    } else if(keys.a == true) {
+        moveLeft()
+    } else if(keys.d == true && keys.shift == true) {
+        run("right")
+    } else if(keys.d == true) {
+        moveRight()
+    }
+}
+
 function gameLoop() {
     window.sessionStorage.setItem("letMove", 4)
+    keyed()
     move();
     physics()
     animate()
+    center()
+    slow();
+}
+
+function center() {
+    var canvas = document.getElementById("playarea")
+    var ctx = canvas.getContext("2d")
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    var middle = canvas.width / 2
+    offset = Math.abs(middle-player.x)
+    ctx.save();
+    ctx.translate((middle - player.x),(0));
+    player.x += middle
+    player.x = Math.round(100*player.x)/100;  
     drawPlayer()
     drawPlatforms()
     drawBullet()
     drawEnemy()
-    slow();
+    ctx.restore();
+
 }
 
 function slow() {
@@ -158,7 +225,7 @@ function slow() {
     if(player.velX < 0.35 && player.velX > -0.35) {
         player.velX = 0
     } else if(player.velX != 0 && player.velX > 0) {
-        player.velX -= 0.35
+        player.velX -= 0.35     
     } else if(player.velX != 0 && player.velX < 0) {
         player.velX += 0.35
     }
@@ -200,6 +267,8 @@ function move() {
     window.sessionStorage.setItem("oldAnim", player.anim)
     player.x += player.velX
     player.y += player.velY
+    player.x = Math.round(100*player.x)/100;
+    player.y = Math.round(100*player.y)/100;    
     var shoot = false
     var num = 0
     if(player.anim.includes("Shoot")) {
@@ -216,36 +285,36 @@ function move() {
     }
     if(player.velX > 5) {
         idle = false
-        player.anim = "whiteCopRun1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
+        //player.anim = "whiteCopRun1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
         walk = false
     } else if(player.velX < -5) {
-        player.anim = "whiteCopRun1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
+        //player.anim = "whiteCopRun1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
         idle = false
         walk = false
     }
     if(player.velX > 0 && player.velX < 1.5 && player.anim.includes("Run") || player.velX > 0 && player.velX < 10 && player.anim.includes("Idle")) {
         idle = false
         walk = true
-        player.anim = "whiteCopWalk1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
+        //player.anim = "whiteCopWalk1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
     }
     if(player.velX < -0 && player.velX > 0 && player.anim.includes("Run") || player.velX < 0 && player.velX > -1.5 && player.anim.includes("Idle")) {
         idle = false
         walk = true
-        player.anim = "whiteCopWalk1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
+        //player.anim = "whiteCopWalk1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
     }
     if(player.velX < 0.1 && player.velX > -0.1 && player.anim.includes("Walk")) {
         idle = true
         walk = false 
-        player.anim = "whiteCopIdle1" + window.sessionStorage.getItem("direction").charAt(0).toUpperCase()
+        player.anim = "whiteCopIdle1"
     }
     if(shoot == true && num == 1) {
-        player.anim = `whiteCopShoot1${direction.charAt(0).toUpperCase()}`
+        player.anim = `whiteCopShoot1`
     } else if(shoot == true && num == 2) {
-        player.anim = `whiteCopShoot2${direction.charAt(0).toUpperCase()}`
+        player.anim = `whiteCopShoot2`
     } else if(shoot == true && num == 3) {
-        player.anim = `whiteCopShoot3${direction.charAt(0).toUpperCase()}`
+        player.anim = `whiteCopShoot3`
     } else if(shoot == true && num == 4) {
-        player.anim = `whiteCopShoot4${direction.charAt(0).toUpperCase()}`
+        player.anim = `whiteCopShoot4`
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))
     window.sessionStorage.setItem("idle", idle)
@@ -267,12 +336,19 @@ function drawPlayer() {
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
     var canvas = document.getElementById("playarea")
     var ctx = canvas.getContext('2d')    
+    var direction = window.sessionStorage.getItem("direction")
     var img = document.getElementById("test1")
     ctx.moveTo(0, 0)    
     //ctx.fillStyle  = "red"
     //ctx.fillRect(player.x, player.y, 50, 100)
-    ctx.drawImage(img, getData(player.anim, "sx"), getData(player.anim, "sy"), getData(player.anim, "width"), getData(player.anim, "height"), player.x, player.y, getData(player.anim, "width") * 1.25, getData(player.anim, "height") * 1.25)
-    ctx.stroke()
+    ctx.save()
+    ctx.translate(player.x, player.y)
+    if(direction == "left") {
+        ctx.scale(-1, 1); 
+        ctx.translate(-getData(player.anim, "width"), 0)
+    } 
+    ctx.drawImage(img, getData(player.anim, "sx"), getData(player.anim, "sy"), getData(player.anim, "width"), getData(player.anim, "height"), 0, 0, getData(player.anim, "width") * 1.25, getData(player.anim, "height") * 1.25)
+    ctx.restore();
 }
 
 function drawPlatforms() {
@@ -296,11 +372,11 @@ function drawBullet() {
     var img = document.getElementById("test1")
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     for(var i = 0; i < bullets.length; i++) {
-        if(bullets[i][0] > canvas.width) {
+        if(bullets[i][0] > canvas.width + -offset) {
             bullets.splice(i, 1)
             window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
             return
-        } else if(bullets[i][0] < 0) {
+        } else if(bullets[i][0] < -offset) {
             bullets.splice(i, 1),
             window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
             return
@@ -309,18 +385,17 @@ function drawBullet() {
             var x = bullets[i][0] -= 10
         } else if(bullets[i][2] == "right") {
             var x = bullets[i][0] += 10
-        }
+        }       
         var y = bullets[i][1]
         var direction = bullets[i][2]
-        ctx.drawImage(img, getData(`bullet${direction.charAt(0).toUpperCase()}`, "sx"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "sy"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "width"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "height"), x, y, getData(`bullet${direction.charAt(0).toUpperCase()}`, "width") * 3, getData(`bullet${direction.charAt(0).toUpperCase()}`, "height") * 3)
-        ctx.stroke()
+        ctx.drawImage(img, getData(`bullet${direction.charAt(0).toUpperCase()}`, "sx"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "sy"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "width"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "height"), x, y, getData(`bullet${direction.charAt(0).toUpperCase()}`, "width")/2, getData(`bullet${direction.charAt(0).toUpperCase()}`, "height")/2) 
     }   
     window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
 }
 
 class Player {
     constructor(x, y, anim, velX, velY) {
-        this.x = x
+        this.x = x  
         this.y = y
         this.anim = anim
         this.velX = velX
@@ -362,7 +437,6 @@ class Player {
                 this.anim = "whiteCopWalk1"
             }
         }
-        //console.log(this.anim)
         if(this.anim.includes("Run")) {
             if(this.anim.includes("1")) {
                 this.anim = "whiteCopRun2"        
@@ -393,17 +467,9 @@ class Player {
                 this.anim = "whiteCopIdle1"
             }
         }
-        this.anim = `${this.anim}${window.sessionStorage.getItem("direction").charAt(0).toUpperCase()}`
         return this.anim
     }
 }
-
-class Slime {
-    constructor(x, y) {
-        this.x = x
-        this.y = y
-    }
-}   
 
 class Platform {
     constructor(x, y, width, height) {
