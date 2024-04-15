@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>Platformer</title>
+        <link rel="icon" href="../Media/Images/plat.jfif" type="image/x-icon">
+        <link rel="stylesheet" href="../CSS/plat.css">
+        <script src="../JS/plat.js"></script>
+        <script src="../JS/animationData.js"></script>
+        <script src="../JS/physics.js"></script>
+        <script src="../JS/animations.js"></script>
+        <script src="../JS/levels.js"></script>
+        <script src="../JS/ai.js"></script>
+    </head>
+    <body onload="main()" onkeydown="keyDown(event)" onkeyup="keyUp(event)">
+        <nav class="nav">
+            <a href="menu.html" class="gold">Menu |</a>
+            <a href="../../../index.html" class="gold">Home</a>
+            <hr>
+            <a href="../Testing/AnimationTest.html" class="gold">Animation Tests</a>   
+        </nav>
+        <canvas id="playarea" onclick="clickChck(event)">
+
+        </canvas>
+        <div class="noDis">
+            <img src="../Media/spritesheet2.png" id="test1">
+        </div>
+    </body>
+</html>
