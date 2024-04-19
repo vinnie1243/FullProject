@@ -29,7 +29,9 @@ function level(num) {
 
             backgrounds: [
 
-            ]
+            ],
+             
+            enemys: []
         },
         2: {
             platforms: [
@@ -71,7 +73,7 @@ function level(num) {
 
             ],
 
-            enemySpawns: [
+            enemys: [
 
             ]
         },
@@ -94,7 +96,7 @@ function level(num) {
             ],
             //x y type health damage anim velx vely
             enemys: [
-                [700, canvas.height * 0.6, "zombieThree", 1, 1, "idle1", 0, 0],
+                [400, canvas.height * 0.6, "zombieThree", 1, 1, "idle1", 0, 0],
                 [900, canvas.height * 0.6, "zombieThree", 1, 1, "idle1", 0, 0],
             ]
         }

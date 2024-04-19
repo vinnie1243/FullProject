@@ -12,9 +12,12 @@ function physics() {
     var jumping = JSON.parse(window.sessionStorage.getItem("jumping"))
     for(var i = 0; i < platforms.length; i++) {
         var plat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3])
-        var width = getData(player.anim, "width") * 1.25
-        var height = getData(player.anim, "height") * 1.25
-        if(player.x < plat.x + plat.width && player.x + width > plat.x && player.y < plat.y + plat.height && player.y + height > plat.y) {
+        var nplayer = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+        var nplat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3])
+        nplayer.width = getData(player.anim, "width") * 1.25
+        nplayer.height = getData(player.anim, "height") * 1.25
+        var chck1 = collisionSimple(nplayer, nplat)
+        if(chck1 == true) {
             if(platforms[i][5] == "W") {
                 if(win == false) {
                     window.sessionStorage.setItem("hasWon", true)
@@ -23,132 +26,83 @@ function physics() {
             } else {
                 player.velY = 0
                 player.y -= 1
+                jumping = false
+                window.sessionStorage.setItem("jumping", jumping)   
             }
-            jumping = false
-        }   
-        var right = 0
-        var left = 0
-        var top = 0
-        var bottom = 0
-        //rightFace
-        if(player.x < plat.x + plat.width) {
-            right = 1
         }
-        //leftFace
-        if(player.x + width > plat.x) {
-            left = 1
+        var chck2 = collisionComplex(nplayer, nplat)
+        if(chck2 == true) {
+            var dist = distance(nplayer, nplat)
+            var d1 = dist[0]
+            var d2 = dist[1]
+            var d3 = dist[2]
+            var d4 = dist[3]
+            if(d1 < d2 && d1 < d3 && d1 < d4) {
+                if(platforms[i][5] != "W") {
+                    player.x = (plat.x + plat.width) * 2.4
+                    player.velX = 3
+                }
+            } else if(d2 < d1 && d2 < d3 && d2 < d4) {
+                if(platforms[i][5] != "W") {
+                    player.x = (plat.x - getData(player.anim, "width") * 1.25) + 4
+                    player.velX = 0
+                }
+            } else if(d3 < d1 && d3 < d2 && d3 < d4) {
+                if(platforms[i][5] != "W") {
+                    player.y = plat.y - getData(player.anim, "height") * 1.25
+                    player.velY = 0
+                }
+            } else if(d4 < d1 && d4 < d2 && d4 < d3) {
+                if(platforms[i][5] != "W") {
+                    player.y = plat.y + plat.height
+                    player.velY = 0
+                }
+            }
+            d1, d2, d3, d4 = null
         }
-        //topFace
-        if(player.y + height > plat.y * 1.009) {
-            top = 1
-        }
-        //bottomFace 
-        if(player.y < plat.y + plat.height) {
-            bottom = 1
-        }
-        var coll = 0
-        if(right == 1 && left == 1 && top == 1 && bottom == 1) {
-            coll = 1
-        }
+        window.sessionStorage.setItem("player", JSON.stringify(player))
+   }
 
-        //d1 = right
-        //d2 = left
-        //d3 = top
-        //d4 = bottom
-        var d1 = 0
-        var d2 = 0
-        var d3 = 0
-        var d4 = 0
-        var win = JSON.parse(window.sessionStorage.getItem("hasWon"))
-        if(coll == 1) {
-            d1 = Math.abs(player.x - (plat.x + plat.width))
-            d2 = Math.abs((player.x + width) - plat.x)
-            d3 = Math.abs((player.y + height) - plat.y) 
-            d4 = Math.abs(player.y - (plat.y + plat.height))
-        }
-        if(d1 < d2 && d1 < d3 && d1 < d4) {
-            if(platforms[i][5] != "W") {
-                player.x = (plat.x + plat.width) + 4
-                player.velX = 0
-            }
-        } else if(d2 < d1 && d2 < d3 && d2 < d4) {
-            if(platforms[i][5] != "W") {
-                player.x = (plat.x - width) - 4
-                player.velX = 0
-            }
-        } else if(d3 < d1 && d3 < d2 && d3 < d4) {
-            if(platforms[i][5] != "W") {
-                player.y = plat.y - height
-                player.velY = 0
-            }
-        } else if(d4 < d1 && d4 < d2 && d4 < d3) {
-            if(platforms[i][5] != "W") {
-                player.y = plat.y + plat.height
-                player.velY = 0
-            }
-        }
-    }
-    width = null
-    height = null
-    window.sessionStorage.setItem("player", JSON.stringify(player))
-    window.sessionStorage.setItem("jumping", jumping)   
+    window.sessionStorage.setItem("jumping", jumping)  
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     for(var i = 0; i < bullets.length; i++) {
         var bull = new Bullet(bullets[i][0], bullets[i][1], bullets[i][2])
-        var width = getData(`bullet${bull.direction.charAt(0).toUpperCase()}`, "width") * 1.25
-        var height = getData(`bullet${bull.direction.charAt(0).toUpperCase()}`, "height") * 1.25
+        var nbull = new Bullet(bullets[i][0], bullets[i][1], bullets[i][2])
+        nbull.width = getData(`bullet${bull.direction.charAt(0).toUpperCase()}`, "width") / 2
+        nbull.height = getData(`bullet${bull.direction.charAt(0).toUpperCase()}`, "height") / 2   
         for(var j = 0; j < platforms.length; j++) {
             var plat = new Platform(platforms[j][0], platforms[j][1], platforms[j][2], platforms[j][3])
-            var right = 0
-            var left = 0
-            var top = 0
-            var bottom = 0
-            //rightFace
-            if(bull.x < plat.x + plat.width) {
-                right = 1
+            var chck1 = collisionSimple(nbull, plat)
+            if(chck1 == true) {
+                bullets = bullets.splice(j, 1)
             }
-            //leftFace
-            if(bull.x + width > plat.x) {
-                left = 1
-            }
-            //topFace
-            if(bull.y + height > plat.y * 1.009) {
-                top = 1
-            }
-            //bottomFace 
-            if(bull.y < plat.y + plat.height) {
-                bottom = 1
-            }
-            var coll = 0
-            if(right == 1 && left == 1 && top == 1 && bottom == 1) {
-                coll = 1
-            }
-    
-            //d1 = right
-            //d2 = left
-            //d3 = top
-            //d4 = bottom
-            var d1 = 0
-            var d2 = 0
-            var d3 = 0
-            var d4 = 0
-            if(coll == 1) {
-                d1 = Math.abs(bull.x - (plat.x + plat.width))
-                d2 = Math.abs((bull.x + width) - plat.x)
-                d3 = Math.abs((bull.y + height) - plat.y) 
-                d4 = Math.abs(bull.y - (plat.y + plat.height))
-            }
-            if(d1 < d2 && d1 < d3 && d1 < d4) {
-                bullets.splice(j, 1)
-            } else if(d2 < d1 && d2 < d3 && d2 < d4) {
-                bullets.splice(j, 1)
-            } else if(d3 < d1 && d3 < d2 && d3 < d4) {
-                bullets.splice(j, 1)
-            } else if(d4 < d1 && d4 < d2 && d4 < d3) {
+            var chck2 = collisionComplex(nbull, plat)
+            if(chck2 == true) {
                 bullets.splice(j, 1)
             }
         }
+        for(var j = 0; j < enemys.length; j++) {
+            var enemy = new Enemy(enemys[j][0], enemys[j][1], enemys[j][2], enemys[j][3], enemys[j][4], enemys[j][5], enemys[j][6], enemys[j][7])
+            enemy.width = getData(`${enemy.type}${enemy.anim.charAt(0).toUpperCase()}${enemy.anim.slice(1)}`, "width") * 1.25
+            enemy.height = getData(`${enemy.type}${enemy.anim.charAt(0).toUpperCase()}${enemy.anim.slice(1)}`, "height") * 1.25
+            var chck1 = collisionSimple(nbull, enemy)
+            if(chck1 == true) {
+                bullets = bullets.splice(j - 1, 1)
+            }
+            var chck2 = collisionComplex(nbull, enemy)
+            if(chck2 == true) {
+                enemy.health -= 1
+                bullets.splice(j, 1)
+                if(enemy.health == 0) {
+                    enemys.splice(j, 1)
+                } else {
+                    enemys[j] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY]
+                }
+            }
+        }
     }
+    window.sessionStorage.setItem("enemys", JSON.stringify(enemys))
+    window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
     //enemys
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     for(var i = 0; i < enemys.length; i++) {
@@ -253,4 +207,63 @@ function physics() {
         }
         window.sessionStorage.setItem("enemys", JSON.stringify(enemys))
     }
+}
+
+function collisionSimple(rect1, rect2) {
+    if(rect1.width == undefined || rect1.height == undefined || rect1.x == undefined || rect1.y == undefined) {
+        console.warn("rect1 data corruption")
+    } else if(rect2.width == undefined || rect2.height == undefined || rect2.x == undefined || rect2.y == undefined) {
+        console.warn("rect2 data corruption")
+    }
+    //each one needs x, y, width, height
+    var collide = false
+    if(rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.y + rect1.height > rect2.y) {
+        collide = true
+    }   
+    return collide
+}
+
+function collisionComplex(rect1, rect2) {
+    var collide = false
+    var right = 0
+    var left = 0
+    var top = 0
+    var bottom = 0
+    //rightFace
+    if(rect1.x < rect2.x + rect2.width) {
+        right = 1
+    }
+    //leftFace
+    if(rect1.x + rect1.width > rect2.x) {
+        left = 1
+    }
+    //topFace
+    if(rect1.y + rect1.height > rect2.y * 1.009) {
+        top = 1
+    }
+    //bottomFace 
+    if(rect1.y < rect2.y + rect2.height) {
+        bottom = 1
+    }
+    if(right == 1 && left == 1 && top == 1 && bottom == 1) {
+        collide = true
+    }
+    return collide
+}
+
+function distance(rect1, rect2) {
+    //d1 = right
+    //d2 = left
+    //d3 = top
+    //d4 = bottom
+    if(rect1.width == undefined || rect1.height == undefined || rect1.x == undefined || rect1.y == undefined) {
+        console.warn("rect1 data corruption")
+    } else if(rect2.width == undefined || rect2.height == undefined || rect2.x == undefined || rect2.y == undefined) {
+        console.warn("rect2 data corruption")
+    }
+    d1 = Math.abs(rect1.x - (rect2.x + rect2.width))
+    d2 = Math.abs((rect1.x + rect1.width) - rect2.x)
+    d3 = Math.abs((rect1.y + rect1.height) - rect2.y) 
+    d4 = Math.abs(rect1.y - (rect2.y + rect2.height))
+    return [d1,d2,d3,d4]
 }

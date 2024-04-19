@@ -25,3 +25,19 @@ function enemyAI() {
     }
     window.sessionStorage.setItem("enemys", JSON.stringify(enemys))
 }
+//selects random point to walk to on enemys path
+function randomPoint() {
+
+}
+//attacks player if it is close enough
+function attackPlayer() {
+
+}
+//detects if player is close enough to the enemy to be seen depending on enemys type
+function detectPlayer() {
+
+}
+//follows player if they have been detected
+function followPlayer() {
+
+}

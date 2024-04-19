@@ -1,4 +1,5 @@
-//speed = 200
+/////IDLE/////
+//speed = 200ms
 function whiteCopIdle() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     var idle = JSON.parse(window.sessionStorage.getItem("idle"))
@@ -16,11 +17,28 @@ function whiteCopIdle() {
         }
         window.sessionStorage.setItem("player", JSON.stringify(player))
     }
-
-
+}
+function arSoldierIdle() {
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    var idle = JSON.parse(window.sessionStorage.getItem("idle"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    var running = JSON.parse(window.sessionStorage.getItem("idleRunning"))
+    if(running != true) {
+        window.sessionStorage.setItem("idleRunning", true)
+        if(idle == true) {
+            player.anim = player.getAnim()
+            setTimeout(() => {
+                window.sessionStorage.setItem("idleRunning", false)
+            }, 200);
+        } else {
+            window.sessionStorage.setItem("idleRunning", false)
+        }
+        window.sessionStorage.setItem("player", JSON.stringify(player))
+    }
 
 }
-//speed = 120
+/////WALK/////
+//speed = 120ms
 function whiteCopWalk() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
@@ -40,6 +58,29 @@ function whiteCopWalk() {
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 
+//speed = 200ms
+function arSoldierWalk() {
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    var walk = JSON.parse(window.sessionStorage.getItem("walk"))
+    var running = JSON.parse(window.sessionStorage.getItem("walkRunning"))
+    if(running != true) {
+        window.sessionStorage.setItem("walkRunning", true)
+        if(walk == true) {
+            player.anim = player.getAnim()
+            setTimeout(() => {
+                window.sessionStorage.setItem("walkRunning", false)
+            }, 120);
+        } else {
+            window.sessionStorage.setItem("walkRunning", false)
+        }
+    }
+    window.sessionStorage.setItem("player", JSON.stringify(player))
+
+}
+
+/////RUN/////
+//speed = 120ms
 function whiteCopRun() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
@@ -59,8 +100,29 @@ function whiteCopRun() {
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
-
+/////SHOOT/////
+//speed = 120
 function whiteCopShoot() {
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    var shoot = JSON.parse(window.sessionStorage.getItem("shoot"))
+    var running = JSON.parse(window.sessionStorage.getItem("shootRunning"))
+    if(running != true) {
+        window.sessionStorage.setItem("shootRunning", true)
+        if(shoot == true) {
+            player.anim = player.getAnim()
+            setTimeout(() => {
+                drawPlayer()
+                window.sessionStorage.setItem("shootRunning", false)
+            }, 120);
+        } else {
+            window.sessionStorage.setItem("shootRunning", false)
+        }
+    }
+    window.sessionStorage.setItem("player", JSON.stringify(player))
+}
+
+function arSoldierShoot() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
     var shoot = JSON.parse(window.sessionStorage.getItem("shoot"))

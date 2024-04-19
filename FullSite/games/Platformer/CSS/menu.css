@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+a {
+    font-size: 5rem
+}
+
 .greyBack {
     background-color: sienna;
 }
@@ -54,30 +58,29 @@
 
 #leftBar {
     width: 1.1vw;
-    height: 54.7vw;
+    height: 80vh;
 }
 
 #rightBar {
     width: 1.1vw;
-    height: 54.7vw;
+    height: 80vh;
     margin-left: 48.9vw;
 }
 
 #settings {
     display: block;
-    margin-top: 1vh;
-
+    margin-top: 2vh;
 }
 
 #exiting {
-    margin-top: 1vh;
+    margin-top: 2vh;
     display: block;
 }
 
 #bottomBar {
     width: 50vw;
     height: 1.1vw;
-    margin-top: 53.5vw;     
+    margin-top: 80vh;     
 }
 
 #topLeft {
@@ -92,7 +95,7 @@
     height: 6vh;
     border-top-right-radius: 80%;
     z-index: 99;
-    margin-top: 50.6vw;
+    margin-top: 76.5vh
 }
 
 #bottomRight {
@@ -100,8 +103,8 @@
     height: 6vh;
     border-top-left-radius: 80%;
     z-index: 98;
-    margin-left: 45.9vw;
-    margin-top: 50.6vw;
+    margin-left: 47.4vw;
+    margin-top: 76.3vh;
 }
 
 #topRight {
@@ -109,47 +112,47 @@
     height: 6vh;
     border-bottom-left-radius: 80%;
     z-index: 299;
-    margin-left: 45.9vw;
+    margin-left: 47.4vw;
 }
 
 #level {
     display: block;
-    margin-top: 1vh;
+    margin-top: 2vh;
 }
 
 #play {
     width: 30vw;
-    height: 10vw;
+    height: 20vh;
     margin-left: 10vw;
-    margin-top: 5vw;
+    margin-top: 5vh;
     border-radius: 10px;
     background-color: green;
 }
 
 #set {
     width: 30vw;
-    height: 10vw;
+    height: 20vh;
     margin-left: 10vw;
-    margin-top: 20vw;
+    margin-top: 30vh;
     border-radius: 10px;
     background-color: navy;
 }
 
 #exit {
     width: 30vw;
-    height: 10vw;
+    height: 20vh;
     margin-left: 10vw;
-    margin-top: 35vw;
+    margin-top: 55vh;
     border-radius: 10px;
     background-color: red;
 }
 
 #nail1 {
     border-radius: 100%;
-    width: 0.8vw;
-    height: 0.8vw;
+    width: 0.6vw;
+    height: 0.6vw;
     margin-left: 60%;
-    margin-top: 5%;
+    margin-top: 0.7vh;
 }
 
 #nail2 {
