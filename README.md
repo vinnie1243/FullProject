@@ -3,7 +3,7 @@ Games website
 # Running
 To run the website you need to enter the FullSite folder and inside it you need to run index.html with a browser
 # Game statuses
-current status for all the games
+current status for all the games /n
 Chess: Done need to add AI for other player but can play locally right now
 Card Stack: Done may add more things later
 Merge Farm: Near completion
