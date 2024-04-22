@@ -96,8 +96,11 @@ function level(num) {
             ],
             //x y type health damage anim velx vely
             enemys: [
-                [400, canvas.height * 0.6, "zombieThree", 1, 1, "idle1", 0, 0],
-                [900, canvas.height * 0.6, "zombieThree", 1, 1, "idle1", 0, 0],
+                [1300, canvas.height * 0.6, "zombieThree", 5, 1, "idle1", 0, 0, null, false],
+            ],
+            //startx, endx
+            paths: [
+                [1300, 2200],
             ]
         }
     }

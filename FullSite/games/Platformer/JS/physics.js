@@ -3,7 +3,7 @@ function physics() {
     var leng = enemys.length
     clearBoard()
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var platforms = JSON.parse(window.sessionStorage.getItem("platforms"))
     if(player.velY < 10) {
         player.velY += 1
@@ -12,11 +12,7 @@ function physics() {
     var jumping = JSON.parse(window.sessionStorage.getItem("jumping"))
     for(var i = 0; i < platforms.length; i++) {
         var plat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3])
-        var nplayer = new Player(player.x, player.y, player.anim, player.velX, player.velY)
-        var nplat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3])
-        nplayer.width = getData(player.anim, "width") * 1.25
-        nplayer.height = getData(player.anim, "height") * 1.25
-        var chck1 = collisionSimple(nplayer, nplat)
+        var chck1 = collisionSimple(player, plat)
         if(chck1 == true) {
             if(platforms[i][5] == "W") {
                 if(win == false) {
@@ -25,14 +21,15 @@ function physics() {
                 }
             } else {
                 player.velY = 0
-                player.y -= 1
+                console.log(player)
                 jumping = false
                 window.sessionStorage.setItem("jumping", jumping)   
             }
         }
-        var chck2 = collisionComplex(nplayer, nplat)
+        window.sessionStorage.setItem("player", JSON.stringify(player))
+        var chck2 = collisionComplex(player, plat)
         if(chck2 == true) {
-            var dist = distance(nplayer, nplat)
+            var dist = distance(player, plat)
             var d1 = dist[0]
             var d2 = dist[1]
             var d3 = dist[2]
@@ -44,12 +41,12 @@ function physics() {
                 }
             } else if(d2 < d1 && d2 < d3 && d2 < d4) {
                 if(platforms[i][5] != "W") {
-                    player.x = (plat.x - getData(player.anim, "width") * 1.25) + 4
+                    player.x = (plat.x - player.width * 1.25) + 4
                     player.velX = 0
                 }
             } else if(d3 < d1 && d3 < d2 && d3 < d4) {
                 if(platforms[i][5] != "W") {
-                    player.y = plat.y - getData(player.anim, "height") * 1.25
+                    player.y = plat.y - player.height * 2
                     player.velY = 0
                 }
             } else if(d4 < d1 && d4 < d2 && d4 < d3) {
@@ -61,7 +58,7 @@ function physics() {
             d1, d2, d3, d4 = null
         }
         window.sessionStorage.setItem("player", JSON.stringify(player))
-   }
+    }
 
     window.sessionStorage.setItem("jumping", jumping)  
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
@@ -82,7 +79,7 @@ function physics() {
             }
         }
         for(var j = 0; j < enemys.length; j++) {
-            var enemy = new Enemy(enemys[j][0], enemys[j][1], enemys[j][2], enemys[j][3], enemys[j][4], enemys[j][5], enemys[j][6], enemys[j][7])
+            var enemy = new Enemy(enemys[j][0], enemys[j][1], enemys[j][2], enemys[j][3], enemys[j][4], enemys[j][5], enemys[j][6], enemys[j][7], enemys[j][8], enemys[j][9], enemys[j][10])
             enemy.width = getData(`${enemy.type}${enemy.anim.charAt(0).toUpperCase()}${enemy.anim.slice(1)}`, "width") * 1.25
             enemy.height = getData(`${enemy.type}${enemy.anim.charAt(0).toUpperCase()}${enemy.anim.slice(1)}`, "height") * 1.25
             var chck1 = collisionSimple(nbull, enemy)
@@ -96,7 +93,7 @@ function physics() {
                 if(enemy.health == 0) {
                     enemys.splice(j, 1)
                 } else {
-                    enemys[j] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY]
+                    enemys[j] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY, enemy.rand, enemy.detect, enemy.direction]
                 }
             }
         }
@@ -110,13 +107,11 @@ function physics() {
             enemys[i][7] += 1
         }
     }
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
     for(var j = 0; j < leng; j++) {
         var short = `${enemys[j][2]}${enemys[j][5].charAt(0).toUpperCase()}${enemys[j][5].substring(1)}`
-        var enemy = new Enemy(enemys[j][0], enemys[j][1], enemys[j][2], enemys[j][3], enemys[j][4], enemys[j][5], enemys[j][6], enemys[j][7])
+        var enemy = new Enemy(enemys[j][0], enemys[j][1], enemys[j][2], enemys[j][3], enemys[j][4], enemys[j][5], enemys[j][6], enemys[j][7], enemys[j][8], enemys[j][9], enemys[j][10])
         var width2 = getData(short, "width") * 1.25
         var height2 = getData(short, "height") * 1.25
-
         var direction2
         if(enemy.x < plat.x + plat.width && enemy.x + width2 > plat.x && enemy.y < plat.y + plat.height && enemy.y + height2 > plat.y) {
             enemy.velY = 0
@@ -201,7 +196,7 @@ function physics() {
                 enemy.velY = 0
             }
         }
-        enemys[j] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY]
+        enemys[j] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY, enemy.rand, enemy.detect, enemy.direction]
         if(enemys[j][1] > 1000) {
             enemys.splice(j, 1)
         }

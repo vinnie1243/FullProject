@@ -15,14 +15,31 @@
     </head>
     <body onload="main()" onkeydown="keyDown(event)" onkeyup="keyUp(event)">
         <nav class="nav">
-            <a href="menu.html" class="gold">Menu |</a>
-            <a href="../../../index.html" class="gold">Home</a>
-            <hr>
-            <a href="../Testing/AnimationTest.html" class="gold">Animation Tests</a>   
+            <button onclick="location.reload()">reload</button>
+            <img src="../Media/menuButton.png" id="menu" onclick="gotomenu()">
         </nav>
         <canvas id="playarea" onclick="clickChck(event)">
 
         </canvas>
+        <div id="bar">
+            <div id="health">
+                <p>Health</p>
+                <progress max="10" min="0" value="9" id="healthbar"></progress>
+            </div>
+            <div id="bullet">
+                <p>Bullets</p>
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet1">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet2">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet3">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet4">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet5">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet6">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet7">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet8">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet9">
+                <img src="../Media/bulletFull.png" class="bullet" value="true" id="bullet10">
+            </div>
+        </div>
         <div class="noDis">
             <img src="../Media/spritesheet2.png" id="test1">
         </div>

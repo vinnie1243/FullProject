@@ -3,7 +3,7 @@
 function whiteCopIdle() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     var idle = JSON.parse(window.sessionStorage.getItem("idle"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var running = JSON.parse(window.sessionStorage.getItem("idleRunning"))
     if(running != true) {
         window.sessionStorage.setItem("idleRunning", true)
@@ -21,7 +21,7 @@ function whiteCopIdle() {
 function arSoldierIdle() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     var idle = JSON.parse(window.sessionStorage.getItem("idle"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var running = JSON.parse(window.sessionStorage.getItem("idleRunning"))
     if(running != true) {
         window.sessionStorage.setItem("idleRunning", true)
@@ -41,7 +41,7 @@ function arSoldierIdle() {
 //speed = 120ms
 function whiteCopWalk() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var walk = JSON.parse(window.sessionStorage.getItem("walk"))
     var running = JSON.parse(window.sessionStorage.getItem("walkRunning"))
     if(running != true) {
@@ -61,7 +61,7 @@ function whiteCopWalk() {
 //speed = 200ms
 function arSoldierWalk() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var walk = JSON.parse(window.sessionStorage.getItem("walk"))
     var running = JSON.parse(window.sessionStorage.getItem("walkRunning"))
     if(running != true) {
@@ -83,7 +83,7 @@ function arSoldierWalk() {
 //speed = 120ms
 function whiteCopRun() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var run = JSON.parse(window.sessionStorage.getItem("run"))
     var running = JSON.parse(window.sessionStorage.getItem("runRunning"))
     if(running != true) {
@@ -104,7 +104,7 @@ function whiteCopRun() {
 //speed = 120
 function whiteCopShoot() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var shoot = JSON.parse(window.sessionStorage.getItem("shoot"))
     var running = JSON.parse(window.sessionStorage.getItem("shootRunning"))
     if(running != true) {
@@ -124,7 +124,7 @@ function whiteCopShoot() {
 
 function arSoldierShoot() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
     var shoot = JSON.parse(window.sessionStorage.getItem("shoot"))
     var running = JSON.parse(window.sessionStorage.getItem("shootRunning"))
     if(running != true) {
@@ -132,9 +132,9 @@ function arSoldierShoot() {
         if(shoot == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
-                drawPlayer()
+                //drawPlayer()
                 window.sessionStorage.setItem("shootRunning", false)
-            }, 120);
+            }, 100);
         } else {
             window.sessionStorage.setItem("shootRunning", false)
         }
