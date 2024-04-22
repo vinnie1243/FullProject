@@ -2699,8 +2699,8 @@ function ptchckL(pos, color, s) {
             console.warn(error)
         }
 
-    } else if(s == "white" && color == "black" && document.getElementById(pos - 9) != undefined) {
-        var npos = pos - 9
+    } else if(s == "white" && color == "black" && document.getElementById(pos + 7) != undefined) {
+        var npos = pos + 7
         var e = document.getElementById(npos)
         if(e.children.length > 0) {
             var el = e.children[0].src
@@ -2761,7 +2761,7 @@ function ptchckR(pos, color, s) {
             return false
         }
     } else if(s == "white" && color == "black" && document.getElementById(pos + 9) != undefined) {
-        var npos = pos - 7
+        var npos = pos + 9
         var e = document.getElementById(npos)
         //console.log(npos)
         if(e.children.length > 0) {
