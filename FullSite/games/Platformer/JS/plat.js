@@ -231,8 +231,8 @@ function gameLoop() {
 function updata() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    player.width = getData(player.anim, "width")
-    player.height = getData(player.anim, "height")
+    player.width = getData(player.anim, "width") * 1.25
+    player.height = getData(player.anim, "height") * 1.25
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 
@@ -437,7 +437,7 @@ function drawPlayer() {
         ctx.scale(-1, 1); 
         ctx.translate(-player.width, 0)
     } 
-    ctx.drawImage(img, getData(player.anim, "sx"), getData(player.anim, "sy"), player.width, player.height, 0, 0, player.width * 1.25, player.height * 1.25)
+    ctx.drawImage(img, getData(player.anim, "sx"), getData(player.anim, "sy"), getData(player.anim, "width"), getData(player.anim, "height"), 0, 0, player.width, player.height)
     ctx.restore();
 }
 

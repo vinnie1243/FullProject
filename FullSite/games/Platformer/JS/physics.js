@@ -21,7 +21,7 @@ function physics() {
                 }
             } else {
                 player.velY = 0
-                console.log(player)
+                player.y = plat.y - player.height
                 jumping = false
                 window.sessionStorage.setItem("jumping", jumping)   
             }
