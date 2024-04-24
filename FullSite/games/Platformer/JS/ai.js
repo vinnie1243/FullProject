@@ -1,7 +1,7 @@
 function enemyAI() {
     var enemys = JSON.parse(window.sessionStorage.getItem("enemys"))
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     for(var i = 0; i < enemys.length; i++) {
         var enemy = new Enemy(enemys[i][0], enemys[i][1], enemys[i][2], enemys[i][3], enemys[i][4], enemys[i][5], enemys[i][6], enemys[i][7], enemys[i][8], enemys[i][9], enemys[i][10])
         if(enemy.rand == undefined) {
@@ -39,6 +39,9 @@ function enemyAI() {
                     }
                 } else {
                     enemy = followPlayer(enemy)
+                    if(enemy.x + 100 > player.x && enemy.x - 100 < player.x) {
+                        attackPlayer(enemy)
+                    }
                 }
             } else {
                 //enemy.anim = "dead"
@@ -59,15 +62,18 @@ function randomPoint(num) {
 //attacks player if it is close enough
 function attackPlayer(enemy) {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    if(enemy.x + 50 > player.x && enemy.x - 50 < player.x) {
+    console.log(enemy.damage)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+    if(player.iframes <= 0) {
         player.health -= enemy.damage
+        player.iframes = 100
     }
+    window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 //detects if player is close enough to the enemy to be seen depending on enemys type
 function detectPlayer(enemy) {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(enemy.x + 200 > player.x && enemy.x - 200 < player.x) {
         enemy.detect = true
     } else {
@@ -78,7 +84,7 @@ function detectPlayer(enemy) {
 //follows player if they have been detected
 function followPlayer(enemy) {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(enemy.x < player.x) {
         enemy.velX = 2
         enemy.direction = "right"

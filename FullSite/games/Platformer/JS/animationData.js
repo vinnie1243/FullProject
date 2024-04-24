@@ -280,6 +280,31 @@ function getData(anim, s) {
             "sx": 0,
             "sy": 405,
         },
+        //hipfire
+        "arSoldierHipfire1": {
+            "width": 100,
+            "height": 100,
+            "sx": 427,
+            "sy": 201,
+        },
+        "arSoldierHipfire2": {
+            "width": 100,
+            "height": 100,
+            "sx": 502,
+            "sy": 201,
+        },
+        "arSoldierHipfire3": {
+            "width": 100,
+            "height": 100,
+            "sx": 587,
+            "sy": 201,
+        },
+        "arSoldierHipfire4": {
+            "width": 100,
+            "height": 100,
+            "sx": 685,
+            "sy": 201,
+        },
     }
     return animationData[anim][s]        
 }   

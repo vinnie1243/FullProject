@@ -2,12 +2,11 @@
 //speed = 200ms
 function whiteCopIdle() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    var idle = JSON.parse(window.sessionStorage.getItem("idle"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("idleRunning"))
     if(running != true) {
         window.sessionStorage.setItem("idleRunning", true)
-        if(idle == true) {
+        if(player.animations.idle == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 window.sessionStorage.setItem("idleRunning", false)
@@ -20,12 +19,11 @@ function whiteCopIdle() {
 }
 function arSoldierIdle() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    var idle = JSON.parse(window.sessionStorage.getItem("idle"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("idleRunning"))
     if(running != true) {
         window.sessionStorage.setItem("idleRunning", true)
-        if(idle == true) {
+        if(player.animations.idle == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 window.sessionStorage.setItem("idleRunning", false)
@@ -41,12 +39,11 @@ function arSoldierIdle() {
 //speed = 120ms
 function whiteCopWalk() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    var walk = JSON.parse(window.sessionStorage.getItem("walk"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("walkRunning"))
     if(running != true) {
         window.sessionStorage.setItem("walkRunning", true)
-        if(walk == true) {
+        if(player.animations.walk == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 window.sessionStorage.setItem("walkRunning", false)
@@ -61,12 +58,11 @@ function whiteCopWalk() {
 //speed = 200ms
 function arSoldierWalk() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    var walk = JSON.parse(window.sessionStorage.getItem("walk"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("walkRunning"))
     if(running != true) {
         window.sessionStorage.setItem("walkRunning", true)
-        if(walk == true) {
+        if(player.animations.walk == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 window.sessionStorage.setItem("walkRunning", false)
@@ -83,12 +79,11 @@ function arSoldierWalk() {
 //speed = 120ms
 function whiteCopRun() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    var run = JSON.parse(window.sessionStorage.getItem("run"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("runRunning"))
     if(running != true) {
         window.sessionStorage.setItem("runRunning", true)
-        if(run == true) {
+        if(player.animations.run == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 drawPlayer()
@@ -104,12 +99,11 @@ function whiteCopRun() {
 //speed = 120
 function whiteCopShoot() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    var shoot = JSON.parse(window.sessionStorage.getItem("shoot"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("shootRunning"))
     if(running != true) {
         window.sessionStorage.setItem("shootRunning", true)
-        if(shoot == true) {
+        if(player.animations.shoot == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 drawPlayer()
@@ -121,15 +115,14 @@ function whiteCopShoot() {
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
-
+//speed 100
 function arSoldierShoot() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    var shoot = JSON.parse(window.sessionStorage.getItem("shoot"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var running = JSON.parse(window.sessionStorage.getItem("shootRunning"))
     if(running != true) {
         window.sessionStorage.setItem("shootRunning", true)
-        if(shoot == true) {
+        if(player.animations.shoot == true) {
             player.anim = player.getAnim()
             setTimeout(() => {
                 //drawPlayer()
@@ -137,6 +130,27 @@ function arSoldierShoot() {
             }, 100);
         } else {
             window.sessionStorage.setItem("shootRunning", false)
+        }
+    }
+    window.sessionStorage.setItem("player", JSON.stringify(player))
+}
+/////HIPFIRE/////
+//speed 100
+function arSoldierHipfire() {
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+    var hipfire = JSON.parse(window.sessionStorage.getItem("hipfire"))
+    var running = JSON.parse(window.sessionStorage.getItem("hipfireRunning"))
+    if(running != true) {
+        window.sessionStorage.setItem("hipfireRunning", true)
+        if(hipfire == true) {
+            player.anim = player.getAnim()
+            setTimeout(() => {
+                //drawPlayer()
+                window.sessionStorage.setItem("hipfireRunning", false)
+            }, 100);
+        } else {
+            window.sessionStorage.setItem("hipfireRunning", false)
         }
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))

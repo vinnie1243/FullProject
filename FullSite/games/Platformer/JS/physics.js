@@ -3,7 +3,7 @@ function physics() {
     var leng = enemys.length
     clearBoard()
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var platforms = JSON.parse(window.sessionStorage.getItem("platforms"))
     if(player.velY < 10) {
         player.velY += 1
@@ -20,8 +20,7 @@ function physics() {
                     winner()
                 }
             } else {
-                player.velY = 0
-                player.y = plat.y - player.height
+                player.velY = -1
                 jumping = false
                 window.sessionStorage.setItem("jumping", jumping)   
             }
@@ -36,17 +35,17 @@ function physics() {
             var d4 = dist[3]
             if(d1 < d2 && d1 < d3 && d1 < d4) {
                 if(platforms[i][5] != "W") {
-                    player.x = (plat.x + plat.width) * 2.4
+                    player.x = (plat.x + plat.width)
                     player.velX = 3
                 }
             } else if(d2 < d1 && d2 < d3 && d2 < d4) {
                 if(platforms[i][5] != "W") {
-                    player.x = (plat.x - player.width * 1.25) + 4
+                    player.x = Math.abs(plat.x - player.width)
                     player.velX = 0
                 }
             } else if(d3 < d1 && d3 < d2 && d3 < d4) {
                 if(platforms[i][5] != "W") {
-                    player.y = plat.y - player.height * 2
+                    player.y = plat.y - player.height * 1.009
                     player.velY = 0
                 }
             } else if(d4 < d1 && d4 < d2 && d4 < d3) {
@@ -59,7 +58,6 @@ function physics() {
         }
         window.sessionStorage.setItem("player", JSON.stringify(player))
     }
-
     window.sessionStorage.setItem("jumping", jumping)  
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     for(var i = 0; i < bullets.length; i++) {

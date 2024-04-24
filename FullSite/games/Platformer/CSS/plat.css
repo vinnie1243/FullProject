@@ -9,7 +9,7 @@
 }
 
 .nav {
-    background-color: black;
+    background-color: dimgray;
     width: 100vw;
     text-align: center;
     height: 10vh;
@@ -45,7 +45,7 @@ hr {
 }
 
 #bar {
-    background-color: black;
+    background-color: dimgray;
     height: 11vh;
     margin-top: -1vh;
     display: flex;

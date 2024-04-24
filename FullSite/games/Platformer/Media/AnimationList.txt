@@ -12,9 +12,6 @@ D = done = 3
 Total Animations = 1393
 Animations Left = 1372
 ##########White Cop Male##########
-WhiteCopMaleIdle 1 - 6 D
-WhiteCopMaleWalk 1 - 8 NS
-WhiteCopMaleRun  1 - 8 NS
 WhiteCopMaleJump 1 - 8 NS
 WhiteCopMaleShootPistol 1 - 4 NS
 WhiteCopMaleShootTaser 1 - 7 NS
@@ -121,11 +118,6 @@ ARSoldierSitShoot 1 - 3 NS
 ARSoldierJump 1 - 6 NS
 ARSoldierRest 1 - 4 NS
 ARSoldierSleep 1 - 5 NS
-ARSoldierIdle 1 - 7 D
-ARSoldierWalk 1 - 7 D
-ARSoldierRun 1 - 8 NS
-ARSoldierHipfire 1 - 4 D
-ARSoldierShoot 1 - 4 D
 ARSoldierReload 1 - 8 NS
 ARSoldierGrenade 1 - 8 NS
 ARSoldierSwing 1 - 3 NS
@@ -262,7 +254,6 @@ ZombieTwoJump 1 - 6 NS
 ZombieTwoHurt 1 - 3 NS
 ZombieTwoDead 1 - 5 NS
 ##########Zombie Three##########
-ZombieThreeIdle 1 - 8 D
 ZombieThreeWalk 1 - 8 NS
 ZombieThreeRun 1 - 8 NS
 ZombieThreeBite 1 - 8 NS

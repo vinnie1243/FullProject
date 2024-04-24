@@ -6,31 +6,38 @@ function main() {
     }
     var bullet1 = document.getElementById("bullet1")
     bullet1.src = "../Media/bulletFull.png"
+    const SFW = window.sessionStorage.getItem("SFW")
+    const SFH = window.sessionStorage.getItem("SFH")
     var canvas = document.getElementById("playarea")
+    var spawn = startlevel()
     canvas.style.width = window.innerWidth
     canvas.style.height = window.innerHeight / 2
-    canvas.width = window.innerWidth * 2
-    canvas.height = window.innerHeight * 1.5    
-    var player = new Player(canvas.width/3, 600, "arSoldierIdle1", 0, 0, 10, 100, getData("arSoldierIdle1", "width"), getData("arSoldierIdle1", "height"), "right")
+    canvas.width = SFW
+    canvas.height = SFH   
+    console.log(canvas.width)
+    var player = new Player(spawn, 600, "arSoldierIdle1", 0, 0, 10, 100, getData("arSoldierIdle1", "width"), getData("arSoldierIdle1", "height"), "right", 5, {
+        run: false,
+        shoot: false,
+        idle: true,
+        hipfire: false,
+        walk: false,
+    })
     window.sessionStorage.setItem("player", JSON.stringify(player))
     window.sessionStorage.setItem("hasWon", false)
     window.sessionStorage.setItem("Dim", [window.innerWidth * 0.9, window.innerHeight, canvas.width, canvas.height])
-    window.sessionStorage.setItem("idle", true)
-    window.sessionStorage.setItem("walk", false)
     window.sessionStorage.setItem("jumping", false)
-    window.sessionStorage.setItem("run", false)
-    window.sessionStorage.setItem("shoot", false)
     window.sessionStorage.setItem("idleRunning", false)
     window.sessionStorage.setItem("walkRunning", false)
     window.sessionStorage.setItem("runRunning", false)
     window.sessionStorage.setItem("shootRunning", false)
+    window.sessionStorage.setItem("hipfireRunning", false)
     window.sessionStorage.setItem("oldPosX", 500)
     window.sessionStorage.setItem("oldPosY", 20)
     window.sessionStorage.setItem("Keys", JSON.stringify({"a": false,"d": false,"shift": false,"space": false,}))
     window.sessionStorage.setItem("oldAnim", "arSoldierIdle1")
     //window.sessionStorage.setItem("platforms", JSON.stringify([[-50000, canvas.height * 0.95, 100000, 50], [0, canvas.height * 0.74, 100, 50, 2], [canvas.width - 100, canvas.height * 0.75, 100, 50, 3], [canvas.width - 100, canvas.height * 0.95, 100, 50, 4]]))
     window.sessionStorage.setItem("bullets", JSON.stringify([]))
-    startlevel()
+
     setInterval(() => {
         gameLoop()
     }, 16.6);
@@ -49,25 +56,48 @@ function startlevel() {
     var backgrounds = data.backgrounds
     var enemys = data.enemys
     var paths = data.paths
+    var follow = data.follow
+    var spawn = data.spawnpoint
+    const SFW = data.SFW
+    const SFH = data.SFH
+    window.sessionStorage.setItem("follow", JSON.stringify(follow))
     window.sessionStorage.setItem("paths", JSON.stringify(paths))
     window.sessionStorage.setItem("enemys", JSON.stringify(enemys))
     window.sessionStorage.setItem("platforms", JSON.stringify(platforms))
+    window.sessionStorage.setItem("SFW", JSON.stringify(SFW))
+    window.sessionStorage.setItem("SFH", JSON.stringify(SFH))
+    return spawn
 }
 
 function clickChck(e) {
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    var jumping = JSON.parse(window.sessionStorage.getItem("jumping"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     let x = e.clientX
     if(x < window.innerWidth / 2) {
-        bullets.push([player.x, player.y + 16, "left", 200])
-        player.direction = "left"
+        if(jumping == false) {
+            bullets.push([player.x, player.y + 16, "left", 200])
+            player.direction = "left"
+        } else {
+            bullets.push([player.x, player.y + 40, "left", 200])
+            player.direction = "left"
+        }
     } else if(x > window.innerWidth / 2) {
-        bullets.push([player.x + 70, player.y + 16, "right", 200])
-        player.direction = "right"
+        if(jumping == false) {
+            bullets.push([player.x + 70, player.y + 16, "right", 200])
+            player.direction = "right"
+        } else {
+            bullets.push([player.x + 70, player.y + 16, "right", 200])
+            player.direction = "right"
+        }
     }
     window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
-    player.anim = "arSoldierShoot1"
+    if(jumping == false) {
+        player.anim = "arSoldierShoot1"
+    } else {
+        player.anim = "arSoldierHipfire1"
+    }
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 
@@ -101,7 +131,7 @@ function keyUp(e) {
 
 function keyDown(e) {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var keys = JSON.parse(window.sessionStorage.getItem("Keys"))
     var key; 
     if (window.event) { 
@@ -138,7 +168,7 @@ function keyDown(e) {
 
 function moveRight() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(player.velX <= 2) {
         player.velX += 0.75
     }
@@ -148,7 +178,7 @@ function moveRight() {
 
 function moveLeft() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(player.velX >= -2) {
         player.velX -= 0.75
     }
@@ -158,7 +188,7 @@ function moveLeft() {
 
 function run() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(player.direction == "left"&& player.velX > - 4.5) {
         player.velX -= 1.5
     } else if(player.direction == "right" && player.velX < 4.5) {
@@ -172,7 +202,7 @@ function jump() {
     var jumping = window.sessionStorage.getItem("jumping")
     if(jumping == "false") {
         jumping = true
-        player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+        player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
         player.velY = -22.5
         player.velX *= 2.2
         window.sessionStorage.setItem("player", JSON.stringify(player))
@@ -221,6 +251,7 @@ function gameLoop() {
     physics() 
     enemyAI()
     moveEnemy()
+    updateDisplay()
     animate()
     updata()
     center()
@@ -228,18 +259,29 @@ function gameLoop() {
     deathChck();
 }
 
+function updateDisplay() {
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+    var health = document.getElementById("healthbar")
+    health.value = player.health    
+}
+
 function updata() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    player.width = getData(player.anim, "width") * 1.25
-    player.height = getData(player.anim, "height") * 1.25
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+    const SFW = window.sessionStorage.getItem("SFW")
+    const SFH = window.sessionStorage.getItem("SFH")
+    player.width = getData(player.anim, "width") * 1.5
+    player.height = getData(player.anim, "height") * 1.5
+    if(player.iframes != 0) {
+        player.iframes -= 1
+    }
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
 
 function moveEnemy() {
     var enemys = JSON.parse(window.sessionStorage.getItem("enemys"))
-    var holdArr = []
-    //console.log(enemys)
+    var holdArr = [] 
     for(var i = 0; i < enemys.length; i++) {
         if(enemys[i] != null) {
             holdArr.push(enemys[i])
@@ -258,9 +300,13 @@ function moveEnemy() {
 function deathChck() {
     var canvas = document.getElementById("playarea")
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(player.y > canvas.height) {
         //window.location = "lose.html"
+    }
+    if(player.health <= 0) {
+        //window.location = "lose.html"
+        console.log(player.health)
     }
 }
 
@@ -268,13 +314,13 @@ function center() {
     var canvas = document.getElementById("playarea")
     var ctx = canvas.getContext("2d")
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var middle = canvas.width / 2
     offset = Math.abs(middle-player.x)
     ctx.save();
-    ctx.translate((middle - player.x),(0));
-    player.x += middle
-    player.x = Math.round(100*player.x)/100;  
+    //ctx.translate((middle - player.x),(0));
+    //player.x += middle
+    //player.x = Math.round(100*player.x)/100;  
     drawPlatforms()
     drawEnemy()
     drawBullet()
@@ -301,7 +347,7 @@ function winner() {
 
 function animate() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(player.anim.includes("Idle")) {
         if(player.anim.includes("whiteCopMale")) {
             whiteCopIdle()
@@ -325,14 +371,16 @@ function animate() {
         } else if(player.anim.includes("arSoldier")) {
             arSoldierShoot()
         }
+    } else if(player.anim.includes("Hipfire")) {
+        if(player.anim.includes("arSoldier")) {
+            arSoldierHipfire()
+        }
     }
 }
 
 function move() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
-    var idle = JSON.parse(window.sessionStorage.getItem("idle"))
-    var walk = JSON.parse(window.sessionStorage.getItem("walk"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     window.sessionStorage.setItem("oldPosX", player.x)
     window.sessionStorage.setItem("oldPosY", player.y) 
     window.sessionStorage.setItem("oldAnim", player.anim)
@@ -340,10 +388,9 @@ function move() {
     player.y += player.velY
     player.x = Math.round(100*player.x) / 100;
     player.y = Math.round(100*player.y) / 100;    
-    var shoot = false
     var num = 0
     if(player.anim.includes("Shoot")) {
-        shoot = true
+        player.animations.shoot = true
         if(player.anim.includes("1")) {
             num = 1
         } else if(player.anim.includes("2")) {
@@ -355,42 +402,44 @@ function move() {
         }
     }
     if(player.velX > 5) {
-        idle = false
+        player.animations.idle = false
+        player.animations.walk = false
+        player.animations.run = true
         player.anim = "arSoldierRun1"
-        walk = false
     } else if(player.velX < -5) {
+        player.animations.idle = false
+        player.animations.walk = false
+        player.animations.run = true
         player.anim = "arSoldierRun1"
-        idle = false
-        walk = false
     }
     if(player.velX > 0 && player.velX < 1.5 && player.anim.includes("Run") || player.velX > 0 && player.velX < 10 && player.anim.includes("Idle")) {
-        idle = false
-        walk = true
+        player.animations.idle = false
+        player.animations.run = false
+        player.animations.walk = true
         player.anim = "arSoldierWalk1"
     }
     if(player.velX < -0 && player.velX > 0 && player.anim.includes("Run") || player.velX < 0 && player.velX > -1.5 && player.anim.includes("Idle")) {
-        idle = false
-        walk = true
-       player.anim = "arSoldierWalk1"
+        player.animations.idle = false
+        player.animations.run = false
+        player.animations.walk = true
+        player.anim = "arSoldierWalk1"
     }
     if(player.velX < 0.1 && player.velX > -0.1 && player.anim.includes("Walk")) {
-        idle = true 
-        walk = false 
+        player.animations.idle = true
+        player.animations.run = false
+        player.animations.walk = false
         player.anim = "arSoldierIdle1"
     }
-    if(shoot == true && num == 1) {
+    if(player.animations.shoot == true && num == 1) {
         player.anim = `arSoldierShoot1`
-    } else if(shoot == true && num == 2) {
+    } else if(player.animations.shoot == true && num == 2) {
         player.anim = `arSoldierShoot2`
-    } else if(shoot == true && num == 3) {
+    } else if(player.animations.shoot == true && num == 3) {
         player.anim = `arSoldierShoot3`
-    } else if(shoot == true && num == 4) {
+    } else if(player.animations.shoot == true && num == 4) {
         player.anim = `arSoldierShoot4`
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))
-    window.sessionStorage.setItem("idle", idle)
-    window.sessionStorage.setItem("shoot", shoot)
-    window.sessionStorage.setItem("walk", walk)
 }   
 
 function drawEnemy() {
@@ -399,7 +448,7 @@ function drawEnemy() {
     var enemys = JSON.parse(window.sessionStorage.getItem("enemys"))
     var image = document.getElementById("test1")
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     for(var i = 0; i < enemys.length; i++) {
         var enemy = new Enemy(enemys[i][0], enemys[i][1], enemys[i][2], enemys[i][3], enemys[i][4], enemys[i][5], enemys[i][6], enemys[i][7], enemys[i][8], enemys[i][9], enemys[i][10])
         var short = `${enemy.type}${enemy.anim.charAt(0).toUpperCase()}${enemy.anim.substring(1)}`
@@ -424,7 +473,7 @@ function clearBoard() {
 
 function drawPlayer() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var canvas = document.getElementById("playarea")
     var ctx = canvas.getContext('2d')    
     var img = document.getElementById("test1")
@@ -489,7 +538,7 @@ function drawHitboxes() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     var enemys = JSON.parse(window.sessionStorage.getItem("enemys"))
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
-    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction)
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     ctx.strokeStyle = "red"
     ctx.strokeRect(0, 0, player.width, player.height)
     for(var i = 0; i < enemys.length; i++) {
@@ -515,6 +564,10 @@ class Enemy {
         this.detect = detect
         this.direction = direction
     }
+
+    getAnim() {
+
+    }
 }
 
 class Ally {
@@ -529,10 +582,14 @@ class Ally {
         this.velY = velY
         this.weapon = weapon
     }
+
+    getAnim() {
+
+    }
 }
 
 class Player {
-    constructor(x, y, anim, velX, velY, health, ammo, width, height, direction) {
+    constructor(x, y, anim, velX, velY, health, ammo, width, height, direction, iframes, animations) {
         this.x = x  
         this.y = y
         this.anim = anim
@@ -543,6 +600,14 @@ class Player {
         this.width = width
         this.height = height
         this.direction = direction
+        this.iframes = iframes
+        this.animations = animations
+    }
+
+    isRunning(test) {
+        if(this.animations[test] == true) {
+            return true
+        } 
     }
 
     getAnim() {
@@ -610,6 +675,17 @@ class Player {
                 this.anim = "arSoldierIdle1"
             }
         }
+        if(this.anim.includes("Hipfire")) {
+            if(this.anim.includes("1")) {
+                this.anim = "arSoldierHipfire2"
+            } else if(this.anim.includes("2")) {
+                this.anim = "arSoldierHipfire3"
+            } else if(this.anim.includes("3")) {
+                this.anim = "arSoldierHipfire4"
+            } else if(this.anim.includes("4")) {
+                this.anim = "arSoldierIdle1"
+            }
+        }
         return this.anim
     }
 }
@@ -635,5 +711,25 @@ class Path {
     constructor(x1, x2) {
         this.x1 = x1
         this.x2 = x2
+    }
+}
+
+class Spike {
+    constructor(x, y) {
+        this.x = x
+        this.y = y
+    }
+}
+
+class movingPlatorm {
+    constructor(x, y, width, height, velX, velY, pathx1, pathx2) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+        this.velX = velX
+        this.velY = velY
+        this.pathx1 = pathx1
+        this.pathx2 = pathx2
     }
 }
