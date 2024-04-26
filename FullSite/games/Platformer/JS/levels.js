@@ -12,22 +12,25 @@ function level(num) {
                 //peru = outside dirt
                 //red = spikes
                 //darkslategray = brick
+                //green = ledge
                 ///VOID///
-                [0, 0, 50, 100, "black", "Y", "void"],
-                [50, 0, 50, 50, "black", "Y", "void"],
-                [0, 1000, 50, 200, "black", "Y", "void"],
-                [150, 1100, 50, 50, "black", "Y", "void"],
-                [150, 1150, 100, 50, "black", "Y", "void"],
-                [50, 1050, 100, 150, "black", "Y", "void"],
-                [600, 1050, 50, 50, "black", "Y", "void"],
-                [500, 1150, 850, 50, "black", "Y", "void"],
-                [550, 1100, 750, 50, "black", "Y", "void"],
-                [900, 1050, 350, 50, "black", "Y", "void"],
+                [0, 0, 50, 100, "black", "N", "void"],
+                [50, 0, 50, 50, "black", "N", "void"],
+                [0, 1000, 50, 200, "black", "N", "void"],
+                [150, 1100, 50, 50, "black", "N", "void"],
+                [150, 1150, 100, 50, "black", "N", "void"],
+                [50, 1050, 100, 150, "black", "N", "void"],
+                [600, 1050, 50, 50, "black", "N", "void"],
+                [500, 1150, 850, 50, "black", "N", "void"],
+                [550, 1100, 750, 50, "black", "N", "void"],
+                [900, 1050, 350, 50, "black", "N", "void"],
                 ///HALFSNOW///
                 [100, 0, 100, 50, "darkgray", "Y", "halfSnow"],
                 [0, 100, 50, 50, "darkgray", "Y", "halfSnow"],
                 [50, 1000, 50, 50, "darkgray", "Y", "halfSnow"],
                 [800, 1050, 100, 50, "darkgray", "Y", "halfSnow"],
+                [950, 850, 50, 150, "darkgray", "Y", "halfSnow"],
+                [1100, 900, 150, 50, "darkgray", "Y", "halfSnow"],
                 ///SNOW///
                 [50, 50, 150, 50, "lightgray", "Y", "snow"],
                 [50, 950, 100, 50, "lightgray", "Y", "snow"],
@@ -36,6 +39,7 @@ function level(num) {
                 [1000, 750, 100, 100, "lightgray", "Y", "snow"],  
                 [1050, 850, 250, 50, "lightgray", "Y", "snow"],
                 [950, 800, 50, 50, "lightgray", "Y", "snow"],
+                [1250, 900, 50, 100, "lightgray", "Y", "snow"],
                 ///OUTSIDEDIRT///
                 [50, 100, 50, 350, "peru", "Y", "outsideDirt"],
                 [150, 950, 100, 50, "peru", "Y", "outsideDirt"],
@@ -54,6 +58,9 @@ function level(num) {
                 [950, 550, 150, 50, "gray", "Y", "metal"],
                 [1050, 600, 50, 150, "gray", "Y", "metal"],
                 [950, 700, 100, 50, "gray", "Y", "metal"],
+                [200, 0, 50, 350, "gray", "Y", "metal"],
+                [250, 300, 200, 50, "gray", "Y", "metal"],
+                [400, 100, 50, 200, "gray", "Y", "metal"],
                 ///INSIDEDIRT///
                 [0, 150, 50, 250, "saddlebrown", "Y", "insideDirt"],
                 [100, 1000, 100, 50, "saddlebrown", "Y", "insideDirt"],
@@ -63,9 +70,14 @@ function level(num) {
                 [650, 1050, 150, 50, "saddlebrown", "Y", "insideDirt"],
                 [1350, 1100, 50, 100, "saddlebrown", "Y", "insideDirt"], 
                 [1300, 1100, 50, 50, "saddlebrown", "Y", "insideDirt"],
+                [1200, 950, 50, 100, "saddlebrown", "Y", "insideDirt"],
                 ///SPIKES///
                 [250, 1050, 250, 50, "red", "K", "spikes"],
+                [650, 950, 250, 50, "red", "K", "spikes"],
                 ///BRICKS///
+
+                ///LEDGE///
+                [875, 550, 25, 10, "green", "L", "ledge"],
             ],
 
             backgrounds: [
@@ -79,9 +91,9 @@ function level(num) {
             spawnpoint: 100,
 
             follow: false,
-
-            SFW: 2000,
-            SFH: 1200,
+            PSF: 1.25,
+            SW: 2000,
+            SH: 1200,
         },
         2: {
             platforms: [

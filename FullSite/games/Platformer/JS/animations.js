@@ -155,6 +155,26 @@ function arSoldierHipfire() {
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }
+/////HANG/////
+//speed 200
+function arSoldierHang() {
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+    var running = JSON.parse(window.sessionStorage.getItem("hangRunning"))
+    if(running != true) {
+        window.sessionStorage.setItem("hangRunning", true)
+        if(player.animations.hang == true) {
+            player.anim = player.getAnim()
+            setTimeout(() => {
+                //drawPlayer()
+                window.sessionStorage.setItem("hangRunning", false)
+            }, 200);
+        } else {
+            window.sessionStorage.setItem("hangRunning", false)
+        }
+    }
+    window.sessionStorage.setItem("player", JSON.stringify(player))
+}
 
 function whiteCopJump() {
 

@@ -6,14 +6,14 @@ function main() {
     }
     var bullet1 = document.getElementById("bullet1")
     bullet1.src = "../Media/bulletFull.png"
-    const SFW = window.sessionStorage.getItem("SFW")
-    const SFH = window.sessionStorage.getItem("SFH")
+    const SW = window.sessionStorage.getItem("SW")
+    const SH = window.sessionStorage.getItem("SH")
     var canvas = document.getElementById("playarea")
     var spawn = startlevel()
     canvas.style.width = window.innerWidth
     canvas.style.height = window.innerHeight / 2
-    canvas.width = SFW
-    canvas.height = SFH   
+    canvas.width = SW
+    canvas.height = SH
     console.log(canvas.width)
     var player = new Player(spawn, 600, "arSoldierIdle1", 0, 0, 10, 100, getData("arSoldierIdle1", "width"), getData("arSoldierIdle1", "height"), "right", 5, {
         run: false,
@@ -28,6 +28,7 @@ function main() {
     window.sessionStorage.setItem("jumping", false)
     window.sessionStorage.setItem("idleRunning", false)
     window.sessionStorage.setItem("walkRunning", false)
+    window.sessionStorage.setItem("hanging", 0)
     window.sessionStorage.setItem("runRunning", false)
     window.sessionStorage.setItem("shootRunning", false)
     window.sessionStorage.setItem("hipfireRunning", false)
@@ -37,10 +38,12 @@ function main() {
     window.sessionStorage.setItem("oldAnim", "arSoldierIdle1")
     //window.sessionStorage.setItem("platforms", JSON.stringify([[-50000, canvas.height * 0.95, 100000, 50], [0, canvas.height * 0.74, 100, 50, 2], [canvas.width - 100, canvas.height * 0.75, 100, 50, 3], [canvas.width - 100, canvas.height * 0.95, 100, 50, 4]]))
     window.sessionStorage.setItem("bullets", JSON.stringify([]))
-
     setInterval(() => {
         gameLoop()
     }, 16.6);
+    setInterval(() => {
+        hang()
+    }, 200);
     clearBoard()
     //drawPlayer()    
 }
@@ -58,14 +61,16 @@ function startlevel() {
     var paths = data.paths
     var follow = data.follow
     var spawn = data.spawnpoint
-    const SFW = data.SFW
-    const SFH = data.SFH
+    const SW = data.SW
+    const SH = data.SH
+    const PSF = data.PSF
     window.sessionStorage.setItem("follow", JSON.stringify(follow))
     window.sessionStorage.setItem("paths", JSON.stringify(paths))
     window.sessionStorage.setItem("enemys", JSON.stringify(enemys))
     window.sessionStorage.setItem("platforms", JSON.stringify(platforms))
-    window.sessionStorage.setItem("SFW", JSON.stringify(SFW))
-    window.sessionStorage.setItem("SFH", JSON.stringify(SFH))
+    window.sessionStorage.setItem("SW", JSON.stringify(SW))
+    window.sessionStorage.setItem("SH", JSON.stringify(SH))
+    window.sessionStorage.setItem("PSF", JSON.stringify(PSF))
     return spawn
 }
 
@@ -248,9 +253,9 @@ function gameLoop() {
     move();
     //drawHitboxes()
     updata()
-    physics() 
     enemyAI()
     moveEnemy()
+    physics()
     updateDisplay()
     animate()
     updata()
@@ -269,10 +274,11 @@ function updateDisplay() {
 function updata() {
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
-    const SFW = window.sessionStorage.getItem("SFW")
-    const SFH = window.sessionStorage.getItem("SFH")
-    player.width = getData(player.anim, "width") * 1.5
-    player.height = getData(player.anim, "height") * 1.5
+    const SW = window.sessionStorage.getItem("SW")
+    const SH = window.sessionStorage.getItem("SH")
+    const PSF = window.sessionStorage.getItem("PSF")
+    player.width = getData(player.anim, "width") * PSF
+    player.height = getData(player.anim, "height") * PSF
     if(player.iframes != 0) {
         player.iframes -= 1
     }
@@ -295,6 +301,32 @@ function moveEnemy() {
         enemys[i] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY, enemy.rand, enemy.detect, enemy.direction]
     }
     window.sessionStorage.setItem("enemys", JSON.stringify(enemys))
+}
+
+function hang() {
+    var hanging = JSON.parse(window.sessionStorage.getItem("hanging"))
+    var player = JSON.parse(window.sessionStorage.getItem("player"))
+    player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+    if(hanging == 1) {
+        hanging = 2
+    } else if(hanging == 2) {
+        hanging = 3
+    } else if(hanging == 3) {
+        hanging = 4
+    } else if(hanging == 4) {
+        hanging = 5
+    } else if(hanging == 5) {
+        player.y -= (player.height + 60)
+        player.x = player.x + 150
+        hanging = 0
+    }
+    window.sessionStorage.setItem("player", JSON.stringify(player))
+    window.sessionStorage.setItem("hanging", JSON.stringify(hanging))
+}
+
+function die() {
+    location.reload()
+    document
 }
 
 function deathChck() {
@@ -346,6 +378,7 @@ function winner() {
 }
 
 function animate() {
+    //player
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     if(player.anim.includes("Idle")) {
@@ -374,6 +407,10 @@ function animate() {
     } else if(player.anim.includes("Hipfire")) {
         if(player.anim.includes("arSoldier")) {
             arSoldierHipfire()
+        }
+    } else if(player.anim.includes("Hang")) {
+        if(player.anim.includes("arSoldier")) {
+            arSoldierHang()
         }
     }
 }
@@ -683,6 +720,32 @@ class Player {
             } else if(this.anim.includes("3")) {
                 this.anim = "arSoldierHipfire4"
             } else if(this.anim.includes("4")) {
+                this.anim = "arSoldierIdle1"
+            }
+        }
+        if(this.anim.includes("Hang")) {
+            if(this.anim.includes("1")) {
+                this.anim = "arSoldierHang1"
+            } else if(this.anim.includes("2")) {
+                this.anim = "arSoldierHang3"
+            } else if(this.anim.includes("3")) {
+                this.anim = "arSoldierHang4"
+            } else if(this.anim.includes("4")) {
+                this.anim = "arSoldierHang5"
+            } else if(this.anim.includes("5")) {
+                this.anim = "arSoldierPullup1"
+            }
+        }
+        if(this.anim.includes("Pullup")) {
+            if(this.anim.includes("1")) {
+                this.anim = "arSoldierPullup2"
+            } else if(this.anim.includes("2")) {
+                this.anim = "arSoldierPullup3"
+            } else if(this.anim.includes("3")) {
+                this.anim = "arSoldierPullup4"
+            } else if(this.anim.includes("4")) {
+                this.anim = "arSoldierPullup5"
+            } else if(this.anim.includes("5")) {
                 this.anim = "arSoldierIdle1"
             }
         }

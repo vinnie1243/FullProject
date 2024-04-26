@@ -108,7 +108,6 @@ MutantZombieKnifeIdleTwo 1 - 5 NS
 MutantZombieKnifeHurt 1 - 4 NS
 MutantZombieKnifeDead 1 - 6 NS
 ##########AR Soldier##########
-ARSoldierHang 1 - 5 NS
 ARSoldierPullup 1 - 5 NS
 ARSoldierRoll 1 - 6 NS
 ARSoldierClimb 1 - 7 NS

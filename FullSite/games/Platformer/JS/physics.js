@@ -8,55 +8,95 @@ function physics() {
     if(player.velY < 10) {
         player.velY += 1
     }
+    var hangx = null
+    var hangy = null
     var win = JSON.parse(window.sessionStorage.getItem("hasWon"))
     var jumping = JSON.parse(window.sessionStorage.getItem("jumping"))
     for(var i = 0; i < platforms.length; i++) {
         var plat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3])
-        var chck1 = collisionSimple(player, plat)
-        if(chck1 == true) {
-            if(platforms[i][5] == "W") {
-                if(win == false) {
-                    window.sessionStorage.setItem("hasWon", true)
-                    winner()
-                }
-            } else {
-                player.velY = -1
-                jumping = false
-                window.sessionStorage.setItem("jumping", jumping)   
-            }
-        }
-        window.sessionStorage.setItem("player", JSON.stringify(player))
-        var chck2 = collisionComplex(player, plat)
-        if(chck2 == true) {
-            var dist = distance(player, plat)
-            var d1 = dist[0]
-            var d2 = dist[1]
-            var d3 = dist[2]
-            var d4 = dist[3]
-            if(d1 < d2 && d1 < d3 && d1 < d4) {
-                if(platforms[i][5] != "W") {
-                    player.x = (plat.x + plat.width)
-                    player.velX = 3
-                }
-            } else if(d2 < d1 && d2 < d3 && d2 < d4) {
-                if(platforms[i][5] != "W") {
-                    player.x = Math.abs(plat.x - player.width)
+        var checker = 0
+        if(platforms[i][5] != "N") {
+            var chck1 = collisionSimple(player, plat)
+            if(chck1 == true) {
+                if(platforms[i][5] == "L") {
+                    player.x = plat.x - player.width + 10
+                    player.y = plat.y
                     player.velX = 0
-                }
-            } else if(d3 < d1 && d3 < d2 && d3 < d4) {
-                if(platforms[i][5] != "W") {
-                    player.y = plat.y - player.height * 1.009
                     player.velY = 0
+                    checker = 1
+                    player.anim = "arSoldierHang1"
+                    player.animations.hang = true
+                    player.animations.idle = false
+                    player.animations.walk = false
+                    player.animations.run = false
+                    var hanging = window.sessionStorage.getItem("hanging")
+                    if(hanging == 0) {
+                        window.sessionStorage.setItem("hanging", 1)
+                    }
                 }
-            } else if(d4 < d1 && d4 < d2 && d4 < d3) {
-                if(platforms[i][5] != "W") {
-                    player.y = plat.y + plat.height
-                    player.velY = 0
+                if(platforms[i][5] == "W") {
+                    if(win == false) {
+                        window.sessionStorage.setItem("hasWon", true)
+                        winner()
+                    }
+                } else if(platforms[i][5] == "K") {
+                    die()
+                } else if(checker == 0){
+                    player.velY = -1
+                    jumping = false
+                    window.sessionStorage.setItem("jumping", jumping)   
+                    window.sessionStorage.setItem("hanging", 0)
                 }
             }
-            d1, d2, d3, d4 = null
+            var hanging = window.sessionStorage.getItem("hanging")
+            if(hanging > 0) {
+                player.velX = 0
+                player.velY = 0
+            }
+            window.sessionStorage.setItem("player", JSON.stringify(player))
+            var chck2 = collisionComplex(player, plat)
+            if(chck2 == true) {
+                var dist = distance(player, plat)
+                var d1 = dist[0]
+                var d2 = dist[1]
+                var d3 = dist[2]
+                var d4 = dist[3]
+                if(d1 < d2 && d1 < d3 && d1 < d4) {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K") {
+                        player.x = (plat.x + plat.width)
+                        player.velX = 3
+                    } else if(platforms[i][5] == "K") {
+                        die()
+                    }
+                } else if(d2 < d1 && d2 < d3 && d2 < d4) {
+                    if(platforms[i][5] != "W") {
+                        player.x = Math.abs(plat.x - player.width)
+                        player.velX = 0
+                    } else if(platforms[i][5] == "K") {
+                        die()
+                    }
+                } else if(d3 < d1 && d3 < d2 && d3 < d4) {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
+                        player.y = plat.y - player.height * 1.009 
+                    } else if(platforms[i][5] == "K") {
+                        die()
+                    } else if(platforms[i][5] == "W") {
+
+                    }
+                } else if(d4 < d1 && d4 < d2 && d4 < d3) {
+                    if(platforms[i][5] != "W") {
+                        player.y = plat.y + plat.height
+                        player.velY = 0
+                    } else if(platforms[i][5] == "K") {
+                        die()
+                    } else if(platforms[i][5] == "W") {
+
+                    }
+                }
+                d1, d2, d3, d4 = null
+            }
+            window.sessionStorage.setItem("player", JSON.stringify(player))
         }
-        window.sessionStorage.setItem("player", JSON.stringify(player))
     }
     window.sessionStorage.setItem("jumping", jumping)  
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
@@ -250,7 +290,7 @@ function distance(rect1, rect2) {
     //d3 = top
     //d4 = bottom
     if(rect1.width == undefined || rect1.height == undefined || rect1.x == undefined || rect1.y == undefined) {
-        console.warn("rect1 data corruption")
+        console.warn("rect1 data corruption", rect1)
     } else if(rect2.width == undefined || rect2.height == undefined || rect2.x == undefined || rect2.y == undefined) {
         console.warn("rect2 data corruption")
     }
