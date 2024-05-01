@@ -15,7 +15,7 @@ function main() {
     canvas.width = SW
     canvas.height = SH
     console.log(canvas.width)
-    var player = new Player(spawn, 600, "arSoldierIdle1", 0, 0, 10, 100, getData("arSoldierIdle1", "width"), getData("arSoldierIdle1", "height"), "right", 5, {
+    var player = new Player(spawn, 600, "arSoldierIdle1", 0, 0, 10, 100, getAnimData("arSoldierIdle1", "width"), getAnimData("arSoldierIdle1", "height"), "right", 5, {
         run: false,
         shoot: false,
         idle: true,
@@ -277,8 +277,8 @@ function updata() {
     const SW = window.sessionStorage.getItem("SW")
     const SH = window.sessionStorage.getItem("SH")
     const PSF = window.sessionStorage.getItem("PSF")
-    player.width = getData(player.anim, "width") * PSF
-    player.height = getData(player.anim, "height") * PSF
+    player.width = getAnimData(player.anim, "width") * PSF
+    player.height = getAnimData(player.anim, "height") * PSF
     if(player.iframes != 0) {
         player.iframes -= 1
     }
@@ -326,7 +326,6 @@ function hang() {
 
 function die() {
     location.reload()
-    document
 }
 
 function deathChck() {
@@ -513,7 +512,7 @@ function drawPlayer() {
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     var canvas = document.getElementById("playarea")
     var ctx = canvas.getContext('2d')    
-    var img = document.getElementById("test1")
+    var img = document.getElementById("spritesheet")
     ctx.moveTo(0, 0) 
     //ctx.fillStyle  = "red"
     //ctx.fillRect(player.x, player.y, 50, 100)
@@ -523,25 +522,33 @@ function drawPlayer() {
         ctx.scale(-1, 1); 
         ctx.translate(-player.width, 0)
     } 
-    ctx.drawImage(img, getData(player.anim, "sx"), getData(player.anim, "sy"), getData(player.anim, "width"), getData(player.anim, "height"), 0, 0, player.width, player.height)
+    ctx.drawImage(img, getAnimData(player.anim, "sx"), getAnimData(player.anim, "sy"), getAnimData(player.anim, "width"), getAnimData(player.anim, "height"), 0, 0, player.width, player.height)
     ctx.restore();
 }
 
 function drawPlatforms() {
     var platforms = JSON.parse(window.sessionStorage.getItem("platforms"))
     for(let i = 0; i < platforms.length; i++) {
-        var platform = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3])
+        var platform = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3], platforms[i][4])
         var canvas = document.getElementById("playarea")
         var ctx = canvas.getContext('2d')    
-        ctx.fillStyle  = platforms[i][4]
-        ctx.fillRect(platform.x, platform.y, platform.width, platform.height)
+ 
+        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "gray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red") {
+            ctx.fillStyle = platforms[i][4]
+            ctx.fillRect(platform.x, platform.y, platform.width, platform.height, platform.texture)
+        } else {
+            const X = getTextureData(platform.texture, "x")
+            const Y = getTextureData(platform.texture, "y")
+            var img = document.getElementById("tileset")
+            ctx.drawImage(img, X, Y, 50, 50, platform.x, platform.y, platform.width, platform.height)
+        }
     }
 }
 
 function drawBullet() {
     var canvas = document.getElementById("playarea")
     var ctx = canvas.getContext('2d')
-    var img = document.getElementById("test1")
+    var img = document.getElementById("spritesheet")
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     for(var i = 0; i < bullets.length; i++) {
         if(bullets[i][3] == 0) {
@@ -558,7 +565,7 @@ function drawBullet() {
         }       
         var y = bullets[i][1]
         var direction = bullets[i][2]
-        ctx.drawImage(img, getData(`bullet${direction.charAt(0).toUpperCase()}`, "sx"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "sy"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "width"), getData(`bullet${direction.charAt(0).toUpperCase()}`, "height"), x, y, getData(`bullet${direction.charAt(0).toUpperCase()}`, "width")/2, getData(`bullet${direction.charAt(0).toUpperCase()}`, "height")/2) 
+        ctx.drawImage(img, getAnimData(`bullet${direction.charAt(0).toUpperCase()}`, "sx"), getAnimData(`bullet${direction.charAt(0).toUpperCase()}`, "sy"), getAnimData(`bullet${direction.charAt(0).toUpperCase()}`, "width"), getAnimData(`bullet${direction.charAt(0).toUpperCase()}`, "height"), x, y, getAnimData(`bullet${direction.charAt(0).toUpperCase()}`, "width")/2, getAnimData(`bullet${direction.charAt(0).toUpperCase()}`, "height")/2) 
     }   
     window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
 }
@@ -754,11 +761,12 @@ class Player {
 }
 
 class Platform {
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, texture) {
         this.x = x
         this.y = y
         this.width = width
         this.height = height
+        this.texture = texture
     }
 }   
 

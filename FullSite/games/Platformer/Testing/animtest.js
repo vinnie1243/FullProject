@@ -25,6 +25,20 @@ function whiteCopMaleIdle() {
         }, 200);
     }
 }
+function zombieThreeIdle() {
+    var zombieThreeIdle = JSON.parse(window.sessionStorage.getItem("zombieThreeIdle"))
+    zombieThreeIdle = new Animate(zombieThreeIdle.x, zombieThreeIdle.y, zombieThreeIdle.anim, zombieThreeIdle.size)
+    var running = JSON.parse(window.sessionStorage.getItem("zombieThreeIdleRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("zombieThreeIdleRunning", true)
+        setTimeout(() => {
+            zombieThreeIdle.anim = zombieThreeIdle.getAnim()
+            window.sessionStorage.setItem("zombieThreeIdle", JSON.stringify(zombieThreeIdle))
+            window.sessionStorage.setItem("zombieThreeIdleRunning", false) 
+        }, 200);
+    }
+
+}
 /////WALK/////
 function arSoldierWalk() {
     var arSoldierWalk = JSON.parse(window.sessionStorage.getItem("arSoldierWalk"))
@@ -36,6 +50,20 @@ function arSoldierWalk() {
             arSoldierWalk.anim = arSoldierWalk.getAnim()
             window.sessionStorage.setItem("arSoldierWalk", JSON.stringify(arSoldierWalk))
             window.sessionStorage.setItem("arSoldierWalkRunning", false) 
+        }, 200);
+    }
+}
+
+function whiteCopMaleWalk() {
+    var whiteCopMaleWalk = JSON.parse(window.sessionStorage.getItem("whiteCopMaleWalk"))
+    whiteCopMaleWalk = new Animate(whiteCopMaleWalk.x, whiteCopMaleWalk.y, whiteCopMaleWalk.anim, whiteCopMaleWalk.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleWalkRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleWalkRunning", true)
+        setTimeout(() => {
+            whiteCopMaleWalk.anim = whiteCopMaleWalk.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleWalk", JSON.stringify(whiteCopMaleWalk))
+            window.sessionStorage.setItem("whiteCopMaleWalkRunning", false) 
         }, 200);
     }
 }
@@ -54,6 +82,20 @@ function arSoldierRun() {
         }, 200);
     }
 }
+
+function whiteCopMaleRun() {
+    var whiteCopMaleRun = JSON.parse(window.sessionStorage.getItem("whiteCopMaleRun"))
+    whiteCopMaleRun = new Animate(whiteCopMaleRun.x, whiteCopMaleRun.y, whiteCopMaleRun.anim, whiteCopMaleRun.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleRunRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleRunRunning", true)
+        setTimeout(() => {
+            whiteCopMaleRun.anim = whiteCopMaleRun.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleRun", JSON.stringify(whiteCopMaleRun))
+            window.sessionStorage.setItem("whiteCopMaleRunRunning", false) 
+        }, 200);
+    }
+}
 /////SHOOT/////
 function arSoldierShoot() {
     var arSoldierShoot = JSON.parse(window.sessionStorage.getItem("arSoldierShoot"))
@@ -67,6 +109,20 @@ function arSoldierShoot() {
             window.sessionStorage.setItem("arSoldierShootRunning", false) 
         }, 200);
     }
+}
+function whiteCopMaleShoot() {
+    var whiteCopMaleShoot = JSON.parse(window.sessionStorage.getItem("whiteCopMaleShoot"))
+    whiteCopMaleShoot = new Animate(whiteCopMaleShoot.x, whiteCopMaleShoot.y, whiteCopMaleShoot.anim, whiteCopMaleShoot.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleShootRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleShootRunning", true)
+        setTimeout(() => {
+            whiteCopMaleShoot.anim = whiteCopMaleShoot.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleShoot", JSON.stringify(whiteCopMaleShoot))
+            window.sessionStorage.setItem("whiteCopMaleShootRunning", false) 
+        }, 200);
+    }
+
 }
 /////HIPFIRE/////
 function arSoldierHipfire() {
@@ -82,6 +138,53 @@ function arSoldierHipfire() {
         }, 200);
     }
 }
+/////TASER/////
+function whiteCopMaleTaser() {
+    var whiteCopMaleTaser = JSON.parse(window.sessionStorage.getItem("whiteCopMaleTaser"))
+    whiteCopMaleTaser = new Animate(whiteCopMaleTaser.x, whiteCopMaleTaser.y, whiteCopMaleTaser.anim, whiteCopMaleTaser.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleTaserRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleTaserRunning", true)
+        setTimeout(() => {
+            whiteCopMaleTaser.anim = whiteCopMaleTaser.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleTaser", JSON.stringify(whiteCopMaleTaser))
+            window.sessionStorage.setItem("whiteCopMaleTaserRunning", false) 
+        }, 200);
+    }
+
+}
+/////RELOADGUN/////
+function whiteCopMaleReloadGun() {
+    var whiteCopMaleReloadGun = JSON.parse(window.sessionStorage.getItem("whiteCopMaleReloadGun"))
+    whiteCopMaleReloadGun = new Animate(whiteCopMaleReloadGun.x, whiteCopMaleReloadGun.y, whiteCopMaleReloadGun.anim, whiteCopMaleReloadGun.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleReloadGunRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleReloadGunRunning", true)
+        setTimeout(() => {
+            whiteCopMaleReloadGun.anim = whiteCopMaleReloadGun.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleReloadGun", JSON.stringify(whiteCopMaleReloadGun))
+            window.sessionStorage.setItem("whiteCopMaleReloadGunRunning", false) 
+        }, 200);
+    }
+
+}
+/////RELOADTASER/////
+function whiteCopMaleReloadTaser() {
+    var whiteCopMaleReloadTaser = JSON.parse(window.sessionStorage.getItem("whiteCopMaleReloadTaser"))
+    whiteCopMaleReloadTaser = new Animate(whiteCopMaleReloadTaser.x, whiteCopMaleReloadTaser.y, whiteCopMaleReloadTaser.anim, whiteCopMaleReloadTaser.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleReloadTaserRunning"))
+    if(running == false) {
+        console.log("Test")
+        window.sessionStorage.setItem("whiteCopMaleReloadTaserRunning", true)
+        setTimeout(() => {
+            whiteCopMaleReloadTaser.anim = whiteCopMaleReloadTaser.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleReloadTaser", JSON.stringify(whiteCopMaleReloadTaser))
+            window.sessionStorage.setItem("whiteCopMaleReloadTaserRunning", false) 
+        }, 200);
+    }
+
+
+}
 /////HANG/////
 function arSoldierHang() {
     var arSoldierHang = JSON.parse(window.sessionStorage.getItem("arSoldierHang"))
@@ -93,6 +196,34 @@ function arSoldierHang() {
             arSoldierHang.anim = arSoldierHang.getAnim()
             window.sessionStorage.setItem("arSoldierHang", JSON.stringify(arSoldierHang))
             window.sessionStorage.setItem("arSoldierHangRunning", false) 
+        }, 200);
+    }
+}
+/////JUMP/////
+function arSoldierJump() {
+    var arSoldierJump = JSON.parse(window.sessionStorage.getItem("arSoldierJump"))
+    arSoldierJump = new Animate(arSoldierJump.x, arSoldierJump.y, arSoldierJump.anim, arSoldierJump.size)
+    var running = JSON.parse(window.sessionStorage.getItem("arSoldierJumpRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("arSoldierJumpRunning", true)
+        setTimeout(() => {
+            arSoldierJump.anim = arSoldierJump.getAnim()
+            window.sessionStorage.setItem("arSoldierJump", JSON.stringify(arSoldierJump))
+            window.sessionStorage.setItem("arSoldierJumpRunning", false) 
+        }, 200);
+    }
+}
+
+function whiteCopMaleJump() {
+    var whiteCopMaleJump = JSON.parse(window.sessionStorage.getItem("whiteCopMaleJump"))
+    whiteCopMaleJump = new Animate(whiteCopMaleJump.x, whiteCopMaleJump.y, whiteCopMaleJump.anim, whiteCopMaleJump.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleJumpRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleJumpRunning", true)
+        setTimeout(() => {
+            whiteCopMaleJump.anim = whiteCopMaleJump.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleJump", JSON.stringify(whiteCopMaleJump))
+            window.sessionStorage.setItem("whiteCopMaleJumpRunning", false) 
         }, 200);
     }
 }
