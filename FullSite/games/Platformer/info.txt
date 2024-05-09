@@ -1,10 +1,14 @@
 ####LINKS####
+##ui
 https://craftpix.net/product/game-ui-pixel-art/
+##Spirtes
 https://craftpix.net/sets/shooter-characters-pixel-art-sprite-collection/
+##backgrounds
 https://craftpix.net/freebies/free-city-backgrounds-pixel-art/  
 https://craftpix.net/freebies/free-mountain-backgrounds-pixel-art/
 https://craftpix.net/freebies/free-sky-with-clouds-background-pixel-art-set/
 https://craftpix.net/product/landscape-game-backgrounds/
+#tiles
 https://craftpix.net/freebies/nature-pixel-art-environment-free-assets-pack/
 https://craftpix.net/product/tiny-forest-tileset-platformer-pixel-art/
 https://craftpix.net/product/snow-2d-game-tileset-pixel-art/
@@ -13,6 +17,8 @@ https://craftpix.net/product/snow-platformer-2d-game-tileset/
 https://craftpix.net/freebies/free-industrial-zone-tileset-pixel-art/
 https://craftpix.net/freebies/nature-pixel-art-environment-free-assets-pack/
 https://craftpix.net/product/bridge-constructor-tileset-pixel-art/
+#levels
+https://berrycamp.github.io/map/celeste/city/a?room=2
 ####SPRITES####
 Total Spirtes = 1395
 ##########White Cop Male##########

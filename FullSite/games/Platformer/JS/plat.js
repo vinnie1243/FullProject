@@ -1,5 +1,18 @@
 var offset = 0
 function main() {    
+    var tex = window.localStorage.getItem("TexFlip")
+    if(tex == undefined) {
+        window.localStorage.setItem("TexFlip", true)
+        tex = true
+    }
+    if(tex == true || tex == "true") {
+        var ele = document.getElementById("tex")
+        ele.innerText = "Textures Off"
+    } else {
+        var ele = document.getElementById("tex")
+        ele.innerText = "Textures On"
+    }
+    window.sessionStorage.setItem("texHold", tex)
     var lvl = window.localStorage.getItem("level")
     if(lvl == undefined) {
         window.localStorage.setItem("level", 1)
@@ -10,10 +23,10 @@ function main() {
     const SH = window.sessionStorage.getItem("SH")
     var canvas = document.getElementById("playarea")
     var spawn = startlevel()
-    canvas.style.width = window.innerWidth
+    canvas.style.width = window.innerWidth 
     canvas.style.height = window.innerHeight / 2
-    canvas.width = SW
-    canvas.height = SH
+    canvas.width = SW 
+    canvas.height = SH 
     console.log(canvas.width)
     var player = new Player(spawn, 600, "arSoldierIdle1", 0, 0, 10, 100, getAnimData("arSoldierIdle1", "width"), getAnimData("arSoldierIdle1", "height"), "right", 5, {
         run: false,
@@ -21,7 +34,9 @@ function main() {
         idle: true,
         hipfire: false,
         walk: false,
+        jump: false,
     })
+    window.sessionStorage.setItem("bulletid", 0)
     window.sessionStorage.setItem("player", JSON.stringify(player))
     window.sessionStorage.setItem("hasWon", false)
     window.sessionStorage.setItem("Dim", [window.innerWidth * 0.9, window.innerHeight, canvas.width, canvas.height])
@@ -54,8 +69,19 @@ function gotomenu() {
 
 function startlevel() {
     var lvl = window.localStorage.getItem("level")
+    if(lvl == undefined) {
+        window.localStorage.setItem("level", 1)
+    }
+    var tex = window.localStorage.getItem("TexFlip")
+    if(tex == undefined) {
+        window.localStorage.setItem("TexFlip", true)
+    }
     var data = level(lvl)
-    var platforms = data.platforms
+    if(tex == true || tex == "true") {
+        var platforms = data.platformsTexOn
+    } else {
+        var platforms = data.platformsTexOff    
+    }
     var backgrounds = data.backgrounds
     var enemys = data.enemys
     var paths = data.paths
@@ -78,26 +104,29 @@ function clickChck(e) {
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     var player = JSON.parse(window.sessionStorage.getItem("player"))
     var jumping = JSON.parse(window.sessionStorage.getItem("jumping"))
+    var bulletid = window.sessionStorage.getItem("bulletid")
+    bulletid++
     player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
     let x = e.clientX
     if(x < window.innerWidth / 2) {
         if(jumping == false) {
-            bullets.push([player.x, player.y + 16, "left", 200])
+            bullets.push([player.x, player.y + 16, "left", 200, bulletid])
             player.direction = "left"
         } else {
-            bullets.push([player.x, player.y + 40, "left", 200])
+            bullets.push([player.x, player.y + 40, "left", 200, bulletid])
             player.direction = "left"
         }
     } else if(x > window.innerWidth / 2) {
         if(jumping == false) {
-            bullets.push([player.x + 70, player.y + 16, "right", 200])
+            bullets.push([player.x + 70, player.y + 16, "right", 200, bulletid])
             player.direction = "right"
         } else {
-            bullets.push([player.x + 70, player.y + 16, "right", 200])
+            bullets.push([player.x + 70, player.y + 16, "right", 200, bulletid])
             player.direction = "right"
         }
     }
     window.sessionStorage.setItem("bullets", JSON.stringify(bullets))
+    window.sessionStorage.setItem("bulletid", bulletid)
     if(jumping == false) {
         player.anim = "arSoldierShoot1"
     } else {
@@ -208,6 +237,12 @@ function jump() {
     if(jumping == "false") {
         jumping = true
         player = new Player(player.x, player.y, player.anim, player.velX, player.velY, player.health, player.ammo, player.width, player.height, player.direction, player.iframes, player.animations)
+        //player.anim = "arSoldierJump1"
+        //player.animations.hipfire = false
+        //player.animations.jump = true
+        //player.animations.run = false
+        //player.animations.walk = false
+        //player.animations.idle = false
         player.velY = -22.5
         player.velX *= 2.2
         window.sessionStorage.setItem("player", JSON.stringify(player))
@@ -277,8 +312,8 @@ function updata() {
     const SW = window.sessionStorage.getItem("SW")
     const SH = window.sessionStorage.getItem("SH")
     const PSF = window.sessionStorage.getItem("PSF")
-    player.width = getAnimData(player.anim, "width") * PSF
-    player.height = getAnimData(player.anim, "height") * PSF
+    player.width = getAnimData(player.anim, "width") * (PSF/1.2)
+    player.height = getAnimData(player.anim, "height") * (PSF * 1.2)
     if(player.iframes != 0) {
         player.iframes -= 1
     }
@@ -325,7 +360,8 @@ function hang() {
 }
 
 function die() {
-    location.reload()
+    //location.reload()
+    //console.log("you died")
 }
 
 function deathChck() {
@@ -396,6 +432,8 @@ function animate() {
     } else if(player.anim.includes("Run")) {
         if(player.anim.includes("whiteCopMale")) {
             whiteCopRun()
+        } else if(player.anim.includes("arSoldier")) {
+            arSoldierRun()
         }
     } else if(player.anim.includes("Shoot")) {
         if(player.anim.includes("whiteCopMale")) {
@@ -425,6 +463,27 @@ function move() {
     player.x = Math.round(100*player.x) / 100;
     player.y = Math.round(100*player.y) / 100;    
     var num = 0
+    var num2
+    if(player.anim.includes("Jump")) {
+        player.animations.jump = true
+        if(player.anim.includes("1")) {
+            num = 1
+        } else if(player.anim.includes("2")) {
+            num = 2
+        } else if(player.anim.includes("3")) {
+            num = 3
+        } else if(player.anim.includes("4")) {
+            num = 4
+        } else if(player.anim.includes("5")) {
+            num = 5
+        } else if(player.anim.includes("6")) { 
+            num = 6
+        } else if(player.anim.includes("7")) {
+            num = 7
+        } else if(player.anim.includes("8")) {
+            num = 8
+        }
+    }
     if(player.anim.includes("Shoot")) {
         player.animations.shoot = true
         if(player.anim.includes("1")) {
@@ -437,22 +496,37 @@ function move() {
             num = 4
         }
     }
-    if(player.velX > 5) {
+    if(player.velX > 3 || player.velX < -3) {
         player.animations.idle = false
         player.animations.walk = false
         player.animations.run = true
-        player.anim = "arSoldierRun1"
-    } else if(player.velX < -5) {
-        player.animations.idle = false
-        player.animations.walk = false
-        player.animations.run = true
-        player.anim = "arSoldierRun1"
+        if(player.anim.includes("Run") == false) {
+            player.anim = "arSoldierRun1"
+        }
     }
-    if(player.velX > 0 && player.velX < 1.5 && player.anim.includes("Run") || player.velX > 0 && player.velX < 10 && player.anim.includes("Idle")) {
+    if(player.velX > 1.5 && player.velX < 3 || player.velX < -1.5 && player.velX > -3) {
         player.animations.idle = false
         player.animations.run = false
         player.animations.walk = true
-        player.anim = "arSoldierWalk1"
+        if(player.anim.includes("Walk") == false) {
+            player.anim = "arSoldierWalk1"
+        }
+    }
+    if(player.velX < 0.1 && player.velX > -0.1) {
+        player.animations.idle = true
+        player.animations.run = false
+        player.animations.walk = false
+        if(player.anim.includes("Idle") == false) {
+            player.anim = "arSoldierIdle1"
+        }
+    }
+    /*if(player.velX > 0 && player.velX < 1.5 && player.anim.includes("Run") || player.velX > 0 && player.velX < 5 && player.anim.includes("Idle")) {
+        player.animations.idle = false
+        player.animations.run = false
+        player.animations.walk = true
+        if(player.anim.includes("Walk") == false) {
+            player.anim = "arSoldierRun1"
+        }
     }
     if(player.velX < -0 && player.velX > 0 && player.anim.includes("Run") || player.velX < 0 && player.velX > -1.5 && player.anim.includes("Idle")) {
         player.animations.idle = false
@@ -465,7 +539,7 @@ function move() {
         player.animations.run = false
         player.animations.walk = false
         player.anim = "arSoldierIdle1"
-    }
+    }*/
     if(player.animations.shoot == true && num == 1) {
         player.anim = `arSoldierShoot1`
     } else if(player.animations.shoot == true && num == 2) {
@@ -474,6 +548,23 @@ function move() {
         player.anim = `arSoldierShoot3`
     } else if(player.animations.shoot == true && num == 4) {
         player.anim = `arSoldierShoot4`
+    }
+    if(player.animations.jump == true && num == 1) {
+        player.anim = `arSoldierJump1`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 2) { 
+        player.anim = `arSoldierJump2`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 3) {
+        player.anim = `arSoldierJump3`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 4) {
+        player.anim = `arSoldierJump4`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 5) {
+        player.anim = `arSoldierJump5`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 6) {
+        player.anim = `arSoldierJump6`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 7) {
+        player.anim = `arSoldierJump7`
+    } else if(player.velY < 0 && player.animations.jump == true && num == 8) {
+        player.anim = `arSoldierJump8`
     }
     window.sessionStorage.setItem("player", JSON.stringify(player))
 }   
@@ -532,17 +623,29 @@ function drawPlatforms() {
         var platform = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3], platforms[i][4])
         var canvas = document.getElementById("playarea")
         var ctx = canvas.getContext('2d')    
- 
-        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "gray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red") {
-            ctx.fillStyle = platforms[i][4]
-            ctx.fillRect(platform.x, platform.y, platform.width, platform.height, platform.texture)
+        var texFlip = window.localStorage.getItem("TexFlip")
+        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "slategray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red" || platforms[i][4] == "dimgray" || platforms[i][4] == "ghostwhite" || platforms[i][4] == "azure" || platforms[i][4] == "gray" || platforms[i][4] == "#ADA587" || platforms[i][4] == "brown") {
+                ctx.fillStyle = platforms[i][4]
+                ctx.fillRect(platform.x, platform.y, platform.width, platform.height, platform.texture)
         } else {
             const X = getTextureData(platform.texture, "x")
             const Y = getTextureData(platform.texture, "y")
             var img = document.getElementById("tileset")
-            ctx.drawImage(img, X, Y, 50, 50, platform.x, platform.y, platform.width, platform.height)
-        }
+            ctx.drawImage(img, X, Y, 50, 50, platform.x, platform.y, platform.width, platform.height)   
+        }       
+    }       
+}
+
+function fig(tex) {
+    switch(tex) {
+        case "dirt1":
+            return "peru"
+        break;
+        case "spike1":
+            return "red"
+        break;
     }
+    return "green"
 }
 
 function drawBullet() {
@@ -591,6 +694,29 @@ function drawHitboxes() {
     }
     for(var i = 0; i < bullets.length; i++) {
         ctx.strokeRect(bullets[i][0], bullets[i][1], 10, 10)
+    }
+}
+
+function pay() {
+    var name = document.getElementById("name").value
+    var payload = document.getElementById("payload").value
+    window.sessionStorage.setItem(`${name}`, payload)
+}
+
+function text() {
+    var texHold = window.sessionStorage.getItem("texHold")
+
+    var button = document.getElementById("tex")
+    if(button.innerText == "Textures Off") {
+        button.innerText = "Textures On"    
+        window.localStorage.setItem("TexFlip", false)
+    } else {
+        button.innerText = "Textures Off"
+        window.localStorage.setItem("TexFlip", true)
+    }
+    var tex = window.localStorage.getItem("TexFlip")
+    if(texHold != tex) {
+        location.reload()
     }
 }
 
@@ -657,7 +783,7 @@ class Player {
     getAnim() {
         if(this.anim.includes("Idle")) {
             if(this.anim.includes("1")) {
-                this.anim = "arSoldierIdle1"        
+                this.anim = "arSoldierIdle2"        
             } else if(this.anim.includes("2")) {
                 this.anim = "arSoldierIdle3"
             } else if(this.anim.includes("3")) {
@@ -689,7 +815,7 @@ class Player {
         }
         if(this.anim.includes("Run")) {
             if(this.anim.includes("1")) {
-                this.anim = "arSoldierRun1"        
+                this.anim = "arSoldierRun2"        
             } else if(this.anim.includes("2")) {
                 this.anim = "arSoldierRun3"
             } else if(this.anim.includes("3")) {
@@ -706,6 +832,21 @@ class Player {
                 this.anim = "arSoldierRun1"
             }
         }   
+        if(this.anim.includes("Jump")) {
+            if(this.anim.includes("1")) {
+                this.anim = "arSoldierJump1"        
+            } else if(this.anim.includes("2")) {
+                this.anim = "arSoldierJump3"
+            } else if(this.anim.includes("3")) {
+                this.anim = "arSoldierJump4"
+            } else if(this.anim.includes("4")) {
+                this.anim = "arSoldierJump5"
+            } else if(this.anim.includes("5")) {
+                this.anim = "arSoldierJump6"
+            } else if(this.anim.includes("6")) {
+                this.anim = "arSoldierIdle1"
+            }
+        }
         if(this.anim.includes("Shoot")) {
             if(this.anim.includes("1")) {
                 this.anim = "arSoldierShoot2"        
@@ -771,10 +912,11 @@ class Platform {
 }   
 
 class Bullet {
-    constructor(x, y, direction) {
+    constructor(x, y, direction, id) {
         this.x = x
         this.y = y
         this.direction = direction
+        this.id = id
     }
 }
 

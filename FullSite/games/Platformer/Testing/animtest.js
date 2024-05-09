@@ -227,3 +227,17 @@ function whiteCopMaleJump() {
         }, 200);
     }
 }
+/////HURT/////
+function whiteCopMaleHurt() {
+    var whiteCopMaleHurt = JSON.parse(window.sessionStorage.getItem("whiteCopMaleHurt"))
+    whiteCopMaleHurt = new Animate(whiteCopMaleHurt.x, whiteCopMaleHurt.y, whiteCopMaleHurt.anim, whiteCopMaleHurt.size)
+    var running = JSON.parse(window.sessionStorage.getItem("whiteCopMaleHurtRunning"))
+    if(running == false) {
+        window.sessionStorage.setItem("whiteCopMaleHurtRunning", true)
+        setTimeout(() => {
+            whiteCopMaleHurt.anim = whiteCopMaleHurt.getAnim()
+            window.sessionStorage.setItem("whiteCopMaleHurt", JSON.stringify(whiteCopMaleHurt))
+            window.sessionStorage.setItem("whiteCopMaleHurtRunning", false) 
+        }, 200);
+    }
+}

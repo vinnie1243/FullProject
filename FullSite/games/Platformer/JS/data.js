@@ -323,6 +323,7 @@ function getAnimData(anim, s) {
             "sy": 203,
         },
         /////JUMP/////
+        //whiteCopMale
         "whiteCopMaleJump1": {
             "width": 34,
             "height": 98,
@@ -370,6 +371,13 @@ function getAnimData(anim, s) {
             "height": 98,
             "sx": 448,
             "sy": 506,
+        },
+        //arSoldier
+        "arSoldierJump1": {
+            "width": 76,
+            "height": 100,
+            "sx": 0,
+            "sy": 807,
         },
         /////SHOOT/////
         //arSoldier
@@ -659,6 +667,31 @@ function getAnimData(anim, s) {
             "sx": 0,
             "sy": 0,
         },
+        /////HURT/////
+        "whiteCopMaleHurt1": {
+            "width": 32,
+            "height": 98,
+            "sx": 0,
+            "sy": 708,
+        },
+        "whiteCopMaleHurt2": {
+            "width": 48,
+            "height": 98,
+            "sx": 35,
+            "sy": 708,
+        },
+        "whiteCopMaleHurt3": {
+            "width": 50,
+            "height": 98,
+            "sx": 84,
+            "sy": 706,
+        },
+        "whiteCopMaleHurt4": {
+            "width": 50,
+            "height": 98,
+            "sx": 138,
+            "sy": 706,
+        },  
         /////BULLET/////
         "bulletR": {
             "width": 110,
@@ -673,7 +706,11 @@ function getAnimData(anim, s) {
             "sy": 27,
         },
     }
-    return animationData[anim][s]       
+    try {
+        return animationData[anim][s]
+    } catch (error) {
+        console.log(anim)
+    }       
 }   
 
 function getTextureData(texture, data) {
@@ -723,6 +760,16 @@ function getTextureData(texture, data) {
         "snow1": {
             "x": 51,
             "y": 0,
+        },
+        //spike 
+        "spike1": {
+            "x": 153,
+            "y": 101,
+        },
+        //metal
+        "metal1": {
+            "x": 200,
+            "y":0,
         },
     }
     if(textureData[texture][data] == undefined || textureData[texture][data] == null) {

@@ -22,6 +22,7 @@ function main() {
     window.sessionStorage.setItem("whiteCopMaleTaserRunning", false)
     window.sessionStorage.setItem("whiteCopMaleReloadGunRunning", false)
     window.sessionStorage.setItem("whiteCopMaleReloadTaserRunning", false)
+    window.sessionStorage.setItem("whiteCopMaleHurtRunning", false)
     //zombieThree
     window.sessionStorage.setItem("zombieThreeIdleRunning", false)
 }
@@ -43,6 +44,7 @@ function setVals() {
     window.sessionStorage.setItem("whiteCopMaleTaser", JSON.stringify({x: 220, y: 70, anim: "whiteCopMaleTaser1", size: 0.5}))
     window.sessionStorage.setItem("whiteCopMaleReloadGun", JSON.stringify({x: 310, y: 70, anim: "whiteCopMaleReloadGun1", size: 0.5}))
     window.sessionStorage.setItem("whiteCopMaleReloadTaser", JSON.stringify({x: 340, y: 70, anim: "whiteCopMaleReloadTaser1", size: 0.5}))
+    window.sessionStorage.setItem("whiteCopMaleHurt", JSON.stringify({x: 370, y: 70, anim: "whiteCopMaleHurt1", size: 2}))
     //zombieThree
     window.sessionStorage.setItem("zombieThreeIdle", JSON.stringify({x: 80, y: 135, anim: "zombieThreeIdle1", size: 0.5}))
 }
@@ -67,6 +69,7 @@ function loop() {
     whiteCopMaleTaser()
     whiteCopMaleReloadGun() 
     whiteCopMaleReloadTaser()
+    whiteCopMaleHurt()
     //zombieThree
     drawText("zombieThree", 4, 162)
     zombieThreeIdle()
@@ -98,6 +101,7 @@ function display() {
     var whiteCopMaleTaser = JSON.parse(window.sessionStorage.getItem("whiteCopMaleTaser"))
     var whiteCopMaleReloadGun = JSON.parse(window.sessionStorage.getItem("whiteCopMaleReloadGun"))
     var whiteCopMaleReloadTaser = JSON.parse(window.sessionStorage.getItem("whiteCopMaleReloadTaser"))
+    var whiteCopMaleHurt = JSON.parse(window.sessionStorage.getItem("whiteCopMaleHurt"))
     //zombieThree
     var zombieThreeIdle = JSON.parse(window.sessionStorage.getItem("zombieThreeIdle"))
     //arSoldier
@@ -116,6 +120,7 @@ function display() {
     displayAnimation(whiteCopMaleTaser.anim, whiteCopMaleTaser.x, whiteCopMaleTaser.y, whiteCopMaleTaser.size)
     displayAnimation(whiteCopMaleReloadGun.anim, whiteCopMaleReloadGun.x, whiteCopMaleReloadGun.y, whiteCopMaleReloadGun.size)
     displayAnimation(whiteCopMaleReloadTaser.anim, whiteCopMaleReloadTaser.x, whiteCopMaleReloadTaser.y, whiteCopMaleReloadTaser.size)
+    displayAnimation(whiteCopMaleHurt.anim, whiteCopMaleHurt.x, whiteCopMaleHurt.y, whiteCopMaleHurt.size)
     //zombieThree
     displayAnimation(zombieThreeIdle.anim, zombieThreeIdle.x, zombieThreeIdle.y, zombieThreeIdle.size)
 }
@@ -212,7 +217,7 @@ class Animate {
             }
         }
         //walk
-        if (this.anim.includes("Walk")) {
+        if(this.anim.includes("Walk")) {
             if(this.anim.includes("1")) {
                 if(this.anim.includes("arSoldier")) {
                     this.anim = "arSoldierWalk2"
@@ -540,6 +545,26 @@ class Animate {
             } else if(this.anim.includes("8")) {
                 if(this.anim.includes("whiteCopMale")) {
                     this.anim = "whiteCopMaleReloadTaser1"
+                }
+            }
+        }
+        //hurt
+        if(this.anim.includes("Hurt")) {
+            if(this.anim.includes("1")) {
+                if(this.anim.includes("whiteCopMale")) {
+                    this.anim = "whiteCopMaleHurt2"
+                }
+            } else if(this.anim.includes("2")) {
+                if(this.anim.includes("whiteCopMale")) {
+                    this.anim = "whiteCopMaleHurt3"
+                }
+            } else if(this.anim.includes("3")) {
+                if(this.anim.includes("whiteCopMale")) {
+                    this.anim = "whiteCopMaleHurt3"
+                }
+            } else if(this.anim.includes("4")) {
+                if(this.anim.includes("whiteCopMale")) {
+                    this.anim = "whiteCopMaleHurt1"
                 }
             }
         }

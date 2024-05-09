@@ -19,27 +19,29 @@ function physics() {
             var chck1 = collisionSimple(player, plat)
             if(chck1 == true) {
                 if(platforms[i][5] == "L") {
-                    player.x = plat.x - player.width + 10
-                    player.y = plat.y
-                    player.velX = 0
-                    player.velY = 0
-                    checker = 1
-                    player.anim = "arSoldierHang1"
-                    player.animations.hang = true
-                    player.animations.idle = false
-                    player.animations.walk = false
-                    player.animations.run = false
-                    var hanging = window.sessionStorage.getItem("hanging")
-                    if(hanging == 0) {
-                        window.sessionStorage.setItem("hanging", 1)
+                    if(player.direction == platforms[i][6]) {
+                        player.x = plat.x - player.width + 10
+                        player.y = plat.y
+                        player.velX = 0
+                        player.velY = 0
+                        checker = 1
+                        player.anim = "arSoldierHang1"
+                        player.animations.hang = true
+                        player.animations.idle = false
+                        player.animations.walk = false
+                        player.animations.run = false
+                        var hanging = window.sessionStorage.getItem("hanging")
+                        if(hanging == 0) {
+                            window.sessionStorage.setItem("hanging", 1)
+                        }
                     }
-                }
+                } 
                 if(platforms[i][5] == "W") {
                     if(win == false) {
                         window.sessionStorage.setItem("hasWon", true)
                         winner()
                     }
-                } else if(platforms[i][5] == "K") {
+                } else if(platforms[i][5] == "K" || platforms[i][5] == "V") {
                     die()
                 } else if(checker == 0){
                     player.velY = -1
@@ -62,16 +64,16 @@ function physics() {
                 var d3 = dist[2]
                 var d4 = dist[3]
                 if(d1 < d2 && d1 < d3 && d1 < d4) {
-                    if(platforms[i][5] != "W" && platforms[i][5] != "K") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
                         player.x = (plat.x + plat.width)
-                        player.velX = 3
+                        player.velX = 3 
                     } else if(platforms[i][5] == "K") {
                         die()
                     }
                 } else if(d2 < d1 && d2 < d3 && d2 < d4) {
-                    if(platforms[i][5] != "W") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
                         player.x = Math.abs(plat.x - player.width)
-                        player.velX = 0
+                        player.velX = -2
                     } else if(platforms[i][5] == "K") {
                         die()
                     }
@@ -84,7 +86,7 @@ function physics() {
 
                     }
                 } else if(d4 < d1 && d4 < d2 && d4 < d3) {
-                    if(platforms[i][5] != "W") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
                         player.y = plat.y + plat.height
                         player.velY = 0
                     } else if(platforms[i][5] == "K") {
@@ -101,19 +103,15 @@ function physics() {
     window.sessionStorage.setItem("jumping", jumping)  
     var bullets = JSON.parse(window.sessionStorage.getItem("bullets"))
     for(var i = 0; i < bullets.length; i++) {
-        var bull = new Bullet(bullets[i][0], bullets[i][1], bullets[i][2])
-        var nbull = new Bullet(bullets[i][0], bullets[i][1], bullets[i][2])
+        var bull = new Bullet(bullets[i][0], bullets[i][1], bullets[i][2], bullets[i][3])
+        var nbull = new Bullet(bullets[i][0], bullets[i][1], bullets[i][2], bullets[i][3])
         nbull.width = getAnimData(`bullet${bull.direction.charAt(0).toUpperCase()}`, "width") / 2
         nbull.height = getAnimData(`bullet${bull.direction.charAt(0).toUpperCase()}`, "height") / 2   
         for(var j = 0; j < platforms.length; j++) {
             var plat = new Platform(platforms[j][0], platforms[j][1], platforms[j][2], platforms[j][3])
             var chck1 = collisionSimple(nbull, plat)
             if(chck1 == true) {
-                bullets = bullets.splice(j, 1)
-            }
-            var chck2 = collisionComplex(nbull, plat)
-            if(chck2 == true) {
-                bullets.splice(j, 1)
+                bullets.splice(i, 1)
             }
         }
         for(var j = 0; j < enemys.length; j++) {
@@ -122,17 +120,7 @@ function physics() {
             enemy.height = getAnimData(`${enemy.type}${enemy.anim.charAt(0).toUpperCase()}${enemy.anim.slice(1)}`, "height") * 1.25
             var chck1 = collisionSimple(nbull, enemy)
             if(chck1 == true) {
-                bullets = bullets.splice(j - 1, 1)
-            }
-            var chck2 = collisionComplex(nbull, enemy)
-            if(chck2 == true) {
-                enemy.health -= 1
-                bullets.splice(j, 1)
-                if(enemy.health == 0) {
-                    enemys.splice(j, 1)
-                } else {
-                    enemys[j] = [enemy.x, enemy.y, enemy.type, enemy.health, enemy.damage, enemy.anim, enemy.velX, enemy.velY, enemy.rand, enemy.detect, enemy.direction]
-                }
+                bullets.splice(i, 0)
             }
         }
     }
@@ -205,7 +193,6 @@ function physics() {
             if(right == 1 && left == 1 && top == 1 && bottom == 1) {
                 coll = 1
             }
-    
             //d1 = right
             //d2 = left
             //d3 = top
