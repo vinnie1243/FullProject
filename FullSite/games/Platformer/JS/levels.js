@@ -195,19 +195,19 @@ function level(num) {
             SH: 1150,
         },
         2: {
-            //saddlebrown = inside dirt done
-            //lightgray = texture(1,0)
-            //gray = metal done
-            //darkgray = halfsnow done
-            //peru = texture(0,0)
-            //red = spikes done
-            //dimgray = brick done
+            //saddlebrown = inside dirt 
+            //lightgray = snow
+            //slategray = metal 
+            //darkgray = halfsnow 
+            //peru = outside dirt
+            //red = spikes 
+            //dimgray = brick
             //green = ledge
             //brown = wooden platform
             //azure = win
             //ghostwhite = voidout
             //black = void
-            //silver = half brick
+            //gray = half brick
             //#ADA587 = stone
             plformsTexOn: [
 
@@ -221,9 +221,51 @@ function level(num) {
                 [0, 200, 50, 200, "black", "N"],
                 [0, 500, 50, 50, "black", "N"],
                 [50, 250, 50, 50, "black", "N"],
+                [350, 1100, 150, 50, "black", "N"],  
+                [1950, 750, 50, 100, "black", "N"],  
+                [1700, 850, 300, 300, "black", "N"],
+                [1900, 800, 50, 50, "black", "N"],
+                [1500, 1000, 200, 150, "black", "N"],
+                [1450, 1050, 50, 100, "black", "N"],
+                [1400, 1100, 50, 50, "black", "N"],
+                [1650, 900, 50, 100, "black", "N"],
+                [1550, 950, 100, 50, "black", "N"],
+                [1150, 1100, 150, 50, "black", "N"],
+                [1150, 1050, 50, 50, "black", "N"],
+                [1100, 950, 50, 50, "black", "N"],
+                [1050, 50, 100, 150, "black", "N"],
+                [1150, 50, 50, 50, "black", "N"],
+                [1100, 200, 50, 50, "black", "N"],
+                [1450, 50, 50, 50, "black", "N"],
+                [1500, 50, 100, 150, "black", "N"],
+                [1600, 50, 50, 50, "black", "N"],
                 ///HALFSNOW///
+                [400, 1050, 150, 50, "darkgray", "Y"],
+                [500, 1100, 50, 50, "darkgray", "Y"],
+                [1950, 500, 50, 250, "darkgray", "Y"],
+                [1650, 800, 250, 50, "darkgray", "Y"],  
+                [1650, 850, 50, 50, "darkgray", "Y"],
+                [1100, 750, 50, 150, "darkgray", "Y"],
+                [1050, 750, 50, 50, "darkgray", "Y"],
+                [1150, 100, 50, 150, "darkgray", "Y"],
+                [1100, 250, 50, 150, "darkgray", "Y"],
                 ///SNOW///
                 [350, 1000, 250, 50, "lightgray", "Y"],
+                [1900, 450, 50, 350, "lightgray", "Y"],
+                [1600, 750, 300, 50, "lightgray", "Y"],
+                [1600, 800, 50, 150, "lightgray", "Y"],
+                [1500, 900, 100, 50, "lightgray", "Y"],
+                [1150, 750, 50, 100, "lightgray", "Y"],
+                [1200, 700, 50, 100, "lightgray", "Y"],
+                [1000, 700, 200, 50, "lightgray", "Y"],
+                [1000, 750, 50, 100, "lightgray", "Y"],
+                [1050, 800, 50, 250, "lightgray", "Y"],
+                [1000, 200, 100, 50, "lightgray", "Y"],
+                [1050, 250, 50, 200, "lightgray", "Y"],
+                [1100, 400, 100, 50, "lightgray", "Y"],
+                [1150, 250, 50, 150, "lightgray", "Y"],
+                [1200, 50, 50, 250, "lightgray", "Y"],
+                [550, 1050, 50, 100, "lightgray", "Y"],
                 ///BRICK///
                 [250, 0, 450, 50, "dimgray", "Y"],
                 [750, 0, 100, 50, "dimgray", "Y"],
@@ -235,6 +277,17 @@ function level(num) {
                 [450, 50, 50, 150, "dimgray", "Y"],
                 [800, 50, 250, 50, "dimgray", "Y"],
                 [1000, 100, 50, 100, "dimgray", "Y"],
+                [1400, 900, 100, 50, "dimgray", "Y"],
+                [1400, 950, 50, 150, "dimgray", "Y"],
+                [1250, 1050, 150, 50, "dimgray", "Y"],
+                [1150, 1000, 150, 50, "dimgray", "Y"],
+                [1150, 850, 50, 150, "dimgray", "Y"],
+                [1050, 1050, 50, 100, "dimgray", "Y"],
+                [1250, 50, 150, 50, "dimgray", "Y"],
+                [1350, 100, 150, 50, "dimgray", "Y"],
+                [1450, 150, 50, 150, "dimgray", "Y"],
+                [1500, 250, 150, 50, "dimgray", "Y"],
+                [1600, 300, 50, 200, "dimgray", "Y"],
                 ///HALFBRICK///
                 [150, 0, 100, 50, "gray", "Y"],
                 [850, 0, 150, 50, "gray", "Y"],
@@ -242,7 +295,16 @@ function level(num) {
                 [1950, 0, 50, 500, "gray", "Y"],
                 [0, 400, 50, 100, "gray", "Y"],
                 [50, 200, 50, 50, "gray", "Y"],
-                [50, 300, 50, 50, "gray", "Y"], 
+                [50, 300, 50, 50, "gray", "Y"],
+                [350, 1050, 50, 50, "gray", "Y"], 
+                [1450, 950, 50, 100, "gray", "Y"],
+                [1500, 950, 50, 50, "gray", "Y"],
+                [1300, 1100, 100, 50, "gray", "Y"],
+                [1200, 1050, 50, 50, "gray", "Y"],
+                [1100, 1000, 50, 150, "gray", "Y"],
+                [1400, 50, 50, 50, "gray", "Y"],
+                [1500, 200, 150, 50, "gray", "Y"],
+                [1600, 100, 50, 100, "gray", "Y"],
                 ///METAL///
                 [700, 0, 50, 250, "slategray", "Y"],
                 [1650, 0, 50, 600, "slategray", "Y"],
@@ -254,12 +316,16 @@ function level(num) {
                 [600, 1000, 100, 50, "slategray", "Y"],
                 [700, 900, 100, 300, "slategray", "Y"],
                 ///SPIKES///
+                [1000, 650, 250, 50, "red", "K"],
+                [1200, 950, 100, 50, "red", "K"],
+                [1300, 1000, 100, 50, "red", "K"],
                 ///WOODENPLATFORM///
                 [50, 1000, 250, 25, "brown", "Y"],
                 ///VOIDOUT///
                 ///WIN///
                 ///STONE///
                 [1250, 0, 50, 50, "#ADA587", "Y"],
+                [1100, 900, 50, 50, "#ADA587", "Y"],
             ],
             backgrounds: [
 
