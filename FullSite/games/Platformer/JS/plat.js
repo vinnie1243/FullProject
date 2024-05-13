@@ -27,7 +27,6 @@ function main() {
     canvas.style.height = window.innerHeight / 2
     canvas.width = SW 
     canvas.height = SH 
-    console.log(canvas.width)
     var player = new Player(spawn, 600, "arSoldierIdle1", 0, 0, 10, 100, getAnimData("arSoldierIdle1", "width"), getAnimData("arSoldierIdle1", "height"), "right", 5, {
         run: false,
         shoot: false,
@@ -624,7 +623,7 @@ function drawPlatforms() {
         var canvas = document.getElementById("playarea")
         var ctx = canvas.getContext('2d')    
         var texFlip = window.localStorage.getItem("TexFlip")
-        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "slategray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red" || platforms[i][4] == "dimgray" || platforms[i][4] == "ghostwhite" || platforms[i][4] == "azure" || platforms[i][4] == "gray" || platforms[i][4] == "#ADA587" || platforms[i][4] == "brown") {
+        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "slategray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red" || platforms[i][4] == "dimgray" || platforms[i][4] == "ghostwhite" || platforms[i][4] == "azure" || platforms[i][4] == "gray" || platforms[i][4] == "#ADA587" || platforms[i][4] == "brown" || platforms[i][4] == "#54587B") {
                 ctx.fillStyle = platforms[i][4]
                 ctx.fillRect(platform.x, platform.y, platform.width, platform.height, platform.texture)
         } else {

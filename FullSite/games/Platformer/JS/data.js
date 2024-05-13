@@ -761,16 +761,85 @@ function getTextureData(texture, data) {
             "x": 51,
             "y": 0,
         },
+        "snow2": {
+            "x": 102,
+            "y": 255,
+        },
+        "snow3": {
+            "x": 255,
+            "y": 204,
+        },
+        "snow4": {
+            "x": 255,
+            "y": 255,
+        },
+        "snow5": {
+            "x": 51,
+            "y": 255,
+        },
+        "snow6": {
+            "x": 0,
+            "y": 306,
+        },
+        "snow7": {
+            "x": 255,
+            "y": 51,
+        },
+        "snow8": {
+            "x": 255,
+            "y": 0,
+        },
+        "snow9": {
+            "x": 255,
+            "y": 102,
+        },
+        "snow10": {
+            "x": 153,
+            "y": 255,
+        },
+        "snow11": {
+            "x": 51,
+            "y": 306,
+        },
+        "snow12": {
+            "x": 204,
+            "y": 255,
+        },
         //spike 
         "spike1": {
             "x": 153,
-            "y": 101,
+            "y": 102,
         },
         //metal
-        "metal1": {
-            "x": 200,
-            "y":0,
+        "metal": {
+            "x": 204,
+            "y": 0,
         },
+        //halfsnow
+        "halfsnow1": {
+            "x": 0,
+            "y": 255,
+        },
+        //snowvoid
+        "snowvoid1": {
+            "x": 255,
+            "y": 153,
+        },
+        //brick
+        "brick": {
+            "x": 204,
+            "y": 102,
+        },
+        //halfbrick
+        "halfbrick": {
+            "x": 204,
+            "y": 51,
+        },
+        //stone
+        "stone": {
+            "x": 0,
+            "y": 153,
+        }
     }
     if(textureData[texture][data] == undefined || textureData[texture][data] == null) {
         return null
