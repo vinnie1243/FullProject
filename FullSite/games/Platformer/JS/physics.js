@@ -13,9 +13,9 @@ function physics() {
     var win = JSON.parse(window.sessionStorage.getItem("hasWon"))
     var jumping = JSON.parse(window.sessionStorage.getItem("jumping"))
     for(var i = 0; i < platforms.length; i++) {
-        var plat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3], platforms[i][4])
-        var checker = 0
         if(platforms[i][5] != "N") {
+            var plat = new Platform(platforms[i][0], platforms[i][1], platforms[i][2], platforms[i][3], platforms[i][4])
+            var checker = 0
             var chck1 = collisionSimple(player, plat)
             if(chck1 == true) {
                 if(platforms[i][5] == "L") {
@@ -30,12 +30,22 @@ function physics() {
                         player.animations.idle = false
                         player.animations.walk = false
                         player.animations.run = false
-                        var hanging = window.sessionStorage.getItem("hanging")
+                        var hanging = JSON.parse(window.sessionStorage.getItem("hanging"))
+                        console.log("Test")
                         if(hanging == 0) {
                             window.sessionStorage.setItem("hanging", 1)
                         }
                     }
-                } 
+                } else if(platforms[i][5] == "J") {
+                    window.sessionStorage.setItem("jumping", false)
+                    if(platforms[i][6] == "right") {
+                        player.velX = (player.velX + 15)
+                        player.velY = -30
+                    } else if(platforms[i][6] == "left") {
+                        player.velX = -(player.velX + 15)
+                        player.velY = -30
+                    }
+                }
                 if(platforms[i][5] == "W") {
                     if(win == false) {
                         window.sessionStorage.setItem("hasWon", true)
@@ -43,12 +53,16 @@ function physics() {
                     }
                 } else if(platforms[i][5] == "K" || platforms[i][5] == "V") {
                     die()
-                } else if(checker == 0){
+                } else if(checker == 0 && platforms[i][5] != "J" && platforms[i][5] != "V"){
                     player.velY = -1
-                    jumping = false
-                    window.sessionStorage.setItem("jumping", jumping)   
+                    if(player.y < plat.y && player.y < plat.y + plat.height ) {
+                        var jumping = false
+                        window.sessionStorage.setItem("jumping", jumping)   
+                    }
+
                     window.sessionStorage.setItem("hanging", 0)
                 }
+                checker = 0
             }
             var hanging = window.sessionStorage.getItem("hanging")
             if(hanging > 0) {
@@ -64,21 +78,21 @@ function physics() {
                 var d3 = dist[2]
                 var d4 = dist[3]
                 if(d1 < d2 && d1 < d3 && d1 < d4) {
-                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N" && platforms[i][5] != "J" && platforms[i][5] != "V") {
                         player.x = (plat.x + plat.width)
                         player.velX = 3 
                     } else if(platforms[i][5] == "K") {
                         die()
                     }
                 } else if(d2 < d1 && d2 < d3 && d2 < d4) {
-                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N" && platforms[i][5] != "J" && platforms[i][5] != "V") {
                         player.x = Math.abs(plat.x - player.width)
                         player.velX = -2
                     } else if(platforms[i][5] == "K") {
                         die()
                     }
                 } else if(d3 < d1 && d3 < d2 && d3 < d4) {
-                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N" && platforms[i][5] != "J" && platforms[i][5] != "V") {
                         player.y = plat.y - player.height * 1.009 
                     } else if(platforms[i][5] == "K") {
                         die()
@@ -86,7 +100,7 @@ function physics() {
 
                     }
                 } else if(d4 < d1 && d4 < d2 && d4 < d3) {
-                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N") {
+                    if(platforms[i][5] != "W" && platforms[i][5] != "K" && platforms[i][5] != "N" && platforms[i][5] != "J" && platforms[i][5] != "V") {
                         player.y = plat.y + plat.height
                         player.velY = 0
                     } else if(platforms[i][5] == "K") {

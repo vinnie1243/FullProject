@@ -733,7 +733,7 @@ function getTextureData(texture, data) {
             "y": 0,
         },
         "dirt5": {
-            "x": 100,
+            "x": 102,
             "y": 51,
         },
         "dirt6": {
@@ -749,12 +749,25 @@ function getTextureData(texture, data) {
             "y": 102,
         },
         "dirt9": {
-            "x": 150,
+            "x": 153,
             "y": 0,
         },
         "dirt10": {
-            "x": 151,
+            "x": 153,
             "y": 51,
+        },
+        "dirt11": {
+            "x": 102,
+            "y": 306,
+        },
+        "dirt12": {
+            "x": 153,
+            "y": 306,
+        },
+        //halfdirt
+        "insidedirt": {
+            "x": 204,
+            "y": 306,
         },
         //snow
         "snow1": {

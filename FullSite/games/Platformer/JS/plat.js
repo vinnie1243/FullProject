@@ -360,7 +360,7 @@ function hang() {
 
 function die() {
     //location.reload()
-    //console.log("you died")
+    console.log("you died")
 }
 
 function deathChck() {
@@ -623,7 +623,7 @@ function drawPlatforms() {
         var canvas = document.getElementById("playarea")
         var ctx = canvas.getContext('2d')    
         var texFlip = window.localStorage.getItem("TexFlip")
-        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "slategray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red" || platforms[i][4] == "dimgray" || platforms[i][4] == "ghostwhite" || platforms[i][4] == "azure" || platforms[i][4] == "gray" || platforms[i][4] == "#ADA587" || platforms[i][4] == "brown" || platforms[i][4] == "#54587B") {
+        if(platforms[i][4] == "black" || platforms[i][4] == "darkgray" || platforms[i][4] == "lightgray" || platforms[i][4] == "peru" || platforms[i][4] == "slategray" || platforms[i][4] == "orange" || platforms[i][4] == "saddlebrown" || platforms[i][4] == "green" || platforms[i][4] == "red" || platforms[i][4] == "dimgray" || platforms[i][4] == "ghostwhite" || platforms[i][4] == "azure" || platforms[i][4] == "gray" || platforms[i][4] == "#ADA587" || platforms[i][4] == "brown" || platforms[i][4] == "#54587B" || platforms[i][4] == "blue") {
                 ctx.fillStyle = platforms[i][4]
                 ctx.fillRect(platform.x, platform.y, platform.width, platform.height, platform.texture)
         } else {
