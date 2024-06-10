@@ -719,119 +719,187 @@ function getTextureData(texture, data) {
         "dirt1": {
             "x": 0,
             "y": 0,
+            "width": 49,
+            "height": 49,
         },
         "dirt2": {
-            "x": 0,
-            "y": 50.5,
+            "x": 102,
+            "y": 51,
+            "width": 50,
+            "height": 50,
         },
         "dirt3": {
-            "x": 51,
-            "y": 51,
-        },
-        "dirt4": {
-            "x": 101,
-            "y": 0,
-        },
-        "dirt5": {
-            "x": 102,
-            "y": 51,
-        },
-        "dirt6": {
             "x": 0,
             "y": 102,
+            "width": 50, 
+            "height": 50,
         },
-        "dirt7": {
-            "x": 51,
-            "y": 102
+        "dirt4": {
+            "x": 102,
+            "y": 0,
+            "width": 50,
+            "height": 50, 
         },
-        "dirt8": {
+        "dirt5": {
+            "x": 52,
+            "y": 52,
+            "width": 48,
+            "height": 48,
+        },
+        "dirt6": {
             "x": 102,
             "y": 102,
+            "width": 49,
+            "height": 49,
+        },
+        "dirt7": {
+            "x": 52,
+            "y": 103,
+            "width": 48,
+            "height": 48,
+        },
+        "dirt8": {
+            "x": 0,
+            "y": 52,
+            "width": 48,
+            "height": 48,
         },
         "dirt9": {
             "x": 153,
-            "y": 0,
+            "y": 51,
+            "width": 50,
+            "height": 50,
         },
         "dirt10": {
-            "x": 153,
-            "y": 51,
-        },
-        "dirt11": {
             "x": 102,
             "y": 306,
+            "width": 50,
+            "height": 50,
+        },
+        "dirt11": {
+            "x": 153,
+            "y": 306,
+            "width": 50,
+            "height": 50,
         },
         "dirt12": {
             "x": 153,
-            "y": 306,
+            "y": 0,
+            "width": 50, 
+            "height": 50,
         },
         //halfdirt
         "insidedirt": {
             "x": 204,
             "y": 306,
+            "width": 50,
+            "height": 50,
         },
         //snow
         "snow1": {
-            "x": 51,
+            "x": 52,
             "y": 0,
+            "width": 48,
+            "height": 50,
         },
         "snow2": {
-            "x": 102,
-            "y": 255,
+            "x": 256,
+            "y": 52,
+            "width": 48,
+            "height": 48,
         },
         "snow3": {
-            "x": 255,
-            "y": 204,
-        },
-        "snow4": {
-            "x": 255,
-            "y": 255,
-        },
-        "snow5": {
-            "x": 51,
-            "y": 255,
-        },
-        "snow6": {
-            "x": 0,
-            "y": 306,
-        },
-        "snow7": {
-            "x": 255,
-            "y": 51,
-        },
-        "snow8": {
-            "x": 255,
-            "y": 0,
-        },
-        "snow9": {
-            "x": 255,
-            "y": 102,
-        },
-        "snow10": {
-            "x": 153,
-            "y": 255,
-        },
-        "snow11": {
-            "x": 51,
-            "y": 306,
-        },
-        "snow12": {
             "x": 204,
             "y": 255,
+            "width": 50,
+            "height": 50,
+        },
+        "snow4": {
+            "x": 102,
+            "y": 255,
+            "width": 50,
+            "height": 50,
+        },
+        "snow5": {
+            "x": 256,
+            "y": 103,
+            "width": 48,
+            "height": 48,
+        },
+        "snow6": {
+            "x": 256,
+            "y": 0,
+            "width": 48,
+            "height": 49,
+        },
+        "snow7": {
+            "x": 154,
+            "y": 256,
+            "width": 48,
+            "height": 48,
+        },
+        "snow8": {
+            "x": 52,
+            "y": 256,
+            "width": 48,
+            "height": 48,
+        },
+        "snow9": {
+            "x": 256,
+            "y": 205,
+            "width": 48,
+            "height": 48,
+        },
+        "snow10": {
+            "x": 0,
+            "y": 307,
+            "width": 48,
+            "height": 49,
+        },
+        "snow11": {
+            "x": 52,
+            "y": 307,
+            "width": 48,
+            "height": 48,
+        },
+        "snow12": {
+            "x": 255,
+            "y": 256,
+            "width": 48,
+            "height": 48,
+        },
+        "snow13": {
+            "x": 306,
+            "y": 51,
+            "width": 50,
+            "height": 50,
+        },
+        "snow14": {
+            "x": 255,
+            "y": 306,
+            "width": 50,
+            "height": 50,
         },
         //spike 
         "spike1": {
             "x": 153,
             "y": 102,
+            "width": 50, 
+            "height": 50,
         },
         //metal
         "metal": {
             "x": 204,
             "y": 0,
+            "width": 50,
+            "height": 50,
         },
         //halfsnow
-        "halfsnow1": {
+        "halfsnow": {
             "x": 0,
             "y": 255,
+            "width": 50,
+            "height": 50,
         },
         //snowvoid
         "snowvoid1": {
@@ -842,16 +910,22 @@ function getTextureData(texture, data) {
         "brick": {
             "x": 204,
             "y": 102,
+            "width": 50,
+            "height": 50,
         },
         //halfbrick
         "halfbrick": {
             "x": 204,
             "y": 51,
+            "width": 50,
+            "height": 50,
         },
         //stone
         "stone": {
             "x": 0,
             "y": 153,
+            "width": 50,
+            "height": 50,
         }
     }
     if(textureData[texture][data] == undefined || textureData[texture][data] == null) {

@@ -285,7 +285,7 @@ function gameLoop() {
     window.sessionStorage.setItem("letMove", 4)
     keyed()
     move();
-    //drawHitboxes()
+    drawHitboxes()
     updata()
     enemyAI()
     moveEnemy()
@@ -629,8 +629,10 @@ function drawPlatforms() {
         } else {
             const X = getTextureData(platform.texture, "x")
             const Y = getTextureData(platform.texture, "y")
+            const WIDTH = getTextureData(platform.texture, "width")
+            const HEIGHT = getTextureData(platform.texture, "height")
             var img = document.getElementById("tileset")
-            ctx.drawImage(img, X, Y, 50, 50, platform.x, platform.y, platform.width, platform.height)   
+            ctx.drawImage(img, X, Y, WIDTH, HEIGHT, platform.x, platform.y, platform.width, platform.height)   
         }       
     }       
 }
