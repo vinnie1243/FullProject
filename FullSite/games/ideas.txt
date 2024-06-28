@@ -1,12 +1,17 @@
 ----------Chess------------
+TODO
 add move storage
 add piece storage
-make ai for it
+get all moves ai can do have ai decide what to do based on the current position
 make background of highlited square yellow
 clean up movement
-add promotion
 add enpasant
+find checks and pinned pieces and also discovered checks 
 add draw check
+add checkmate check
+make the start button have the ai start playing at the selected difficulty level if the player is playing as black
+when doing local play make the board flip each move
+stop drawing green squares when it is not that colors turn to move when the piece is clicked
 ----------Snake------------
 50 x 50
 ----------Platformer-------

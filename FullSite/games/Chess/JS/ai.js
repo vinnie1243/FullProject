@@ -63,7 +63,7 @@ function randFEN() {
       pick();
       peaces.shuffle();
     
-      // place peaces
+      // place peices
       while (peaces.length > 0) {
         let p = peaces.shift(), pos;
         // paws: cannot be placed in bottom or top row

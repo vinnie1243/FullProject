@@ -1,4 +1,21 @@
 function make() {
+    var local = window.localStorage.getItem("local")
+    if(local == undefined) {
+        window.localStorage.setItem("local", "false")
+    }
+    if(local == "true") {
+        document.getElementById("local").checked = true
+        document.getElementById("braindead").checked = false
+        document.getElementById("braindead").disabled = true
+        document.getElementById("easy").checked = false
+        document.getElementById("easy").disabled = true
+        document.getElementById("medium").checked = false
+        document.getElementById("medium").disabled = true
+        document.getElementById("hard").checked = false
+        document.getElementById("hard").disabled = true
+        document.getElementById("impossible").checked = false
+        document.getElementById("impossible").disabled = true
+    }
     window.sessionStorage.setItem("50Rule", 0)
     window.sessionStorage.setItem("move", "w")
     window.sessionStorage.setItem("moveNum", 0)
@@ -29,6 +46,16 @@ function make() {
             ["pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite"],
             ["rookWhite", "knightWhite", "bishopWhite", "queenWhite", "kingWhite", "bishopWhite", "knightWhite", "rookWhite"], 
         ]
+        /*            
+            ["rookBlack", "knightBlack", "bishopBlack", "queenBlack", "kingBlack", "bishopBlack", "knightBlack", "rookBlack"], 
+            ["pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack", "pawnBlack"],            
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""], 
+            ["", "", "", "", "", "", "", ""], 
+            ["pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite", "pawnWhite"],
+            ["rookWhite", "knightWhite", "bishopWhite", "queenWhite", "kingWhite", "bishopWhite", "knightWhite", "rookWhite"], 
+        */
     } else if(s2 == "black") {
         pieces = [
             ["rookWhite", "knightWhite", "bishopWhite", "kingWhite", "queenWhite", "bishopWhite", "knightWhite", "rookWhite"], 
@@ -177,6 +204,14 @@ function classgrab(tar) {
 }
 
 async function move(e) {
+    var move = window.sessionStorage.getItem("move")
+    var selectedPiece = window.sessionStorage.getItem("sp")
+    var sp = document.getElementById(selectedPiece)
+    if(sp.classList.contains("white") == true && move == "b") {
+        return false
+    } else if(sp.classList.contains("black") == true && move == "w") {
+        return false
+    }
     //fen string stuff will uncomment after fix
     var toMove = window.sessionStorage.getItem("move")
     if(toMove == "w") {
@@ -194,7 +229,6 @@ async function move(e) {
     var check = 0
     var arr2 = JSON.parse(window.sessionStorage.getItem("arr2"))
     for(var i = 0; i < arr2.length; i++) {
-        console.log(arr2[i][5])
         if(arr2[i][5] == "pawnMove2") {
             var color = arr2[i][1]
             var sw = arr2[i][2]
@@ -247,6 +281,7 @@ async function move(e) {
     castle()
     uparr(ele)
     regen()
+    return true
 }
  
 async function uparr(ele) {
@@ -293,7 +328,6 @@ async function uparr(ele) {
                 //checks if it matches
                 if(npi == piece) {
                     // sets the new position to the squares id
-                    console.log(arr[i][5])
                     var oldPos = document.getElementById(opos)
                     if(oldPos.children.length != 0) {
                         if(oldPos.children.length == 2) {
@@ -354,9 +388,16 @@ async function uparr(ele) {
     //goes to old piece index to reset it
     pieces[o1][o2] = ""
     //puts piece in new position
-    if(promo == 1) {
+    var promochck = 0
+    while(promo == 1 && promochck != 1) {
         var prop = window.prompt("what piece do you want to promote to q for queen r for rook b for bishop k for knight", "q")
-        piece = promote(prop)
+        if(prop == "q" || prop == "r" || prop == "b" || prop == "k") {
+            promochck = 1
+        }
+        if(promochck == 1) {
+            piece = promote(prop)
+            promochck == 2
+        }
     }
     pieces[n1][n2] = piece + color2
     //saves to session storage
@@ -1183,4 +1224,28 @@ function decode(pa) {
         }
     }
     return arr
+}
+
+function localPlay() {
+    var button = document.getElementById("local")
+    if(button.checked == true) {
+        window.localStorage.setItem("local", "true")
+        document.getElementById("braindead").checked = false
+        document.getElementById("braindead").disabled = true
+        document.getElementById("easy").checked = false
+        document.getElementById("easy").disabled = true
+        document.getElementById("medium").checked = false
+        document.getElementById("medium").disabled = true
+        document.getElementById("hard").checked = false
+        document.getElementById("hard").disabled = true
+        document.getElementById("impossible").checked = false
+        document.getElementById("impossible").disabled = true
+    } else {
+        window.localStorage.setItem("local", "false")
+        document.getElementById("braindead").disabled = false
+        document.getElementById("easy").disabled = false
+        document.getElementById("medium").disabled = false
+        document.getElementById("hard").disabled = false
+        document.getElementById("impossible").disabled = false
+    }
 }
